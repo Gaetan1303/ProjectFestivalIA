@@ -124,7 +124,7 @@ The platform is developed for the Mars IA Night, a prestigious event celebrating
     - **Then:** The changes are saved and reflected on the platform.
   - **Priority:** High
 
-### Epic #4: Advanced Video Management
+### Epic #5: Advanced Video Management
 
 #### User Story 1: Include AI Technical Sheet
 - **As a:** Filmmaker
@@ -166,7 +166,7 @@ The platform is developed for the Mars IA Night, a prestigious event celebrating
   - **Then:** Metrics like views, shares, and user activity are displayed in real-time.  
   - **Priority:** Medium
 
-### Epic #5: Notifications and Reservations
+### Epic #6: Notifications and Reservations
 
 #### User Story 1: Real-Time Notifications
 - **As a:** Filmmaker
