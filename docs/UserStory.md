@@ -1,7 +1,5 @@
 # ProjectFestivalIA — Functional Specifications (Corrected)
 
-*Last updated: 2026-01-06*
-
 ## 1. Synopsis
 
 ### Description
@@ -23,18 +21,6 @@ The platform is developed for the **Mars IA Night**, a prestigious event celebra
 
 ---
 
-## 2. EPICS & User Stories (Corrected)
-
-> Notes applied:
-> - Epic 1: added **Manage account** for all users (edit/delete), not only filmmakers.
-> - Epic 2: added **Registered → Filmmaker** role upgrade story.
-> - Epic 3: renamed (it wasn’t “Security Management”) and sponsorship moved to a better-fitting epic.
-> - Epic 5: fixed the nonsensical “Given” (time left belongs to upload window story).
-> - Epic 5 analytics: users (filmmakers) also see stats.
-> - Epic 8: reduced duplicated/repeated issues.
-> - Epic 9: agenda includes festival + round tables + workshops + reservations system (workshops + closing ceremony).
-
----
 
 ### Epic #1 — User Account Management
 
