@@ -3,15 +3,21 @@
 ## 1. Synopsis
 
 ### Description
-Platform for uploading short films, sorting, and voting for the 50 official videos. The platform also involves commercial partners and social networks.
+ProjectFestivalIA is an innovative platform designed to host and manage a global short film competition. The platform enables users to upload, vote, and rank AI-generated short films, fostering creativity and collaboration.
 
-### Target Audience Need
-- Upload, vote, sort, share, stream, and rank videos.
+### Objectives
+- Empower filmmakers to showcase their AI-generated creations.
+- Provide a seamless experience for users to discover, vote, and share videos.
+- Facilitate a fair and transparent competition process with robust moderation and analytics tools.
 
 ### Context
-For the Short Film Festival of AI-generated short videos, taking place during the Mars IA Night in June 2026. The site hosts 1-minute AI videos with the theme of "desirable futures." The platform targets cultural creation professionals, students, and the general public.
+The platform is developed for the Mars IA Night, a prestigious event celebrating AI-driven creativity. The competition features 1-minute short films under the theme "Desirable Futures," aiming to inspire global audiences. With participants from over 120 countries, the platform aspires to collect 600+ films and attract 3,000 visitors to the physical event in Marseille.
 
-It allows users to upload videos, vote for them, and display a ranking based on votes. The goal is also for the site to be shared on social networks.
+### Key Features
+- **Video Management:** Upload, moderate, and display videos with detailed AI technical sheets.
+- **User Engagement:** Voting, ranking, and sharing functionalities to enhance participation.
+- **Accessibility:** Multilingual interface and inclusive design for a global audience.
+- **Advanced Analytics:** Real-time insights for administrators to monitor platform performance.
 
 ---
 
