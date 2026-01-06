@@ -74,16 +74,22 @@ Plateforme créée pour la **Mars IA Night**. Le concours porte sur des courts m
 
 ## Epic #2 — Onboarding Réalisateur & Soumission
 
-### US1 — Passer de “registered” à “filmmaker”
-- **En tant que** utilisateur “registered”
-- **Je veux** devenir “filmmaker”
-- **Afin de** pouvoir soumettre un film
-- **Priorité :** Haute
+### US1 — Soumettre un film (upload) pour le concours
+
+- **En tant que** FilmMaker
+- **Je veux** téléverser une vidéo  
+- **Afin de** participer au concours  
+- **Priorité :** Haute  
+
 - **Critères d’acceptation**
-  - **Étant donné** que je suis connecté en “registered”
-  - **Quand** je complète les informations demandées (ex : pays, nom d’affichage, optionnel : école/RS)
-  - **Alors** mon statut devient “filmmaker” (immédiat ou après validation selon règle définie)
-  - Mon statut est clairement affiché dans l’interface
+  - **Étant donné** que je suis connecté et que j’accède à la page de soumission  
+  - **Quand** je remplis le formulaire (titre, description) et que je sélectionne un fichier vidéo  
+  - **Alors**
+    - Ma vidéo est envoyée et enregistrée sur la plateforme
+    - Elle passe au statut **« En attente de validation / modération »**
+    - Un message de confirmation s’affiche
+    - Si un champ est manquant ou si le fichier ne respecte pas les règles, un message d’erreur clair s’affiche
+
 
 ### US2 — Soumettre un film
 - **En tant que** filmmaker
