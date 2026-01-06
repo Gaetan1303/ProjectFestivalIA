@@ -1,373 +1,383 @@
-# ProjectFestivalIA — Functional Specifications (Corrected)
+# ProjectFestivalIA — User Stories (Version produit) + Annexe NFR
+*Dernière mise à jour : 2026-01-06*
 
-## 1. Synopsis
+## 1) Synopsis
 
 ### Description
-ProjectFestivalIA is an innovative platform designed to host and manage a global short film competition. The platform enables users to upload, vote, and rank AI-generated short films, fostering creativity and collaboration.
+ProjectFestivalIA est une plateforme pour héberger et gérer un concours international de courts métrages **générés avec l’IA**. Les utilisateurs peuvent **soumettre**, **découvrir**, **voter**, **classer** et **partager** des films.
 
-### Objectives
-- Empower filmmakers to showcase their AI-generated creations.
-- Provide a seamless experience for users to discover, vote, and share videos.
-- Facilitate a fair and transparent competition process with robust moderation and analytics tools.
+### Objectifs
+- Permettre aux réalisateurs de présenter leurs créations IA.
+- Offrir une expérience fluide pour découvrir, voter et partager.
+- Assurer un concours **équitable**, **modéré** et **transparent**, avec des statistiques utiles.
 
-### Context
-The platform is developed for the **Mars IA Night**, a prestigious event celebrating AI-driven creativity. The competition features **1-minute short films** under the theme **“Desirable Futures”**, aiming to inspire global audiences. With participants from over **120 countries**, the platform aspires to collect **600+ films** and attract **3,000 visitors** to the physical event in Marseille.
-
-### Key Features
-- **Video Management:** Upload, moderate, and display videos with detailed AI technical sheets.
-- **User Engagement:** Voting, ranking, and sharing functionalities to enhance participation.
-- **Accessibility:** Multilingual interface and inclusive design for a global audience.
-- **Advanced Analytics:** Real-time insights for administrators and creators to monitor performance.
+### Contexte
+Plateforme créée pour la **Mars IA Night**. Le concours porte sur des courts métrages de **1 minute** sur le thème **« Desirable Futures »**, avec une audience internationale (120+ pays), un objectif de 600+ films et 3 000 visiteurs à l’événement physique à Marseille.
 
 ---
 
+## 2) EPICS & User Stories (orientées “métier”)
 
-### Epic #1 — User Account Management
-
-#### User Story 1 — Register & Email Verification
-- **As a:** Visitor  
-- **I want to:** Create an account  
-- **So that:** I can access platform features  
-- **Priority:** High  
-- **Acceptance Criteria (with validation constraints):**
-  - **Given:** I’m on the registration page  
-  - **When:** I submit **name + email + password**  
-  - **Then:**
-    - Email format is valid and **unique**
-    - Password matches strength rules (min length + at least one rule: uppercase/lowercase/number/symbol)
-    - Account is created in **inactive** state
-    - Verification email is sent with a **secure, time-limited token**
-    - Clicking the link activates the account
-    - Clear error messages are displayed (no sensitive info leaked)
-
-#### User Story 2 — Log In / Log Out
-- **As a:** Registered user  
-- **I want to:** Log in and log out  
-- **So that:** I can use my account securely  
-- **Priority:** High  
-- **Acceptance Criteria:**
-  - Invalid credentials show a generic error (no indication if email exists)
-  - Session/token uses secure storage (e.g., httpOnly cookie)
-  - Basic brute-force protection exists (rate limiting / cooldown)
-  - Logout invalidates the session/token
-
-#### User Story 3 — Manage My Account (Edit / Delete)
-- **As a:** Registered user  
-- **I want to:** Edit my info and delete my account  
-- **So that:** I can control my profile and data  
-- **Priority:** High  
-- **Acceptance Criteria:**
-  - **Given:** I’m logged in and on **Account settings**
-  - **When:** I update profile info (name, bio, socials, etc.)
-  - **Then:** fields are validated (length limits, URL format), saved, and displayed
-  - **When:** I change my password
-  - **Then:** current password confirmation is required and strength rules apply
-  - **When:** I request account deletion
-  - **Then:** a confirmation step is required (password re-entry and/or email confirmation)
-  - Deletion behavior is defined (hard delete vs anonymization) and compliant with GDPR
-
-#### User Story 4 — Admin: Manage Users & Roles
-- **As a:** Administrator  
-- **I want to:** View/disable/delete users and change roles  
-- **So that:** I can secure the platform  
-- **Priority:** High  
-- **Acceptance Criteria:**
-  - List users with search/filter (email, role, status)
-  - Disable user blocks login and actions
-  - Role assignment supported: **public/visitor, registered, filmmaker, jury, moderator, admin, partner**
-  - All actions are logged (audit trail: who/what/when)
+> Principe : les User Stories décrivent **ce que l’utilisateur obtient** (résultat observable), pas comment on le code.  
+> Les choix d’implémentation (WebSocket, cookies, tokens, etc.) sont dans l’**Annexe NFR**.
 
 ---
 
-### Epic #2 — Filmmaker Onboarding & Video Submission
+## Epic #1 — Comptes & Profil
 
-#### User Story 1 — Upgrade Role: Registered → Filmmaker
-- **As a:** Registered user  
-- **I want to:** Become a filmmaker (réalisateur)  
-- **So that:** I can submit films to the competition  
-- **Priority:** High  
-- **Acceptance Criteria:**
-  - **Given:** I’m logged in as **registered**
-  - **When:** I complete filmmaker requirements (e.g., country, display name, optional school/social links)
-  - **Then:** my role becomes **filmmaker**
-  - If approval is required: request status is shown and admin/moderator can approve/reject
-  - UI shows my current role/status clearly
+### US1 — S’inscrire et activer mon compte
+- **En tant que** visiteur
+- **Je veux** créer un compte
+- **Afin de** pouvoir accéder aux fonctionnalités de la plateforme
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - **Étant donné** que je suis sur la page d’inscription
+  - **Quand** je renseigne nom + email + mot de passe et je valide
+  - **Alors**
+    - Je reçois un email d’activation avec un lien unique
+    - Mon compte n’est utilisable qu’après activation
+    - Si l’email est invalide ou déjà utilisé, je vois un message clair
+    - Si le mot de passe est trop faible, je vois un message clair indiquant les règles
 
-#### User Story 2 — Upload Video for Competition
-- **As a:** Filmmaker  
-- **I want to:** Upload a short film  
-- **So that:** I can participate  
-- **Priority:** High  
-- **Acceptance Criteria (validation constraints):**
-  - Filmmaker must be logged in
-  - Required fields: **title, description, country**, and AI technical sheet (see Epic #5)
-  - Allowed formats defined (e.g., mp4, mov) + max file size defined
-  - Duration rule enforced (e.g., **≤ 60 seconds**)
-  - After upload, video status is **Pending moderation**
-  - Success confirmation is displayed; errors are user-friendly (format/size/duration)
+### US2 — Me connecter / me déconnecter
+- **En tant que** utilisateur
+- **Je veux** me connecter et me déconnecter
+- **Afin de** gérer mon accès en sécurité
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - **Étant donné** que je suis sur la page de connexion
+  - **Quand** je saisis mes identifiants et je valide
+  - **Alors**
+    - Si c’est correct, j’accède à mon espace
+    - Si c’est incorrect, un message d’erreur apparaît (sans détails sensibles)
+  - **Quand** je me déconnecte
+  - **Alors** mon accès est coupé et je dois me reconnecter pour agir
 
-#### User Story 3 — Submission Window Countdown (Moved here)
-- **As a:** Filmmaker  
-- **I want to:** See how much time is left to submit  
-- **So that:** I don’t miss the deadline  
-- **Priority:** Medium  
-- **Acceptance Criteria:**
-  - Submission window is configurable by admin (open/close dates)
-  - Upload page displays countdown: “Submissions close in X days/hours”
-  - If submissions are closed: upload is disabled and a clear message is displayed
+### US3 — Gérer mon compte (modifier infos / supprimer mon compte)
+- **En tant que** utilisateur connecté
+- **Je veux** modifier mes informations et pouvoir supprimer mon compte
+- **Afin de** contrôler mon profil et mes données
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - **Quand** je modifie mes infos (nom public, bio, liens sociaux, etc.)
+  - **Alors** les changements sont enregistrés et affichés
+  - **Quand** je demande à changer mon mot de passe
+  - **Alors** une confirmation est demandée et les règles de sécurité s’appliquent
+  - **Quand** je demande la suppression du compte
+  - **Alors** une confirmation explicite est demandée et je reçois une confirmation de l’opération
 
----
-
-### Epic #3 — Voting, Ranking & Jury Evaluation (Renamed)
-
-#### User Story 1 — Vote on Videos
-- **As a:** Jury member  
-- **I want to:** Rate videos  
-- **So that:** I can contribute to the competition results  
-- **Priority:** High  
-- **Acceptance Criteria:**
-  - **Given:** Jury member is logged in and has access to the jury interface
-  - **When:** Jury assigns a score (e.g., 1 to 10) to a video
-  - **Then:** vote is recorded, cannot be duplicated (or can be updated depending on rule)
-  - Leaderboard reflects the vote with correct aggregation
-
-#### User Story 2 — Comment on Videos (Jury)
-- **As a:** Jury member  
-- **I want to:** Add comments/feedback  
-- **So that:** I can justify evaluations  
-- **Priority:** Medium  
-- **Acceptance Criteria:**
-  - Comment length limits exist
-  - Comments are visible only to allowed roles (jury/admin/moderator) unless made public by rule
-
-#### User Story 3 — Public Ranking Page
-- **As a:** Public user  
-- **I want to:** See the ranking  
-- **So that:** I can follow the contest results  
-- **Priority:** High  
-- **Acceptance Criteria:**
-  - Public page displays ranking (sorted by score/votes)
-  - Each item shows: title, description snippet, creator, country (optional), total votes/score
-  - Pagination enabled for large lists
-
-#### User Story 4 — Admin: Mark Top 50 Official Videos
-- **As a:** Administrator  
-- **I want to:** Automatically rank and mark top 50 as “official”  
-- **So that:** we can publish finalists  
-- **Priority:** Medium  
-- **Acceptance Criteria:**
-  - System generates ranking automatically
-  - Admin can manually override with a controlled workflow (logged)
-  - Top 50 gets “official” label and is visible in UI
+### US4 — Admin : gérer les utilisateurs et les rôles
+- **En tant que** administrateur
+- **Je veux** voir, désactiver/supprimer des comptes et changer les rôles
+- **Afin de** maintenir une plateforme saine et sécurisée
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - Je peux lister les utilisateurs et rechercher (email/nom/rôle/statut)
+  - Je peux désactiver un compte (l’utilisateur ne peut plus agir)
+  - Je peux supprimer un compte (selon la politique de conservation/anonymisation)
+  - Je peux attribuer des rôles : **public**, **registered**, **filmmaker**, **jury**, **moderator**, **admin**, **partner**
+  - Les actions sensibles sont traçables (qui a fait quoi)
 
 ---
 
-### Epic #4 — Roles, Permissions & Moderation Workflows
+## Epic #2 — Onboarding Réalisateur & Soumission
 
-#### User Story 1 — Moderator: Review Pending Videos
-- **As a:** Moderator  
-- **I want to:** Approve or reject uploaded videos  
-- **So that:** content quality is maintained  
-- **Priority:** Medium  
-- **Acceptance Criteria:**
-  - Moderator sees list of pending submissions
-  - Can approve/reject with a reason
-  - On approval: video becomes public (or jury-only, based on rule)
-  - On rejection: filmmaker receives notification with reason
+### US1 — Passer de “registered” à “filmmaker”
+- **En tant que** utilisateur “registered”
+- **Je veux** devenir “filmmaker”
+- **Afin de** pouvoir soumettre un film
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - **Étant donné** que je suis connecté en “registered”
+  - **Quand** je complète les informations demandées (ex : pays, nom d’affichage, optionnel : école/RS)
+  - **Alors** mon statut devient “filmmaker” (immédiat ou après validation selon règle définie)
+  - Mon statut est clairement affiché dans l’interface
 
-#### User Story 2 — Admin: Manage Partners & Content
-- **As a:** Administrator  
-- **I want to:** manage partners and remove content if needed  
-- **So that:** platform remains reliable and compliant  
-- **Priority:** High  
-- **Acceptance Criteria:**
-  - Can update partner profiles/logos/links
-  - Can remove or unpublish content
-  - All actions are logged
+### US2 — Soumettre un film
+- **En tant que** filmmaker
+- **Je veux** soumettre un court métrage
+- **Afin de** participer au concours
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - **Étant donné** que je suis connecté en filmmaker et que les soumissions sont ouvertes
+  - **Quand** je renseigne titre + description + pays + fiche IA et je téléverse mon fichier vidéo
+  - **Alors**
+    - Ma soumission est enregistrée
+    - Je vois une confirmation
+    - Le film passe au statut **“En attente de modération”**
+  - **Et** si le format / la taille / la durée ne respectent pas les règles, je vois une erreur claire
 
----
-
-### Epic #5 — Advanced Video Metadata, Compliance & Analytics
-
-#### User Story 1 — Include AI Technical Sheet
-- **As a:** Filmmaker  
-- **I want to:** Provide a detailed AI technical sheet  
-- **So that:** tools used are transparent and displayed  
-- **Priority:** High  
-- **Acceptance Criteria:**
-  - Technical sheet fields include:
-    - Scenario tools (text/gen tools)
-    - Image generation tools
-    - Post-production tools
-    - Optional: prompts/process notes (with moderation)
-  - Validations: max length, optional URLs validated
-  - Displayed on video page alongside the film
-
-#### User Story 2 — Copyright Verification (YouTube API)
-- **As a:** Filmmaker  
-- **I want to:** Ensure my video respects copyright  
-- **So that:** it can be published safely  
-- **Priority:** High  
-- **Acceptance Criteria:**
-  - After upload, platform triggers a check (e.g., YouTube API / Content ID-related workflow)
-  - Video is approved or flagged with status (e.g., “Copyright issue”)
-  - Filmmaker sees the status and next steps
-
-#### User Story 3 — Video Catalog: Pagination & Filters
-- **As a:** Public user  
-- **I want to:** Browse videos with pagination and filters  
-- **So that:** I can find content easily  
-- **Priority:** Medium  
-- **Acceptance Criteria:**
-  - Filters: country, language, tools used, status (official/others), popularity
-  - Sorting: most voted, newest, trending
-  - Pagination/infinite scroll with stable URLs (query params)
-
-#### User Story 4 — Analytics Dashboard (Admin + Filmmakers)
-- **As a:** Administrator **and** Filmmaker  
-- **I want to:** See video analytics  
-- **So that:** I can track engagement and performance  
-- **Priority:** Medium  
-- **Acceptance Criteria:**
-  - Admin sees global metrics (platform-wide)
-  - Filmmaker sees **their own** metrics only
-  - Metrics include: views, shares, votes, watch time (if available), traffic sources (if available)
-  - Data updates near real-time (or at defined intervals)
-
-#### User Story 5 — Analytics: Submissions by Country (Admin)
-- **As a:** Administrator  
-- **I want to:** See submissions by country  
-- **So that:** I can analyze diversity  
-- **Priority:** High  
-- **Acceptance Criteria:**
-  - Chart displays count per country
-  - Export option (CSV) available (optional)
-
-#### User Story 6 — Analytics: AI Tools Usage (Admin)
-- **As a:** Administrator  
-- **I want to:** See the most used AI tools  
-- **So that:** I can understand trends  
-- **Priority:** High  
-- **Acceptance Criteria:**
-  - Breakdown by category: scenario / image gen / post-production
-  - “Top tools” list + percentage share
+### US3 — Voir le temps restant avant la clôture des soumissions
+- **En tant que** filmmaker
+- **Je veux** connaître le temps restant pour soumettre
+- **Afin de** ne pas rater la deadline
+- **Priorité :** Moyenne
+- **Critères d’acceptation**
+  - Sur la page de soumission, je vois une indication claire : “Clôture dans X jours/heures”
+  - Si la période est fermée, la soumission est désactivée et un message explique pourquoi
 
 ---
 
-### Epic #6 — Notifications & Communication
+## Epic #3 — Vote, Notation & Classement
 
-#### User Story 1 — Real-Time Notifications (Status Changes)
-- **As a:** Filmmaker  
-- **I want to:** Receive real-time notifications about my video status  
-- **So that:** I know immediately if it’s approved/rejected  
-- **Priority:** Medium  
-- **Acceptance Criteria:**
-  - On moderation decision, a notification is sent (WebSocket / SSE)
-  - If real-time channel unavailable, fallback to email
-  - Notifications include status + reason (if rejected)
+### US1 — Jury : noter un film
+- **En tant que** membre du jury
+- **Je veux** attribuer une note à un film
+- **Afin de** contribuer au résultat final
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - Je peux attribuer une note (ex : 1 à 10) sur un film éligible
+  - Je vois une confirmation que mon vote est pris en compte
+  - Mes votes sont visibles dans mon espace jury (historique)
 
-#### User Story 2 — Newsletter Subscription
-- **As a:** Public user  
-- **I want to:** Subscribe to a newsletter  
-- **So that:** I receive festival and platform updates  
-- **Priority:** Low  
-- **Acceptance Criteria:**
-  - Email is validated and stored
-  - Double opt-in confirmation email (recommended)
-  - Unsubscribe link in every email
+### US2 — Jury : commenter / donner un retour
+- **En tant que** membre du jury
+- **Je veux** ajouter un commentaire
+- **Afin de** justifier et aider à l’évaluation
+- **Priorité :** Moyenne
+- **Critères d’acceptation**
+  - Je peux écrire un commentaire avec une limite de longueur
+  - La visibilité du commentaire est respectée (privé jury/admin/modération ou public selon règle)
 
----
+### US3 — Public : consulter le classement
+- **En tant que** utilisateur public
+- **Je veux** voir le classement des films
+- **Afin de** suivre le concours
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - Une page publique affiche le classement
+  - Les films sont triés selon la règle définie (score/votes)
+  - On voit au minimum : titre, créateur, pays (optionnel), score/votes
+  - Le classement reste navigable même avec beaucoup de films (pagination / pages)
 
-### Epic #7 — Social Engagement & Sharing
-
-#### User Story 1 — Social Media Sharing
-- **As a:** Public user  
-- **I want to:** Share videos directly to social platforms  
-- **So that:** I can promote the contest and my favorites  
-- **Priority:** Medium  
-- **Acceptance Criteria:**
-  - Share buttons generate a shareable link with preview (OpenGraph metadata)
-  - Platforms supported: Facebook, X/Twitter, LinkedIn (configurable)
-  - Share action increments “share” metric
-
-#### User Story 2 — Sponsorship (Moved here)
-- **As a:** Commercial partner  
-- **I want to:** Sponsor videos  
-- **So that:** I can promote my brand during the festival  
-- **Priority:** Medium  
-- **Acceptance Criteria:**
-  - Partner can select sponsorship package and target video(s)
-  - Sponsorship confirmation workflow exists (invoice/payment optional)
-  - Sponsored videos show partner branding (within defined design rules)
+### US4 — Admin : sélectionner automatiquement les “Top 50 officiels”
+- **En tant que** administrateur
+- **Je veux** marquer les 50 meilleurs films comme “officiels”
+- **Afin de** publier les finalistes
+- **Priorité :** Moyenne
+- **Critères d’acceptation**
+  - Les “Top 50” sont calculés automatiquement selon les règles
+  - Les films sélectionnés affichent un badge “Official”
+  - Si une correction manuelle existe, elle est réservée aux admins et traçable
 
 ---
 
-### Epic #8 — Accessibility & Inclusivity (Deduplicated)
+## Epic #4 — Rôles, Permissions & Modération
 
-#### User Story 1 — Accessibility Options
-- **As a:** Public user  
-- **I want to:** Enable accessibility options  
-- **So that:** I can navigate regardless of abilities  
-- **Priority:** High  
-- **Acceptance Criteria:**
-  - High-contrast mode toggle
-  - Keyboard navigation
-  - ARIA labels for controls
-  - Screen reader-friendly structure
-  - Captions/subtitles support integrated (see next story)
+### US1 — Modérateur : valider / refuser une soumission
+- **En tant que** modérateur
+- **Je veux** approuver ou refuser les films en attente
+- **Afin de** maintenir la qualité et le respect des règles
+- **Priorité :** Moyenne
+- **Critères d’acceptation**
+  - Je vois la liste des films “en attente”
+  - Je peux approuver ou refuser
+  - En cas de refus, je dois indiquer un motif
+  - Le réalisateur est informé de la décision
 
-#### User Story 2 — Upload & Display Subtitles
-- **As a:** Filmmaker  
-- **I want to:** Upload subtitle files (.srt, .vtt)  
-- **So that:** my videos are accessible  
-- **Priority:** Medium  
-- **Acceptance Criteria:**
-  - Accepted formats: .srt, .vtt (configurable)
-  - Validations: file size, encoding, language label
-  - Player displays subtitles and allows toggling
-
----
-
-### Epic #9 — Festival Program, Round Tables, Workshops & Reservations (Updated)
-
-#### User Story 1 — Interactive Agenda (Festival + Round Tables + Workshops)
-- **As a:** Public user  
-- **I want to:** View and interact with the agenda  
-- **So that:** I can plan my participation  
-- **Priority:** Low  
-- **Acceptance Criteria:**
-  - Agenda includes: screenings, round tables, workshops, closing ceremony
-  - Each event shows: date/time, location, speakers, capacity (if relevant)
-  - Filters by event type and day
-  - Event detail page exists
-
-#### User Story 2 — Reservation System (Workshops + Closing Ceremony)
-- **As a:** Public user  
-- **I want to:** reserve a spot  
-- **So that:** I can attend workshops and the closing ceremony  
-- **Priority:** Low  
-- **Acceptance Criteria:**
-  - Reservations require account (or email-only, defined rule)
-  - Capacity limit enforced; waitlist optional
-  - Confirmation email sent
-  - User can view/cancel their reservations (with rules)
-
-#### User Story 3 — Event Feedback
-- **As a:** Public user  
-- **I want to:** leave feedback after attending  
-- **So that:** organizers improve future editions  
-- **Priority:** Low  
-- **Acceptance Criteria:**
-  - Feedback form per event (rating + comment)
-  - Spam protection (rate limit/captcha optional)
-  - Admin can view feedback analytics
+### US2 — Admin : gérer les partenaires et le contenu
+- **En tant que** administrateur
+- **Je veux** gérer les partenaires et retirer du contenu si nécessaire
+- **Afin de** garantir fiabilité et conformité
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - Je peux créer/mettre à jour une fiche partenaire (nom, logo, lien, description)
+  - Je peux dépublier/retirer un film (avec motif)
+  - Ces actions sont traçables
 
 ---
 
-## 3. Global Requirements (Non-Functional)
-- **Security:** hashed passwords, secure sessions, role-based access control, audit logs for admin actions
-- **Performance:** scalable video delivery (CDN recommended), pagination everywhere, caching for ranking pages
-- **Compliance:** copyright workflow, privacy/GDPR, consent for newsletter
-- **Accessibility:** WCAG-oriented design, subtitles support
-- **Internationalization:** multilingual UI with language switch
+## Epic #5 — Fiche IA, Conformité & Statistiques
 
+### US1 — Ajouter une fiche technique IA
+- **En tant que** filmmaker
+- **Je veux** renseigner les outils IA utilisés
+- **Afin de** rendre la création transparente pour le public et le jury
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - La fiche IA permet de renseigner :
+    - Outils de scénario
+    - Outils de génération d’images
+    - Outils de montage / post-prod
+  - Les champs ont des limites simples (longueur, format de lien si lien)
+  - La fiche est affichée sur la page du film
+
+### US2 — Vérifier la conformité copyright
+- **En tant que** filmmaker
+- **Je veux** que ma soumission soit vérifiée
+- **Afin de** réduire les risques légaux avant publication
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - Après soumission, le film reçoit un statut clair : “OK”, “À vérifier”, ou “Bloqué”
+  - Si problème, je vois la raison et les étapes possibles (corriger / contacter / remplacer)
+
+### US3 — Catalogue : filtrer et explorer les films
+- **En tant que** utilisateur public
+- **Je veux** filtrer et parcourir le catalogue
+- **Afin de** trouver rapidement ce qui m’intéresse
+- **Priorité :** Moyenne
+- **Critères d’acceptation**
+  - Je peux filtrer (ex : pays, langue, outils, officiel, popularité)
+  - Je peux trier (ex : plus votés, plus récents)
+  - Le catalogue reste confortable à naviguer (pages / chargement progressif)
+
+### US4 — Voir des statistiques (Admin + Filmmaker)
+- **En tant que** admin **ou** filmmaker
+- **Je veux** consulter des statistiques d’engagement
+- **Afin de** mesurer la performance des films / de la plateforme
+- **Priorité :** Moyenne
+- **Critères d’acceptation**
+  - Admin : voit les statistiques globales
+  - Filmmaker : voit les statistiques de **ses propres** films
+  - Indicateurs possibles : vues, partages, votes, tendance (selon disponibilité)
+
+### US5 — Admin : statistiques par pays
+- **En tant que** admin
+- **Je veux** voir les soumissions par pays
+- **Afin de** mesurer la diversité géographique
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - Un tableau ou graphique affiche le nombre de films par pays
+
+### US6 — Admin : statistiques d’usage des outils IA
+- **En tant que** admin
+- **Je veux** voir les outils IA les plus utilisés
+- **Afin de** comprendre les tendances techniques
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - Je vois un classement par catégorie (scénario / image / post-prod)
+  - Je peux consulter un top global
+
+---
+
+## Epic #6 — Notifications & Communication
+
+### US1 — Être informé d’un changement de statut
+- **En tant que** filmmaker
+- **Je veux** être informé rapidement quand mon film est validé/refusé
+- **Afin de** réagir sans attendre
+- **Priorité :** Moyenne
+- **Critères d’acceptation**
+  - Quand le statut change, je reçois une notification dans l’application
+  - En cas d’indisponibilité, je reçois une notification par email
+  - En cas de refus, le motif est visible
+
+### US2 — S’abonner à la newsletter
+- **En tant que** utilisateur public
+- **Je veux** m’abonner à la newsletter
+- **Afin de** recevoir des nouveautés (festival, nouveaux films, actus)
+- **Priorité :** Basse
+- **Critères d’acceptation**
+  - Je peux saisir mon email et valider
+  - Je reçois une confirmation d’inscription
+  - Je peux me désabonner facilement
+
+---
+
+## Epic #7 — Partage & Sponsoring
+
+### US1 — Partager un film sur les réseaux
+- **En tant que** utilisateur public
+- **Je veux** partager un film
+- **Afin de** promouvoir le concours et mes favoris
+- **Priorité :** Moyenne
+- **Critères d’acceptation**
+  - Chaque film propose un bouton de partage
+  - Le lien de partage renvoie vers la page du film
+  - Le partage affiche un aperçu lisible (titre + image + description courte)
+
+### US2 — Sponsoriser un film
+- **En tant que** partenaire commercial
+- **Je veux** sponsoriser un film
+- **Afin de** gagner en visibilité pendant l’événement
+- **Priorité :** Moyenne
+- **Critères d’acceptation**
+  - Je peux choisir un film et un format de sponsoring (selon offres)
+  - Le film affiche un badge/branding sponsor (selon règles)
+  - L’admin peut valider/retirer un sponsoring si nécessaire
+
+---
+
+## Epic #8 — Accessibilité & Inclusion
+
+### US1 — Activer des options d’accessibilité
+- **En tant que** utilisateur
+- **Je veux** activer des options d’accessibilité
+- **Afin de** utiliser la plateforme avec mes besoins
+- **Priorité :** Haute
+- **Critères d’acceptation**
+  - Je peux activer un mode contraste élevé
+  - Je peux naviguer au clavier
+  - Les éléments clés sont lisibles par lecteur d’écran
+
+### US2 — Sous-titres : ajouter et afficher
+- **En tant que** filmmaker
+- **Je veux** ajouter des sous-titres
+- **Afin de** rendre mon film accessible
+- **Priorité :** Moyenne
+- **Critères d’acceptation**
+  - Je peux téléverser un fichier de sous-titres (formats supportés définis)
+  - Le lecteur permet d’activer/désactiver les sous-titres
+
+---
+
+## Epic #9 — Programme, Tables rondes, Workshops & Réservations
+
+### US1 — Consulter une agenda interactif (festival + tables rondes + workshops)
+- **En tant que** utilisateur public
+- **Je veux** consulter l’agenda
+- **Afin de** planifier ma participation
+- **Priorité :** Basse
+- **Critères d’acceptation**
+  - L’agenda inclut : projections, tables rondes, workshops, cérémonie de clôture
+  - Chaque événement affiche : date/heure, lieu, intervenants, capacité (si applicable)
+  - Je peux filtrer par type d’événement et par jour
+  - Je peux ouvrir une page détail d’un événement
+
+### US2 — Réserver une place (workshops + clôture)
+- **En tant que** utilisateur public
+- **Je veux** réserver une place
+- **Afin de** participer aux workshops et à la clôture
+- **Priorité :** Basse
+- **Critères d’acceptation**
+  - Je peux réserver si des places sont disponibles
+  - Je reçois une confirmation de réservation
+  - Je peux consulter et annuler ma réservation (selon règles)
+
+### US3 — Donner un feedback après un événement
+- **En tant que** participant
+- **Je veux** donner mon avis
+- **Afin de** aider l’organisation à s’améliorer
+- **Priorité :** Basse
+- **Critères d’acceptation**
+  - Je peux noter et laisser un commentaire
+  - L’admin peut consulter les retours
+
+---
+
+# 3) Annexe — Contraintes techniques & Non-fonctionnelles (NFR)
+
+## Sécurité (NFR)
+- Les mots de passe ne sont jamais stockés en clair (hash + règles de complexité).
+- Protection contre tentatives répétées de connexion (limitation / temporisation).
+- Gestion des rôles et permissions (accès admin/jury/modération).
+- Traçabilité des actions sensibles (audit).
+
+## Performance & Scalabilité (NFR)
+- Pagination ou chargement progressif sur les listes (catalogue, classement).
+- Diffusion vidéo optimisée (stockage adapté + distribution efficace).
+
+## Notifications (NFR)
+- Notifications “quasi temps réel” dans l’app (mécanisme technique au choix).
+- Email en fallback si besoin.
+
+## Partage & aperçu (NFR)
+- Les liens partagés doivent générer un aperçu correct sur les réseaux (métadonnées/preview).
+
+## Conformité & Données (NFR)
+- Politique claire de conservation/suppression/anonymisation des comptes (RGPD).
+- Workflow de conformité copyright (détection, statut, recours).
+
+## Accessibilité & i18n (NFR)
+- Objectif WCAG (structure, contrastes, clavier, lecteur d’écran).
+- Interface multilingue (FR/EN au minimum), extensible.
