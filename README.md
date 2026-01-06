@@ -95,13 +95,7 @@ L'ambition de ce dernier est aussi d'être partagé sur les réseaux sociaux.
         - when : L'administrateur approuve ou rejette une vidéo.
         - then : La vidéo est publiée ou un message de rejet est envoyé à l'utilisateur.
 
-        User Story 4 (sub-issue) : En tant qu'utilisateur, je veux pouvoir ajouter une description à mes vidéos pour informer les spectateurs.
-        # critères d'acceptation :
-        - given : L'utilisateur est connecté et accède à la page de gestion de ses vidéos.
-        - when : L'utilisateur ajoute ou modifie une description pour une vidéo.
-        - then : La description est enregistrée et affichée avec la vidéo.
-
-        User Story 5 (sub-issue) : En tant qu'utilisateur, je veux pouvoir supprimer une vidéo que j'ai uploadée pour gérer mon contenu.
+        User Story 4 (sub-issue) : En tant qu'utilisateur, je veux pouvoir supprimer une vidéo que j'ai uploadée pour gérer mon contenu.
         # critères d'acceptation :
         - given : L'utilisateur est connecté et accède à la liste de ses vidéos.
         - when : L'utilisateur sélectionne une vidéo et confirme sa suppression.
