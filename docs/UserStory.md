@@ -61,7 +61,7 @@ The platform is developed for the Mars IA Night, a prestigious event celebrating
 - **Priority:** High
 
 #### User Story 2: Moderate Videos
-- **As a:** Moderator
+- **As a:** Moderator => API Youtube
 - **I want to:** Review and approve uploaded videos
 - **So that:** I can maintain content quality
 - **Acceptance Criteria:**
@@ -70,7 +70,6 @@ The platform is developed for the Mars IA Night, a prestigious event celebrating
   - **Then:** The video is either published, or a rejection message is sent to the user.
 - **Priority:** Medium
 
----
 
 ### Epic #3: Security Management
 
@@ -95,16 +94,7 @@ The platform is developed for the Mars IA Night, a prestigious event celebrating
 - **Priority:** Medium
 
 ---
-
-## Use Case
-
-### Title: Upload and Vote for Videos
-
-### Title: Authentication System and Roles
-
-The application must manage four types of users with secure permissions:
-
-#### User Stories
+### Epic #4: User Roles and Permissions
 
 - **As a Filmmaker**, I want to submit my films and manage my profile so that I can showcase my work and connect with the audience.
   - **Acceptance Criteria:**
@@ -141,7 +131,7 @@ The application must manage four types of users with secure permissions:
 - **I want to:** Provide a detailed AI technical sheet for my video submission
 - **So that:** The platform can display the tools used for scenario, image generation, and post-production
 - **Acceptance Criteria:**
-  - **Given:** The filmmaker is on the video upload page.
+  - **Given:** The filmmaker is on the video upload page with two months left for submissions.
   - **When:** The filmmaker fills in the AI technical sheet fields (scenario, image generation, post-production tools).
   - **Then:** The information is saved and displayed alongside the video.
   - **Priority:** High
