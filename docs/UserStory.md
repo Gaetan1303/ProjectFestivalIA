@@ -198,27 +198,6 @@ The platform is developed for the Mars IA Night, a prestigious event celebrating
   - **Then:** The email is added to the subscription list, and a confirmation message is displayed.
   - **Priority:** Low 
 
-### Epic #6: Internationalization and Security
-
-#### User Story 1: Multilingual Interface
-- **As a:** Public User
-- **I want to:** Use the platform in my preferred language (English or French)
-- **So that:** I can navigate the platform comfortably
-- **Acceptance Criteria:**
-  - **Given:** The user accesses the platform.
-  - **When:** The user selects a language from the settings.
-  - **Then:** The interface updates to the selected language.
-  - **Priority:** Medium
-
-#### User Story 2: Enhanced Security Measures
-- **As a:** Developer
-- **I want to:** Ensure all user inputs are validated and passwords are securely hashed
-- **So that:** The platform remains secure and compliant with best practices
-- **Acceptance Criteria:**
-  - **Given:** A user submits data through any form.
-  - **When:** The data is processed by the server.
-  - **Then:** The inputs are validated, and passwords are hashed using bcrypt.
-  - **Priority:** High
 
 ### Epic #7: Social Engagement and Analytics
 
@@ -231,8 +210,6 @@ The platform is developed for the Mars IA Night, a prestigious event celebrating
   - **When:** The user clicks the share button.  
   - **Then:** A shareable link with a preview is generated for social platforms.  
   - **Priority:** Medium  
-
-
 
 ---
 
@@ -282,6 +259,58 @@ The platform is developed for the Mars IA Night, a prestigious event celebrating
   - **Then:** The feedback is saved and acknowledged.  
   - **Priority:** Low
 
+### Epic #10: Advanced Analytics Dashboard
+
+#### User Story 1: Video Metrics by Country
+- **As a:** Administrator
+- **I want to:** View metrics about video submissions by country
+- **So that:** I can analyze the geographical diversity of the competition
+- **Acceptance Criteria:**
+  - **Given:** The administrator is logged in.
+  - **When:** They access the analytics dashboard.
+  - **Then:** A chart displays the number of videos submitted from each country.
+  - **Priority:** High
+
+#### User Story 2: AI Tools Usage Metrics
+- **As a:** Administrator
+- **I want to:** View metrics about the AI tools used in video submissions
+- **So that:** I can understand the technological trends in the competition
+- **Acceptance Criteria:**
+  - **Given:** The administrator is logged in.
+  - **When:** They access the analytics dashboard.
+  - **Then:** A report displays the most commonly used AI tools for scenario, image generation, and post-production.
+  - **Priority:** High
+
+#### User Story 3: Engagement Metrics
+- **As a:** Administrator
+- **I want to:** View metrics about user engagement with videos
+- **So that:** I can measure the platform's success in creating an active community
+- **Acceptance Criteria:**
+  - **Given:** The administrator is logged in.
+  - **When:** They access the analytics dashboard.
+  - **Then:** Metrics like views, shares, and votes are displayed for each video.
+  - **Priority:** Medium
+
+#### User Story 4: Competition Insights
+- **As a:** Administrator
+- **I want to:** View insights about the competition's progress
+- **So that:** I can monitor the overall performance and participation
+- **Acceptance Criteria:**
+  - **Given:** The administrator is logged in.
+  - **When:** They access the analytics dashboard.
+  - **Then:** Statistics about total submissions, active users, and voting trends are displayed.
+  - **Priority:** Medium
+
+#### User Story 5: Technological Origins
+- **As a:** Administrator
+- **I want to:** View data about the origins of AI technologies used in submissions
+- **So that:** I can identify innovative trends and partnerships
+- **Acceptance Criteria:**
+  - **Given:** The administrator is logged in.
+  - **When:** They access the analytics dashboard.
+  - **Then:** A breakdown of AI technologies by origin (e.g., open-source, proprietary) is displayed.
+  - **Priority:** Low
+
 ### Functional Specifications
 
 This section describes the detailed functionalities of the project through user stories and epics. For each feature, make sure to include detailed validation constraints.
@@ -324,7 +353,7 @@ This section describes the detailed functionalities of the project through user 
 #### As an administrator, I want to vote on videos (Jury) to select the best videos.
 - **Acceptance Criteria:**
   - The administrator can access a list of videos to vote on.
-  - Each video can receive a rating or vote.
+  - Each video can receive a rating or vote, 1 to 10.
   - Votes are recorded and considered in the ranking.
 
 #### As an administrator, I want to rank videos based on votes to determine the top 50 official videos.
