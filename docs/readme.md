@@ -39,15 +39,6 @@ It allows users to upload videos, vote for them, and display a ranking based on 
   - **Then:** The changes are saved, and a confirmation message is displayed.
 - **Priority:** High
 
-#### User Story 3: Upload Videos
-- **As a:** Registered user
-- **I want to:** Upload videos
-- **So that:** I can participate in the competition
-- **Acceptance Criteria:**
-  - **Given:** The user is logged in and accesses the video upload page.
-  - **When:** The user fills in the form with a title, description, and selects a video file.
-  - **Then:** The video is submitted for validation, and an upload confirmation is displayed.
-- **Priority:** High
 
 ---
 
@@ -282,7 +273,76 @@ The application must manage four types of users with secure permissions:
   - **When:** They submit a feedback form.  
   - **Then:** The feedback is saved and acknowledged.  
   - **Priority:** Low
-  
+
+### Functional Specifications
+
+This section describes the detailed functionalities of the project through user stories and epics. For each feature, make sure to include detailed validation constraints.
+
+### Requirements
+- Allow users to register, log in, and manage their accounts.
+- Enable video uploading, voting, and sharing.
+- Display a ranking of videos.
+- Ensure smooth and intuitive navigation.
+
+### User Stories
+
+#### As a user, I want to register to access the platform's features.
+- **Acceptance Criteria:**
+  - The user can fill out a registration form with required fields (name, email, password).
+  - A confirmation email is sent after registration.
+  - The user can activate their account by clicking the link in the email.
+  - Passwords are securely stored (hashed).
+  - Registration errors (email already used, weak password, etc.) are handled and displayed clearly.
+
+#### As a user, I want to log in to manage my account.
+- **Acceptance Criteria:**
+  - **Given:** The user is on the login page and enters their email and password.
+  - **When:** The user submits the login form.
+  - **Then:** The user is redirected to their dashboard on success or an error message is displayed on failure.
+
+#### As an administrator, I want to manage user accounts to maintain security.
+- **Acceptance Criteria:**
+  - The administrator can access a list of all registered users.
+  - The administrator can deactivate or delete user accounts.
+  - The administrator can assign roles (user, admin, jury, moderator, visitor) to users.
+
+#### As a user, I want to fill out the form to upload my video to participate in the contest.
+- **Acceptance Criteria:**
+  - The user can access a video upload form.
+  - The form allows them to enter a title, description, and select a video file.
+  - A confirmation is displayed after a successful upload.
+  - Errors (unsupported format, excessive size, etc.) are displayed clearly.
+
+#### As an administrator, I want to vote on videos (Jury) to select the best videos.
+- **Acceptance Criteria:**
+  - The administrator can access a list of videos to vote on.
+  - Each video can receive a rating or vote.
+  - Votes are recorded and considered in the ranking.
+
+#### As an administrator, I want to rank videos based on votes to determine the top 50 official videos.
+- **Acceptance Criteria:**
+  - A ranking of videos is generated automatically based on votes.
+  - The administrator can adjust the ranking manually if needed.
+  - The top 50 videos with the most votes are marked as "official."
+
+#### As a user, I want to see the video ranking to check the contest results.
+- **Acceptance Criteria:**
+  - A public page displays the video ranking.
+  - Videos are sorted in descending order by votes.
+  - Information displayed includes title, description, and number of votes.
+
+#### As a user, I want to share videos on social networks to promote the contest.
+- **Acceptance Criteria:**
+  - Each video has a share button for social networks.
+  - Supported social networks include Facebook, Twitter, and LinkedIn.
+  - The share includes a link to the video and a personalized message.
+
+#### As a user, I want to receive notifications about important updates regarding the contest.
+- **Acceptance Criteria:**
+  - Users receive email notifications for important announcements.
+  - Notifications include information about new videos, rankings, and events.
+
+
 #### Description
 A user can upload a video, which will then go through a moderation process. Once validated, the video will be available for voting. Jury members and users can vote for the videos, and a ranking is automatically generated.
 
@@ -352,76 +412,6 @@ The MLD translates the MCD into relational tables:
 - reason
 
 ---
-
-## 2. Client Front-end Specification
-
-### Functional Specifications
-
-This section describes the detailed functionalities of the project through user stories and epics. For each feature, make sure to include detailed validation constraints.
-
-### Requirements
-- Allow users to register, log in, and manage their accounts.
-- Enable video uploading, voting, and sharing.
-- Display a ranking of videos.
-- Ensure smooth and intuitive navigation.
-
-### User Stories
-
-#### As a user, I want to register to access the platform's features.
-- **Acceptance Criteria:**
-  - The user can fill out a registration form with required fields (name, email, password).
-  - A confirmation email is sent after registration.
-  - The user can activate their account by clicking the link in the email.
-  - Passwords are securely stored (hashed).
-  - Registration errors (email already used, weak password, etc.) are handled and displayed clearly.
-
-#### As a user, I want to log in to manage my account.
-- **Acceptance Criteria:**
-  - **Given:** The user is on the login page and enters their email and password.
-  - **When:** The user submits the login form.
-  - **Then:** The user is redirected to their dashboard on success or an error message is displayed on failure.
-
-#### As an administrator, I want to manage user accounts to maintain security.
-- **Acceptance Criteria:**
-  - The administrator can access a list of all registered users.
-  - The administrator can deactivate or delete user accounts.
-  - The administrator can assign roles (user, admin, jury, moderator, visitor) to users.
-
-#### As a user, I want to fill out the form to upload my video to participate in the contest.
-- **Acceptance Criteria:**
-  - The user can access a video upload form.
-  - The form allows them to enter a title, description, and select a video file.
-  - A confirmation is displayed after a successful upload.
-  - Errors (unsupported format, excessive size, etc.) are displayed clearly.
-
-#### As an administrator, I want to vote on videos (Jury) to select the best videos.
-- **Acceptance Criteria:**
-  - The administrator can access a list of videos to vote on.
-  - Each video can receive a rating or vote.
-  - Votes are recorded and considered in the ranking.
-
-#### As an administrator, I want to rank videos based on votes to determine the top 50 official videos.
-- **Acceptance Criteria:**
-  - A ranking of videos is generated automatically based on votes.
-  - The administrator can adjust the ranking manually if needed.
-  - The top 50 videos with the most votes are marked as "official."
-
-#### As a user, I want to see the video ranking to check the contest results.
-- **Acceptance Criteria:**
-  - A public page displays the video ranking.
-  - Videos are sorted in descending order by votes.
-  - Information displayed includes title, description, and number of votes.
-
-#### As a user, I want to share videos on social networks to promote the contest.
-- **Acceptance Criteria:**
-  - Each video has a share button for social networks.
-  - Supported social networks include Facebook, Twitter, and LinkedIn.
-  - The share includes a link to the video and a personalized message.
-
-#### As a user, I want to receive notifications about important updates regarding the contest.
-- **Acceptance Criteria:**
-  - Users receive email notifications for important announcements.
-  - Notifications include information about new videos, rankings, and events.
 
 ### Non-Functional Specifications
 
