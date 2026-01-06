@@ -160,6 +160,16 @@ The application must manage four types of users with secure permissions:
   - **Then:** The videos are displayed according to the selected criteria.
   - **Priority:** Medium
 
+#### User Story 4: Video Analytics Dashboard
+- **As a:** Administrator  
+- **I want to:** View detailed analytics about video views and shares in all media, platforms.
+- **So that:** I can track the platform's performance and user engagement  
+- **Acceptance Criteria:**  
+  - **Given:** The administrator is logged in.  
+  - **When:** They access the analytics dashboard.  
+  - **Then:** Metrics like views, shares, and user activity are displayed in real-time.  
+  - **Priority:** Medium
+
 ### Epic #5: Notifications and Reservations
 
 #### User Story 1: Real-Time Notifications
@@ -181,6 +191,16 @@ The application must manage four types of users with secure permissions:
   - **When:** The user selects an event and confirms the reservation.
   - **Then:** The reservation is saved, and a confirmation message is displayed.
   - **Priority:** Low
+
+### User Story 3 : Newsletter Subscription
+- **As a:** Public User
+- **I want to:** Subscribe to the newsletter
+- **So that:** I can receive updates about the festival and new videos
+- **Acceptance Criteria:**
+  - **Given:** The user is on the newsletter subscription page.
+  - **When:** The user enters their email and submits the form.
+  - **Then:** The email is added to the subscription list, and a confirmation message is displayed.
+  - **Priority:** Low 
 
 ### Epic #6: Internationalization and Security
 
@@ -216,15 +236,7 @@ The application must manage four types of users with secure permissions:
   - **Then:** A shareable link with a preview is generated for social platforms.  
   - **Priority:** Medium  
 
-#### User Story 2: Video Analytics Dashboard
-- **As a:** Administrator  
-- **I want to:** View detailed analytics about video views and shares  
-- **So that:** I can track the platform's performance and user engagement  
-- **Acceptance Criteria:**  
-  - **Given:** The administrator is logged in.  
-  - **When:** They access the analytics dashboard.  
-  - **Then:** Metrics like views, shares, and user activity are displayed in real-time.  
-  - **Priority:** High  
+
 
 ---
 
