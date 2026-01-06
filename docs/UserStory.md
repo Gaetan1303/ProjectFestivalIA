@@ -1,5 +1,5 @@
 # ProjectFestivalIA
-yo
+
 ## 1. Synopsis
 
 ### Description
