@@ -51,7 +51,7 @@ The platform is developed for the Mars IA Night, a prestigious event celebrating
 ### Epic #2: Video Management
 
 #### User Story 1: Upload Videos for Competition
-- **As a:** Registered user
+- **As a:** Filmmaker
 - **I want to:** Upload videos
 - **So that:** I can participate in the competition
 - **Acceptance Criteria:**
