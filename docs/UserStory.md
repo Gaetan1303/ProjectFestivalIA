@@ -35,43 +35,33 @@ The platform is developed for the Mars IA Night, a prestigious event celebrating
   - **Then:** A confirmation email is sent, and the user can activate their account.
 - **Priority:** High
 
-#### User Story 2: Manage User Accounts
-- **As a:** Administrator
-- **I want to:** Manage user accounts
-- **So that:** I can ensure the security of the application
+#### User Story 2: Manage Account (Delete or Update Information)
+- **As a:** Registered user
+- **I want to:** Delete or update my account information
+- **So that:** I can keep my profile up to date or remove my account if needed
 - **Acceptance Criteria:**
-  - **Given:** The administrator is logged in and accesses the user management panel.
-  - **When:** The administrator modifies, disables, or deletes a user account.
-  - **Then:** The changes are saved, and a confirmation message is displayed.
-- **Priority:** High
-
+  - **Given:** The user is logged in and accesses their account settings.
+  - **When:** The user updates their information or deletes their account.
+  - **Then:** The changes are saved, or the account is permanently deleted.
+- **Priority:** Medium
 
 ---
 
 ### Epic #2: Video Management
 
-#### User Story 1: Upload Videos for Competition
+#### User Story 1: Change Role to Filmmaker
 - **As a:** Registered user
-- **I want to:** Upload videos
-- **So that:** I can participate in the competition
+- **I want to:** Change my role to Filmmaker
+- **So that:** I can upload videos and participate in the competition
 - **Acceptance Criteria:**
-  - **Given:** The user is logged in and accesses the video upload page.
-  - **When:** The user fills in the form with a title, description, and selects a video file.
-  - **Then:** The video is submitted for validation, and a confirmation message is displayed.
-- **Priority:** High
-
-#### User Story 2: Moderate Videos
-- **As a:** Moderator => API Youtube
-- **I want to:** Review and approve uploaded videos
-- **So that:** I can maintain content quality
-- **Acceptance Criteria:**
-  - **Given:** The moderator is logged in and accesses the list of pending videos.
-  - **When:** The moderator approves or rejects a video.
-  - **Then:** The video is either published, or a rejection message is sent to the user.
+  - **Given:** The user is logged in and accesses their profile settings.
+  - **When:** The user selects the option to change their role to Filmmaker.
+  - **Then:** The role is updated, and the user gains access to video upload features.
 - **Priority:** Medium
 
+---
 
-### Epic #3: Security Management
+### Epic #3: Platform Moderation and Sponsorship (Renamed)
 
 #### User Story 1: Vote on Videos
 - **As a:** Jury member
@@ -83,7 +73,7 @@ The platform is developed for the Mars IA Night, a prestigious event celebrating
   - **Then:** The vote is recorded and reflected in the leaderboard.
 - **Priority:** High
 
-#### User Story 2: Sponsor Videos
+#### User Story 2: Sponsor Videos (Moved from Epic #3)
 - **As a:** Commercial partner
 - **I want to:** Sponsor videos
 - **So that:** I can promote my brand during the festival
@@ -94,77 +84,44 @@ The platform is developed for the Mars IA Night, a prestigious event celebrating
 - **Priority:** Medium
 
 ---
+
 ### Epic #4: User Roles and Permissions
 
-- **As a Filmmaker**, I want to submit my films and manage my profile so that I can showcase my work and connect with the audience.
-  - **Acceptance Criteria:**
-    - **Given:** The filmmaker is logged in and accesses their profile page.
-    - **When:** The filmmaker updates their bio, school, or social networks.
-    - **Then:** The changes are saved and displayed on their public profile.
-  - **Priority:** High
+#### User Story 1: Manage Filmmaker Profile
+- **As a:** Filmmaker
+- **I want to:** Submit my films and manage my profile
+- **So that:** I can showcase my work and connect with the audience
+- **Acceptance Criteria:**
+  - **Given:** The filmmaker is logged in and accesses their profile page.
+  - **When:** The filmmaker updates their bio, school, or social networks.
+  - **Then:** The changes are saved and displayed on their public profile.
+- **Priority:** High
 
-- **As a Public User**, I want to browse the catalog and share videos so that I can discover and promote interesting content.
-  - **Acceptance Criteria:**
-    - **Given:** The user is on the video catalog page.
-    - **When:** The user clicks the share button for a video.
-    - **Then:** A shareable link is generated and displayed for social networks.
-  - **Priority:** Medium
-
-- **As a Jury Member**, I want to rate and comment on films so that I can contribute to the selection process.
-  - **Acceptance Criteria:**
-    - **Given:** The jury member is logged in and accesses the private interface.
-    - **When:** The jury member assigns a score and writes a comment for a film.
-    - **Then:** The score and comment are saved and reflected in the film's evaluation.
-  - **Priority:** High
-
-- **As an Administrator**, I want to moderate content and manage partners so that I can ensure the platform's quality and reliability.
-  - **Acceptance Criteria:**
-    - **Given:** The administrator is logged in and accesses the moderation dashboard.
-    - **When:** The administrator approves or removes content or updates partner information.
-    - **Then:** The changes are saved and reflected on the platform.
-  - **Priority:** High
+---
 
 ### Epic #5: Advanced Video Management
 
-#### User Story 1: Include AI Technical Sheet
+#### User Story 1: Include AI Technical Sheet (Updated)
 - **As a:** Filmmaker
 - **I want to:** Provide a detailed AI technical sheet for my video submission
 - **So that:** The platform can display the tools used for scenario, image generation, and post-production
 - **Acceptance Criteria:**
-  - **Given:** The filmmaker is on the video upload page with two months left for submissions.
+  - **Given:** The filmmaker is on the video upload page.
   - **When:** The filmmaker fills in the AI technical sheet fields (scenario, image generation, post-production tools).
   - **Then:** The information is saved and displayed alongside the video.
-  - **Priority:** High
+- **Priority:** High
 
-#### User Story 2: Copyright Verification
-- **As a:** Filmmaker
-- **I want to:** Ensure my video complies with copyright regulations
-- **So that:** It can be published without legal issues
+#### User Story 4: Video Analytics for Users (Added)
+- **As a:** Public user
+- **I want to:** View analytics about video engagement
+- **So that:** I can see how popular a video is
 - **Acceptance Criteria:**
-  - **Given:** The filmmaker uploads a video.
-  - **When:** The platform checks the video using the YouTube API for copyright compliance.
-  - **Then:** The video is either approved or flagged for issues.
-  - **Priority:** High
+  - **Given:** The user is on a video page.
+  - **When:** They click on the "View Analytics" button.
+  - **Then:** Metrics like views, shares, and votes are displayed.
+- **Priority:** Medium
 
-#### User Story 3: Video Pagination and Filters
-- **As a:** Public User
-- **I want to:** Browse videos with pagination and filters
-- **So that:** I can easily find content based on my preferences
-- **Acceptance Criteria:**
-  - **Given:** The user is on the video catalog page.
-  - **When:** The user applies filters or navigates through pages.
-  - **Then:** The videos are displayed according to the selected criteria.
-  - **Priority:** Medium
-
-#### User Story 4: Video Analytics Dashboard
-- **As a:** Administrator  
-- **I want to:** View detailed analytics about video views and shares in all media, platforms.
-- **So that:** I can track the platform's performance and user engagement  
-- **Acceptance Criteria:**  
-  - **Given:** The administrator is logged in.  
-  - **When:** They access the analytics dashboard.  
-  - **Then:** Metrics like views, shares, and user activity are displayed in real-time.  
-  - **Priority:** Medium
+---
 
 ### Epic #6: Notifications and Reservations
 
@@ -239,25 +196,25 @@ The platform is developed for the Mars IA Night, a prestigious event celebrating
 
 ### Epic #9: Festival Event Management
 
-#### User Story 1: Interactive Agenda
-- **As a:** Public User  
-- **I want to:** View and interact with the festival agenda  
-- **So that:** I can plan my participation in workshops and events  
-- **Acceptance Criteria:**  
-  - **Given:** The user accesses the agenda page.  
-  - **When:** They select an event.  
-  - **Then:** Details like time, location, and speakers are displayed.  
-  - **Priority:** Low  
+#### User Story 1: Interactive Agenda (Updated)
+- **As a:** Public user
+- **I want to:** View and interact with the festival agenda, round tables, and workshops
+- **So that:** I can plan my participation in the festival events
+- **Acceptance Criteria:**
+  - **Given:** The user accesses the agenda page.
+  - **When:** They select an event.
+  - **Then:** Details like time, location, and speakers are displayed.
+- **Priority:** Low
 
-#### User Story 2: Event Feedback
-- **As a:** Public User  
-- **I want to:** Provide feedback on events I attended  
-- **So that:** The organizers can improve future editions  
-- **Acceptance Criteria:**  
-  - **Given:** The user attended an event.  
-  - **When:** They submit a feedback form.  
-  - **Then:** The feedback is saved and acknowledged.  
-  - **Priority:** Low
+#### User Story 2: Reservation System for Events (Added)
+- **As a:** Public user
+- **I want to:** Reserve spots for workshops or the closing ceremony
+- **So that:** I can participate in the festival events
+- **Acceptance Criteria:**
+  - **Given:** The user is on the event page.
+  - **When:** The user selects an event and confirms the reservation.
+  - **Then:** The reservation is saved, and a confirmation message is displayed.
+- **Priority:** Medium
 
 ### Epic #10: Advanced Analytics Dashboard
 
