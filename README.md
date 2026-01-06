@@ -1,344 +1,280 @@
 # ProjectFestivalIA
 
-### Project :
+## 1. Synopsis
 
-# 1. Synopsis :
+### Description
+Platform for uploading short films, sorting, and voting for the 50 official videos. The platform also involves commercial partners and social networks.
 
-Ici est décrit l’application, le besoin de la cible et le contexte dans lequel elle sera utilisée.
+### Target Audience Need
+- Upload, vote, sort, share, stream, and rank videos.
 
-- Description : Plateforme d'upload de court métrage, trier et voter pour les 50 vidéos officiels / partenaires commerciaux / Réseaux sociaux /
-- Faire de la projections de film en ligne ? Ou BDD ?
+### Context
+For the Short Film Festival of AI-generated short videos, taking place during the Mars IA Night in June 2026. The site hosts 1-minute AI videos with the theme of "desirable futures." The platform targets cultural creation professionals, students, and the general public.
 
-- Besoin de la cible : Upload, vote, tri, partage, streaming, classement des vidéos.
-- Contexte : Pour le festival de court métrage de vidéo courte crée par IA.
+It allows users to upload videos, vote for them, and display a ranking based on votes. The goal is also for the site to be shared on social networks.
 
-Pour le festival Mars IA night de Juin 2026, le site héberge des vidéos IA d'une minute, dont la thématique est sur les futurs souhaitables. Le site s'adresse aux professionnels de la création culturelle, aux étudiants ainsi qu'aux grands publics.
+---
 
-Il permet l'upload de vidéo sur ce site, et permettre à un groupe de voter, en présentant un classement de ces vidéos.
+## E.P.I.C
 
-L'ambition de ce dernier est aussi d'être partagé sur les réseaux sociaux.
+### Epic #1: User Account Management
 
-# E.P.I.C :
+#### User Story 1: Register and Log In
+- **Acceptance Criteria:**
+  - **Given:** The user is on the registration page and fills in all required fields (name, email, password).
+  - **When:** The user submits the registration form.
+  - **Then:** A confirmation email is sent, and the user can activate their account.
 
+#### User Story 2: Manage User Accounts
+- **Acceptance Criteria:**
+  - **Given:** The administrator is logged in and accesses the user management panel.
+  - **When:** The administrator modifies, disables, or deletes a user account.
+  - **Then:** The changes are saved, and a confirmation message is displayed.
 
-    Epic #1 (issue) : Gestion de compte utilisateur
-        User Story 1 (sub-issue) : En tant qu'utilisateur, je veux pouvoir m'inscrire afin d'accéder aux fonctionnalités de l'application.
-        # critères d'acceptation :
-        - given : L'utilisateur est sur la page d'inscription et remplit tous les champs requis (nom, prénom, email, mot de passe).
-        - when : L'utilisateur soumet le formulaire d'inscription.
-        - then : Un email de confirmation est envoyé, et un message de succès s'affiche. L'utilisateur peut activer son compte via le lien dans l'email.
+#### User Story 3: Upload Videos
+- **Acceptance Criteria:**
+  - **Given:** The user is logged in and accesses the video upload page.
+  - **When:** The user fills in the form with a title, description, and selects a video file.
+  - **Then:** The video is submitted for validation, and an upload confirmation is displayed.
 
-        User Story 2 (sub-issue) : En tant qu'utilisateur, je veux pouvoir me connecter afin de gérer mon compte.
-        # critères d'acceptation :
-        - given : L'utilisateur est sur la page de connexion et entre son email et son mot de passe.
-        - when : L'utilisateur soumet le formulaire de connexion.
-        - then : L'utilisateur est redirigé vers son tableau de bord en cas de succès, ou un message d'erreur est affiché en cas d'échec.
+---
 
-        User Story 3 (sub-issue) : En tant qu'administrateur, je veux pouvoir gérer les comptes utilisateurs afin de maintenir la sécurité de l'application.
-        # critères d'acceptation :
-        - given : L'administrateur est connecté et accède à la liste des utilisateurs.
-        - when : L'administrateur sélectionne un utilisateur pour désactiver, supprimer ou modifier son rôle.
-        - then : Les modifications sont enregistrées et un message de confirmation est affiché.
+### Epic #2: Video Management
 
-        User Story 4 (sub-issue) : En tant qu'utilisateur, je veux pouvoir uploader ma vidéo afin de participer au concours.
-        # critères d'acceptation :
-        - given : L'utilisateur est connecté et accède à la page d'upload de vidéo.
-        - when : L'utilisateur remplit le formulaire avec un titre, une description, et sélectionne un fichier vidéo.
-        - then : La vidéo est soumise pour validation et une confirmation d'upload est affichée.
+#### User Story 1: Upload Videos for Competition
+- **Acceptance Criteria:**
+  - **Given:** The user is logged in and accesses the video upload page.
+  - **When:** The user fills in the form with a title, description, and selects a video file.
+  - **Then:** The video is submitted for validation, and a confirmation message is displayed.
 
-        User Story 5 (sub-issue) : En tant qu'administrateur, je veux pouvoir voter pour les vidéos (Jury) afin de sélectionner les meilleures vidéos.
-        # critères d'acceptation :
-        - given : L'administrateur est connecté et accède à la liste des vidéos à voter.
-        - when : L'administrateur attribue une note ou un vote à une vidéo.
-        - then : Le vote est enregistré et pris en compte dans le classement.
+#### User Story 2: Moderate Videos
+- **Acceptance Criteria:**
+  - **Given:** The moderator is logged in and accesses the list of pending videos.
+  - **When:** The moderator approves or rejects a video.
+  - **Then:** The video is either published, or a rejection message is sent to the user.
 
-        User Story 6 (sub-issue) : En tant qu'administrateur, je veux pouvoir classer les vidéos en fonction des votes afin de déterminer les 50 vidéos officielles.
-        # critères d'acceptation :
-        - given : Les votes des vidéos sont enregistrés dans le système.
-        - when : L'administrateur génère le classement des vidéos.
-        - then : Les 50 vidéos avec le plus de votes sont marquées comme "officielles" et affichées dans le classement.
+---
 
-        User Story 7 (sub-issue) : En tant qu'utilisateur, je veux pouvoir assister au classement des vidéos afin de voir les résultats du concours.
-        # critères d'acceptation :
-        - given : L'utilisateur accède à la page publique du classement.
-        - when : L'utilisateur consulte la liste des vidéos classées.
-        - then : Les vidéos sont triées par ordre décroissant de votes avec leurs titres, descriptions, et nombres de votes affichés.
+### Epic #3: Security Management
 
-        User Story 8 (sub-issue) : En tant qu'utilisateur, je veux pouvoir partager les vidéos sur les réseaux sociaux afin de promouvoir le concours.
-        # critères d'acceptation :
-        - given : L'utilisateur est sur la page d'une vidéo.
-        - when : L'utilisateur clique sur le bouton de partage pour un réseau social.
-        - then : Un lien vers la vidéo est généré et partagé avec un message personnalisé.
+#### User Story 1: Vote on Videos
+- **Acceptance Criteria:**
+  - **Given:** The jury member is logged in and accesses the voting page.
+  - **When:** The jury member assigns a score to a video.
+  - **Then:** The vote is recorded and reflected in the leaderboard.
 
-        User Story 9 (sub-issue) : En tant qu'utilisateur, je veux recevoir des notifications sur les mises à jour importantes du concours.
-        # critères d'acceptation :
-        - given : L'utilisateur est inscrit et a activé les notifications.
-        - when : Une mise à jour importante est publiée (ex. nouveau classement, nouvelles vidéos).
-        - then : L'utilisateur reçoit une notification par email avec les détails de la mise à jour.
+#### User Story 2: Sponsor Videos
+- **Acceptance Criteria:**
+  - **Given:** The partner accesses the sponsorship section.
+  - **When:** The partner selects a video and completes the sponsorship process.
+  - **Then:** The sponsorship is confirmed, and the video displays the partner's branding.
 
-    Epic #2 (issue) : Gestion des vidéos :
-        User Story 1 (sub-issue) : En tant qu'utilisateur, je veux pouvoir uploader mes vidéos pour participer au concours.
-        # critères d'acceptation :
-        - given : L'utilisateur est connecté et accède à la page d'upload de vidéo.
-        - when : L'utilisateur remplit le formulaire avec un titre, une description, et sélectionne un fichier vidéo.
-        - then : La vidéo est soumise pour validation et une confirmation d'upload est affichée.
+---
 
-        User Story 2 (sub-issue) : En tant qu'utilisateur, je veux pouvoir mettre une miniature à ma vidéo pour attirer l'œil.
-        # critères d'acceptation :
-        - given : L'utilisateur est sur la page d'upload de vidéo.
-        - when : L'utilisateur sélectionne une image miniature pour sa vidéo.
-        - then : La miniature est enregistrée et affichée avec la vidéo.
+## Use Case
 
-        User Story 3 (sub-issue) : En tant qu'administrateur, je veux pouvoir modérer les vidéos pour garantir le respect des règles.
-        # critères d'acceptation :
-        - given : L'administrateur est connecté et accède à la liste des vidéos en attente de validation.
-        - when : L'administrateur approuve ou rejette une vidéo.
-        - then : La vidéo est publiée ou un message de rejet est envoyé à l'utilisateur.
+### Title: Upload and Vote for Videos
 
-        User Story 4 (sub-issue) : En tant qu'utilisateur, je veux pouvoir supprimer une vidéo que j'ai uploadée pour gérer mon contenu.
-        # critères d'acceptation :
-        - given : L'utilisateur est connecté et accède à la liste de ses vidéos.
-        - when : L'utilisateur sélectionne une vidéo et confirme sa suppression.
-        - then : La vidéo est supprimée du système et un message de confirmation est affiché.
+#### Main Actors
+- User
+- Administrator
+- Jury
 
-    Epic #3 (issue) : Gestion de la sécurité :
-        User Story 1 (sub-issue) : En tant qu'utilisateur, je veux que mes données personnelles soient protégées afin de garantir ma vie privée.
-        # critères d'acceptation :
-        - given : L'utilisateur est inscrit et connecté.
-        - when : L'utilisateur consulte ou met à jour ses données personnelles.
-        - then : Les données sont stockées de manière sécurisée et conformes aux réglementations RGPD.
+#### Description
+A user can upload a video, which will then go through a moderation process. Once validated, the video will be available for voting. Jury members and users can vote for the videos, and a ranking is automatically generated.
 
-        User Story 2 (sub-issue) : En tant qu'administrateur, je veux mettre en place des mesures de sécurité pour protéger l'application contre les attaques.
-        # critères d'acceptation :
-        - given : L'application est en production.
-        - when : Des tentatives d'accès non autorisées sont détectées.
-        - then : Les journaux d'accès sont mis à jour et des alertes sont envoyées à l'équipe de sécurité.
+#### Preconditions
+- The user must be registered and logged in.
 
-        User Story 3 (sub-issue) : En tant qu'utilisateur, je veux pouvoir signaler des comportements inappropriés ou des contenus non conformes afin de maintenir un environnement sûr.
-        # critères d'acceptation :
-        - given : L'utilisateur est connecté et accède à une vidéo ou un commentaire.
-        - when : L'utilisateur clique sur le bouton de signalement et remplit le formulaire.
-        - then : Le signalement est enregistré et transmis à l'équipe de modération.
+#### Main Scenario
+1. The user logs in.
+2. They access the upload page and submit a video.
+3. The administrator validates or rejects the video.
+4. Validated videos are available for voting.
+5. Users and juries vote.
+6. A ranking is generated.
 
-        User Story 4 (sub-issue) : En tant qu'administrateur, je veux pouvoir gérer les signalements des utilisateurs afin de prendre des mesures appropriées.
-        # critères d'acceptation :
-        - given : L'administrateur est connecté et accède à la liste des signalements.
-        - when : L'administrateur examine un signalement et prend une décision (traité ou rejeté).
-        - then : Le statut du signalement est mis à jour et les actions nécessaires sont effectuées.
+#### Extensions
+- If the video is rejected, the user receives a notification with the rejection reasons.
+- If a user reports a video, the administrator can remove it.
 
-        User Story 5 (sub-issue) : En tant qu'administrateur, je veux pouvoir modérer les commentaires et les interactions des utilisateurs afin de garantir le respect des règles de la communauté.
-        # critères d'acceptation :
-        - given : L'administrateur est connecté et accède à la liste des commentaires.
-        - when : L'administrateur supprime un commentaire inapproprié.
-        - then : Le commentaire est supprimé et l'utilisateur est notifié.
+---
 
-        User Story 6 (sub-issue) : En tant qu'administrateur, je veux pouvoir modérer le contenu sensible des vidéos, des commentaires, des sous-titres des vidéos et de l'audio.
-        # critères d'acceptation :
-        - given : L'administrateur est connecté et accède à la liste des contenus signalés.
-        - when : L'administrateur marque un contenu comme sensible.
-        - then : Le contenu est masqué jusqu'à validation et l'utilisateur est informé.
+## MCD (Conceptual Data Model)
 
+### Entities
+- **User:** id, first name, last name, email, password, role.
+- **Video:** id, title, description, thumbnail, path, status, user_id.
+- **Vote:** id, user_id, video_id, score.
+- **Report:** id, user_id, video_id, reason.
 
+### Main Relationships
+- A user can upload multiple videos.
+- A video can receive multiple votes.
+- A video can be reported multiple times.
 
+---
 
-# Use Case :
+## MLD (Logical Data Model)
 
+The MLD translates the MCD into relational tables:
 
-- **Titre** : Upload et vote des vidéos.
-- **Acteurs principaux** : Utilisateur, Administrateur, Jury.
-- **Description** : Un utilisateur peut uploader une vidéo, qui sera ensuite soumise à un processus de modération. Une fois validée, la vidéo sera disponible pour le vote. Les jurys et utilisateurs peuvent voter pour les vidéos, et un classement est généré automatiquement.
-- **Préconditions** : L'utilisateur doit être inscrit et connecté.
-- **Scénario principal** :
-  1. L'utilisateur se connecte.
-  2. Il accède à la page d'upload et soumet une vidéo.
-  3. L'administrateur valide ou rejette la vidéo.
-  4. Les vidéos validées sont disponibles pour le vote.
-  5. Les utilisateurs et jurys votent.
-  6. Un classement est généré.
-- **Extensions** :
-  - Si la vidéo est rejetée, l'utilisateur reçoit une notification avec les raisons du rejet.
-  - Si un utilisateur signale une vidéo, l'administrateur peut la retirer.
+### User Table:
+- id (primary key)
+- first name
+- last name
+- email (unique)
+- password
+- role
 
-# MCD :
+### Video Table:
+- id (primary key)
+- title
+- description
+- thumbnail
+- path
+- status
+- user_id (foreign key to User.id)
 
-Le Modèle Conceptuel de Données (MCD) inclut les entités suivantes :
+### Vote Table:
+- id (primary key)
+- user_id (foreign key to User.id)
+- video_id (foreign key to Video.id)
+- score
 
-- **Utilisateur** : id, nom, prénom, email, mot de passe, rôle.
-- **Vidéo** : id, titre, description, miniature, chemin, statut, utilisateur_id.
-- **Vote** : id, utilisateur_id, video_id, score.
-- **Signalement** : id, utilisateur_id, video_id, raison.
+### Report Table:
+- id (primary key)
+- user_id (foreign key to User.id)
+- video_id (foreign key to Video.id)
+- reason
 
-Relations principales :
-- Un utilisateur peut uploader plusieurs vidéos.
-- Une vidéo peut recevoir plusieurs votes.
-- Une vidéo peut être signalée plusieurs fois.
+---
 
-# MLD :
+## 2. Client Front-end Specification
 
-Le Modèle Logique de Données (MLD) traduit le MCD en tables relationnelles :
+### Functional Specifications
 
-- **Table Utilisateur** :
-  - id (clé primaire)
-  - nom
-  - prénom
-  - email (unique)
-  - mot de passe
-  - rôle
+This section describes the detailed functionalities of the project through user stories and epics. For each feature, make sure to include detailed validation constraints.
 
-- **Table Vidéo** :
-  - id (clé primaire)
-  - titre
-  - description
-  - miniature
-  - chemin
-  - statut
-  - utilisateur_id (clé étrangère vers Utilisateur.id)
-
-- **Table Vote** :
-  - id (clé primaire)
-  - utilisateur_id (clé étrangère vers Utilisateur.id)
-  - video_id (clé étrangère vers Vidéo.id)
-  - score
-
-- **Table Signalement** :
-  - id (clé primaire)
-  - utilisateur_id (clé étrangère vers Utilisateur.id)
-  - video_id (clé étrangère vers Vidéo.id)
-  - raison
-
-# 2. Cahier des charges Client Front-end
-
-## Cahier des Charges Fonctionnel
-
-Ici sont décrites de façon exhaustive les fonctionnalités du projet grâce aux user stories et epics. Pour chaque fonctionnalité, n’oubliez pas d’y inscrire des contraintes de validations détaillées.
-
-### Besoin
-
-- Permettre aux utilisateurs de s'inscrire, se connecter, et gérer leurs comptes.
-- Permettre l'upload, le vote, et le partage des vidéos.
-- Afficher un classement des vidéos.
-- Assurer une navigation fluide et intuitive.
+### Requirements
+- Allow users to register, log in, and manage their accounts.
+- Enable video uploading, voting, and sharing.
+- Display a ranking of videos.
+- Ensure smooth and intuitive navigation.
 
 ### User Stories
 
-- **En tant qu'utilisateur, je veux pouvoir m'inscrire afin d'accéder aux fonctionnalités de l'application.**
-  - Critères d'acceptation :
-    - L'utilisateur peut remplir un formulaire d'inscription avec les champs requis (nom, prénom, email, mot de passe).
-    - Un email de confirmation est envoyé à l'utilisateur après l'inscription.
-    - L'utilisateur peut activer son compte en cliquant sur le lien de confirmation dans l'email.
-    - Les mots de passe sont stockés de manière sécurisée (hashage).
-    - Les erreurs d'inscription (email déjà utilisé, mot de passe trop faible, etc.) sont correctement gérées et affichées à l'utilisateur.
+#### As a user, I want to register to access the platform's features.
+- **Acceptance Criteria:**
+  - The user can fill out a registration form with required fields (name, email, password).
+  - A confirmation email is sent after registration.
+  - The user can activate their account by clicking the link in the email.
+  - Passwords are securely stored (hashed).
+  - Registration errors (email already used, weak password, etc.) are handled and displayed clearly.
 
-- **En tant qu'utilisateur, je veux pouvoir me connecter afin de gérer mon compte.**
-  - Critères d'acceptation :
-    - given : L'utilisateur est sur la page de connexion et entre son email et son mot de passe.
-    - when : L'utilisateur soumet le formulaire de connexion.
-    - then : L'utilisateur est redirigé vers son tableau de bord en cas de succès, ou un message d'erreur est affiché en cas d'échec.
+#### As a user, I want to log in to manage my account.
+- **Acceptance Criteria:**
+  - **Given:** The user is on the login page and enters their email and password.
+  - **When:** The user submits the login form.
+  - **Then:** The user is redirected to their dashboard on success or an error message is displayed on failure.
 
-- **En tant qu'administrateur, je veux pouvoir gérer les comptes utilisateurs afin de maintenir la sécurité de l'application.**
-  - Critères d'acceptation :
-    - L'administrateur peut accéder à une liste de tous les utilisateurs inscrits.
-    - L'administrateur peut désactiver ou supprimer des comptes utilisateurs.
-    - L'administrateur peut attribuer des rôles (utilisateur, administrateur, jury, modérateurs, visiteurs) aux utilisateurs.
+#### As an administrator, I want to manage user accounts to maintain security.
+- **Acceptance Criteria:**
+  - The administrator can access a list of all registered users.
+  - The administrator can deactivate or delete user accounts.
+  - The administrator can assign roles (user, admin, jury, moderator, visitor) to users.
 
-- **En tant qu'un utilisateur, je veux pouvoir remplir le formulaire pour uploader ma video afin de participer au concours.**
-  - Critères d'acceptation :
-    - L'utilisateur peut accéder à un formulaire d'upload de vidéo.
-    - Le formulaire permet de renseigner un titre, une description, et de sélectionner un fichier vidéo.
-    - Une confirmation est affichée après un upload réussi.
-    - Les erreurs (format non supporté, taille excessive, etc.) sont affichées clairement.
+#### As a user, I want to fill out the form to upload my video to participate in the contest.
+- **Acceptance Criteria:**
+  - The user can access a video upload form.
+  - The form allows them to enter a title, description, and select a video file.
+  - A confirmation is displayed after a successful upload.
+  - Errors (unsupported format, excessive size, etc.) are displayed clearly.
 
-- **En tant qu'administrateur, je veux pouvoir voter pour les vidéos (Jury) afin de sélectionner les meilleures vidéos.**
-  - Critères d'acceptation :
-    - L'administrateur peut accéder à une liste de vidéos à voter.
-    - Chaque vidéo peut recevoir une note ou un vote.
-    - Les votes sont enregistrés et pris en compte dans le classement.
+#### As an administrator, I want to vote on videos (Jury) to select the best videos.
+- **Acceptance Criteria:**
+  - The administrator can access a list of videos to vote on.
+  - Each video can receive a rating or vote.
+  - Votes are recorded and considered in the ranking.
 
-- **En tant qu'administrateur, je veux pouvoir classer les vidéos en fonction des votes afin de déterminer les 50 vidéos officielles.**
-  - Critères d'acceptation :
-    - Un classement des vidéos est généré automatiquement en fonction des votes.
-    - L'administrateur peut ajuster manuellement le classement si nécessaire.
-    - Les 50 vidéos avec le plus de votes sont marquées comme "officielles".
+#### As an administrator, I want to rank videos based on votes to determine the top 50 official videos.
+- **Acceptance Criteria:**
+  - A ranking of videos is generated automatically based on votes.
+  - The administrator can adjust the ranking manually if needed.
+  - The top 50 videos with the most votes are marked as "official."
 
-- **En tant qu'utilisateur, je veux pouvoir assister au classement des vidéos afin de voir les résultats du concours.
-  - Critères d'acceptation :
-    - Une page publique affiche le classement des vidéos.
-    - Les vidéos sont triées par ordre décroissant de votes.
-    - Les informations affichées incluent le titre, la description, et le nombre de votes.
+#### As a user, I want to see the video ranking to check the contest results.
+- **Acceptance Criteria:**
+  - A public page displays the video ranking.
+  - Videos are sorted in descending order by votes.
+  - Information displayed includes title, description, and number of votes.
 
-- **En tant qu'utilisateur, je veux pouvoir partager les vidéos sur les réseaux sociaux afin de promouvoir le concours.**
-  - Critères d'acceptation :
-    - Chaque vidéo dispose d'un bouton de partage pour les réseaux sociaux.
-    - Les réseaux sociaux supportés incluent Facebook, Twitter, et LinkedIn.
-    - Le partage inclut un lien vers la vidéo et un message personnalisé.
+#### As a user, I want to share videos on social networks to promote the contest.
+- **Acceptance Criteria:**
+  - Each video has a share button for social networks.
+  - Supported social networks include Facebook, Twitter, and LinkedIn.
+  - The share includes a link to the video and a personalized message.
 
-- **En tant qu'utilisateur, je veux recevoir des notifications sur les mises à jour importantes du concours.**
-  - Critères d'acceptation :
-    - Les utilisateurs reçoivent des notifications par email pour les annonces importantes.
-    - Les notifications incluent des informations sur les nouvelles vidéos, les classements, et les événements.
+#### As a user, I want to receive notifications about important updates regarding the contest.
+- **Acceptance Criteria:**
+  - Users receive email notifications for important announcements.
+  - Notifications include information about new videos, rankings, and events.
 
-## Cahier des Charges Non-Fonctionnel
+### Non-Functional Specifications
 
 ### Routes
+- `/signup`: Registration form.
+- `/login`: Login page.
+- `/upload`: Video upload form.
+- `/ranking`: Video ranking display.
+- `/admin`: Admin dashboard.
 
-- **/inscription** : Formulaire d'inscription.
-- **/connexion** : Page de connexion.
-- **/upload** : Formulaire d'upload de vidéo.
-- **/classement** : Affichage du classement des vidéos.
-- **/admin** : Tableau de bord administrateur.
+### Security Constraints
+- Use HTTPS for all communications.
+- Validate user inputs on both client and server.
+- Protection against CSRF and XSS attacks.
+- Manage sessions with secure cookies.
 
-### Contraintes de Sécurité
+### Deployment
+- Use Docker for containerization.
+- Set up a CI/CD pipeline for automated deployments.
+- Host on a cloud platform (e.g., Azure, AWS).
 
-- Utilisation de HTTPS pour toutes les communications.
-- Validation des entrées utilisateur côté client et serveur.
-- Protection contre les attaques CSRF et XSS.
-- Gestion des sessions avec des cookies sécurisés.
+---
 
-### Déploiement
+## 3. Client Backend Specifications
 
-- Utilisation de Docker pour la conteneurisation.
-- Mise en place d'un pipeline CI/CD pour les déploiements automatiques.
-- Hébergement sur une plateforme cloud (ex. Azure, AWS).
+### Functional Specifications
 
-# 3. Cahier des charges client du Backend
+### Requirements
+- Manage users, videos, votes, and reports.
+- Ensure content moderation.
+- Provide secure endpoints for the front-end.
 
-## Cahier des Charges Fonctionnel
+### Endpoints
+- `POST /api/users`: Create a user.
+- `POST /api/login`: Authentication.
+- `POST /api/videos`: Video upload.
+- `GET /api/videos`: List videos.
+- `POST /api/votes`: Record a vote.
+- `POST /api/reports`: Report a video.
 
-### Besoin
+### Constraints
+- Validate incoming data.
+- Handle errors with appropriate HTTP codes.
+- Limit the number of requests per user (rate limiting).
 
-- Gérer les utilisateurs, vidéos, votes, et signalements.
-- Assurer la modération des contenus.
-- Fournir des endpoints sécurisés pour le front-end.
+### Non-Functional Specifications
 
-### EndPoints
+### Security Constraints
+- Authentication based on JWT tokens.
+- Role-based access control (RBAC).
+- Encrypt passwords with bcrypt.
 
-- **POST /api/utilisateurs** : Création d'un utilisateur.
-- **POST /api/connexion** : Authentification.
-- **POST /api/videos** : Upload de vidéo.
-- **GET /api/videos** : Liste des vidéos.
-- **POST /api/votes** : Enregistrement d'un vote.
-- **POST /api/signalements** : Signalement d'une vidéo.
+### GDPR
+- Anonymize sensitive data.
+- Allow the deletion of personal data on request.
 
-### Contraintes
-
-- Validation des données entrantes.
-- Gestion des erreurs avec des codes HTTP appropriés.
-- Limitation du nombre de requêtes par utilisateur (rate limiting).
-
-## Cahier des Charges Non-Fonctionnel
-
-### Contraintes de Sécurité
-
-- Authentification basée sur des tokens JWT.
-- Gestion des rôles avec RBAC (Role-Based Access Control).
-- Chiffrement des mots de passe avec bcrypt.
-
-### RGPD
-
-- Anonymisation des données sensibles.
-- Suppression des données personnelles sur demande.
-
-### Performances
-
-- Support pour 10 000 utilisateurs simultanés.
-- Temps de réponse inférieur à 200 ms pour 95 % des requêtes.
+### Performance
+- Support for 10,000 simultaneous users.
+- Response time under 200ms for 95% of requests.
