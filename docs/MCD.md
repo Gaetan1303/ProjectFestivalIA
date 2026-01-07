@@ -100,7 +100,7 @@ erDiagram
     }
 
     Language {
-        int id PK
+        code id PK
         string name
     }
 
