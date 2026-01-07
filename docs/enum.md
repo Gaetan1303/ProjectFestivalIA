@@ -23,7 +23,7 @@ enum VideoStatus {
 ## Type de Vidéo
 ```typescript
 enum VideoType {
-  HYBRID = "Hybrid"
+  HYBRID = "Hybrid",
   FULLY_AI_GENERATED = "Fully AI-generated"
 }
 ```
@@ -43,5 +43,4 @@ enum Language {
   FRENCH = "French",
   ENGLISH = "English"
 }
-
 ```

@@ -12,7 +12,7 @@ ProjectFestivalIA est une plateforme pour héberger et gérer un concours intern
 - Assurer un concours **équitable**, **modéré** et **transparent**, avec des statistiques utiles.
 
 ### Contexte
-Plateforme créée pour la **Mars IA Night**. Le concours porte sur des courts métrages de **1 minute** sur le thème **« Desirable Futures »**, avec une audience internationale (120+ pays), un objectif de 600+ films et 3 000 visiteurs à l’événement physique à Marseille.
+Plateforme créée pour la **Mars AI Night**. Le concours porte sur des courts métrages de **1 minute** sur le thème **« Desirable Futures »**, avec une audience internationale (120+ pays), un objectif de 600+ films et 3 000 visiteurs à l'événement physique à Marseille.
 
 
 ## Epic #1 — Comptes & Profil

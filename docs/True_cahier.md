@@ -8,9 +8,9 @@
 
 ### Description de l’application
 
-La plateforme **Mars AI** (festival ia) est une application web permettant d’organiser et de gérer un concours international de courts-métrages entièrement générés par Intelligence Artificielle. Elle couvre l’ensemble du cycle de vie du concours : inscription des utilisateurs, soumission des films, modération, notation par un jury, classement, diffusion publique et statistiques.
+La plateforme **Mars AI** (festival IA) est une application web permettant d'organiser et de gérer un concours international de courts-métrages entièrement générés par Intelligence Artificielle. Elle couvre l'ensemble du cycle de vie du concours : inscription des utilisateurs, soumission des films, modération, notation par un jury, classement, diffusion publique et statistiques.
 
-Pour plus de détails, consultez le [document User Stories](UserStory.md).
+Pour plus de détails, consultez le document User Stories.
 
 ### Objectifs
 
@@ -27,7 +27,7 @@ Pour plus de détails, consultez le [document User Stories](UserStory.md).
 
 ### Contexte d’utilisation
 
-* Plateforme créée pour la **Mars IA Night**.  
+* Plateforme créée pour la Mars IA Night.  
 * Le concours porte sur des courts métrages de **1 minute** autour du thème **« Desirable Futures »**.
 * Audience internationale : **120+ pays**
 * Environ **600+ films soumis**
@@ -41,38 +41,38 @@ Pour plus de détails, consultez le [document User Stories](UserStory.md).
 
 ## B. Système d’Authentification et Rôles
 
-L’application doit gérer **quatre types d’utilisateurs**, avec des permissions sécurisées.
+L’application doit gérer quatre types d’utilisateurs, avec des permissions sécurisées.
 
 ### Méthodes d’accès
 - Inscription / Connexion classique
 
 ### Rôles
 
-#### 🎬 Réalisateur
-- Soumission d’un **seul film par réalisateur**
+#### Réalisateur
+- Soumission d’un seul film par réalisateur
 - Gestion d’un profil complet :
   - Biographie
   - École
   - Réseaux sociaux
 - Accès à un portfolio (si existant)
 
-#### 👥 Public / Visiteur
+#### Public / Visiteur
 - Consultation du catalogue
 - Partage sur les réseaux sociaux
 - Compteur de vues
 - Inscription à la newsletter
 - Inscription pour obtenir une place au festival
 
-#### 🏆 Jury
+#### Jury
 - Interface privée dédiée
-- Notation des **50 films de la sélection officielle** :
-  - Notes de **1 à 10**
+- Notation des 50 films de la sélection officielle :
+  - Notes de 1 à 10
   - Commentaires
 - Expérience optimisée :
   - Classement par films déjà votés / non votés
   - Navigation fluide entre les vidéos
 
-#### 🛠 Administrateur
+#### Administrateur
 - Modération des contenus
 - Gestion des partenaires
 - Accès à un tableau de bord statistique :
@@ -84,7 +84,7 @@ L’application doit gérer **quatre types d’utilisateurs**, avec des permissi
 ## C. Gestion des Médias et Workflow
 
 ### Processus de Soumission
-- Formulaire actif pendant **2 mois**
+- Formulaire actif pendant 2 mois
 - Verrouillage automatique par le serveur après la date limite
 
 ### Fiche Technique IA
@@ -94,18 +94,18 @@ L’application doit gérer **quatre types d’utilisateurs**, avec des permissi
   - Post-production
 
 ### Contrôle des Droits d’Auteur
-- Intégration de l’**API YouTube**
+- Intégration de l’API YouTube
 - Vérification des droits (musique / images) avant publication officielle
 
 ### Affichage des Films
 - Grille de miniatures
-- Pagination : **20 médias par page**
+- Pagination : 20 médias par page
 - Filtres par catégorie ou type d’IA
 
 ### Posters
 - Upload d’images :
   - Formats : JPG / PNG / GIF
-  - Taille maximale : **2 Mo**
+  - Taille maximale : 2 Mo
 - Redimensionnement automatique pour les miniatures
 
 ---
@@ -114,8 +114,8 @@ L’application doit gérer **quatre types d’utilisateurs**, avec des permissi
 
 ### Internationalisation (i18n)
 - Interface disponible intégralement en :
-  - 🇫🇷 Français
-  - 🇬🇧 Anglais
+  - Français
+  - Anglais
 
 ---
 
@@ -128,17 +128,17 @@ L’application doit gérer **quatre types d’utilisateurs**, avec des permissi
 
 ### Performance
 - Analyse du déploiement
-- Optimisation du score **Lighthouse**
+- Optimisation du score Lighthouse
 
 ---
 
 ## F. Modules Optionnels
 
 ### Authentification
-- Connexion via **Google OAuth**
+- Connexion via Google OAuth
 
 ### Notifications Temps Réel
-- Utilisation des **WebSockets**
+- Utilisation des WebSockets
 - Sans API externe
 - Notifications sur le statut de validation des films
 
@@ -154,7 +154,7 @@ L’application doit gérer **quatre types d’utilisateurs**, avec des permissi
 ### Système de Réservation
 - Module simple pour :
   - S’inscrire aux ateliers
-  - S’inscrire à la cérémonie de clôture du **13 juin**
+  - S’inscrire à la cérémonie de clôture du 13 juin
 
 ---
 
@@ -182,7 +182,7 @@ Les fonctionnalités sont structurées autour des epics suivantes :
 8. Accessibilité & Inclusion
 9. Programme & Réservations
 
-Les user stories détaillées, critères d’acceptation et priorités sont décrites dans l’annexe [User Stories](UserStory.md).
+Les user stories détaillées, critères d’acceptation et priorités sont décrites dans l’annexe User Stories.
 
 #### Contraintes de validation
 
@@ -233,7 +233,6 @@ Les user stories détaillées, critères d’acceptation et priorités sont déc
 * `/profile/edit` : Édition avancée du profil utilisateur.
 * `/RSS` : Flux RSS des dernières vidéos et actualités.
 
-
 #### Contraintes de sécurité Front
 
 * Protection des routes par rôle
@@ -259,11 +258,11 @@ Le backend expose une API sécurisée consommée par :
 * Le client web React
 * Potentiellement des services tiers (analytics, diffusion)
 
-Pour plus de détails sur les spécifications fonctionnelles, consultez le [document MCD](MCD.md).
+Pour plus de détails sur les spécifications fonctionnelles, consultez le document MCD.
 
 #### Charge estimée
 
-* Utilisateurs simultanés : 20000 vidéos obtenues 
+* Utilisateurs simultanés : **20 000 utilisateurs connectés** 
 * Pics : publication classement, clôture soumissions
 * Requêtes : plusieurs dizaines de RPS en burst
 
@@ -286,7 +285,7 @@ Pour plus de détails sur les spécifications fonctionnelles, consultez le [docu
 * Notification
 * Langue
 
-Pour une vue complète du modèle de données, consultez le [document MCD](MCD.md).
+Pour une vue complète du modèle de données, consultez le document MCD.
 
 #### Endpoints Back-End
 
@@ -345,8 +344,6 @@ Pour une vue complète du modèle de données, consultez le [document MCD](MCD.m
 * `GET /admin/conference` : Gestion des conférences et CRUD associé.
 * `GET /admin/analytics` : Tableau de bord analytique pour les administrateurs.
 
-
-
 ##### Contraintes API
 
 * DTO stricts
@@ -404,7 +401,7 @@ Pour une vue complète du modèle de données, consultez le [document MCD](MCD.m
 * Diagramme entité–relation (MCD)
 * Diagramme d’architecture (Front / Back / DB / Services)
 
-Pour consulter les diagrammes, référez-vous au [document UML](UseCases_UML.md).
+Pour consulter les diagrammes, référez-vous au document UML.
 
 ---
 

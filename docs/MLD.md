@@ -7,13 +7,13 @@
 - nom : Nom de l'utilisateur (string)
 - email : Adresse email unique (string)
 - motDePasse : Mot de passe sécurisé (string)
-- role : Rôle de l'utilisateur (enum: UTILISATEUR, ADMINISTRATEUR, MODERATEUR, JURY, PARTENAIRE_COMMERCIAL)
+- role : Rôle de l'utilisateur (enum: USER, ADMINISTRATOR, MODERATOR, JURY, COMMERCIAL_PARTNER)
 
 ### Table: Vidéo
 - **id** (PK) : Identifiant unique de la vidéo (string)
 - titre : Titre de la vidéo (string)
 - description : Description de la vidéo (text)
-- statut : Statut de la vidéo (enum: EN_ATTENTE, APPROUVEE, REJETEE)
+- statut : Statut de la vidéo (enum: PENDING, APPROVED, REJECTED)
 - chemin : Chemin ou URL de la vidéo (string)
 - dateSoumission : Date de soumission de la vidéo (date)
 - utilisateur_id (FK) : Référence à l'utilisateur ayant soumis la vidéo (string)
@@ -27,7 +27,7 @@
 
 ### Table: Notification
 - **id** (PK) : Identifiant unique de la notification (string)
-- type : Type de notification (enum: VALIDATION_VIDEO, NOUVELLE_VIDEO, MISE_A_JOUR_RANKING)
+- type : Type de notification (enum: VIDEO_VALIDATION, NEW_VIDEO, RANKING_UPDATE)
 - message : Contenu de la notification (text)
 - date : Date de création de la notification (date)
 - utilisateur_id (FK) : Référence à l'utilisateur destinataire (string)
@@ -68,4 +68,6 @@
 
 ---
 
-Modèle Logique des Données Modélisation des ensembles et de leurs attributs indépendamment du SGBD utilisé. Le MLD est une représentation simplifiée du modèle physique mais plus complète que le MCD.
+**Modèle Logique des Données (MLD)**
+
+Modélisation des ensembles et de leurs attributs indépendamment du SGBD utilisé. Le MLD est une représentation simplifiée du modèle physique mais plus complète que le MCD.
