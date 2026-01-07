@@ -4,11 +4,19 @@
 
 ## 1. Synopsis
 
+## A. Présentation du Projet et Objectifs
+
 ### Description de l’application
 
-La plateforme Festival IA (marsAI) est une application web permettant d’organiser et de gérer un concours international de courts-métrages entièrement générés par Intelligence Artificielle. Elle couvre l’ensemble du cycle de vie du concours : inscription des utilisateurs, soumission des films, modération, notation par un jury, classement, diffusion publique et statistiques.
+La plateforme **Mars AI** (festival ia) est une application web permettant d’organiser et de gérer un concours international de courts-métrages entièrement générés par Intelligence Artificielle. Elle couvre l’ensemble du cycle de vie du concours : inscription des utilisateurs, soumission des films, modération, notation par un jury, classement, diffusion publique et statistiques.
 
 Pour plus de détails, consultez le [document User Stories](UserStory.md).
+
+### Objectifs
+
+- Permettre aux réalisateurs de présenter leurs créations IA.
+- Offrir une expérience fluide pour découvrir, voter et partager les films.
+- Garantir un concours équitable, modéré et transparent, avec des statistiques exploitables.
 
 ### Besoin de la cible
 
@@ -19,13 +27,134 @@ Pour plus de détails, consultez le [document User Stories](UserStory.md).
 
 ### Contexte d’utilisation
 
-* Concours international (120+ pays)
-* Environ 600 films soumis
+* Plateforme créée pour la **Mars IA Night**.  
+* Le concours porte sur des courts métrages de **1 minute** autour du thème **« Desirable Futures »**.
+* Audience internationale : **120+ pays**
+* Environ **600+ films soumis**
 * Pic de trafic attendu lors :
 
   * Ouverture/fermeture des soumissions
   * Publication du Top 50
-  * Événement physique à Marseille (~3 000 visiteurs)
+  * Événement physique : **~3 000 visiteurs à Marseille**
+
+---
+
+## B. Système d’Authentification et Rôles
+
+L’application doit gérer **quatre types d’utilisateurs**, avec des permissions sécurisées.
+
+### Méthodes d’accès
+- Inscription / Connexion classique
+
+### Rôles
+
+#### 🎬 Réalisateur
+- Soumission d’un **seul film par réalisateur**
+- Gestion d’un profil complet :
+  - Biographie
+  - École
+  - Réseaux sociaux
+- Accès à un portfolio (si existant)
+
+#### 👥 Public / Visiteur
+- Consultation du catalogue
+- Partage sur les réseaux sociaux
+- Compteur de vues
+- Inscription à la newsletter
+- Inscription pour obtenir une place au festival
+
+#### 🏆 Jury
+- Interface privée dédiée
+- Notation des **50 films de la sélection officielle** :
+  - Notes de **1 à 10**
+  - Commentaires
+- Expérience optimisée :
+  - Classement par films déjà votés / non votés
+  - Navigation fluide entre les vidéos
+
+#### 🛠 Administrateur
+- Modération des contenus
+- Gestion des partenaires
+- Accès à un tableau de bord statistique :
+  - Provenance géographique des films
+  - Outils IA les plus utilisés
+
+---
+
+## C. Gestion des Médias et Workflow
+
+### Processus de Soumission
+- Formulaire actif pendant **2 mois**
+- Verrouillage automatique par le serveur après la date limite
+
+### Fiche Technique IA
+- Champs obligatoires détaillant :
+  - Outils IA utilisés pour le scénario
+  - Génération d’images / vidéos
+  - Post-production
+
+### Contrôle des Droits d’Auteur
+- Intégration de l’**API YouTube**
+- Vérification des droits (musique / images) avant publication officielle
+
+### Affichage des Films
+- Grille de miniatures
+- Pagination : **20 médias par page**
+- Filtres par catégorie ou type d’IA
+
+### Posters
+- Upload d’images :
+  - Formats : JPG / PNG / GIF
+  - Taille maximale : **2 Mo**
+- Redimensionnement automatique pour les miniatures
+
+---
+
+## D. Fonctionnalités Avancées
+
+### Internationalisation (i18n)
+- Interface disponible intégralement en :
+  - 🇫🇷 Français
+  - 🇬🇧 Anglais
+
+---
+
+## E. Sécurité et Performance
+
+### Sécurité
+- Requêtes préparées obligatoires
+- Hashage sécurisé des mots de passe
+- Validation systématique des données côté serveur
+
+### Performance
+- Analyse du déploiement
+- Optimisation du score **Lighthouse**
+
+---
+
+## F. Modules Optionnels
+
+### Authentification
+- Connexion via **Google OAuth**
+
+### Notifications Temps Réel
+- Utilisation des **WebSockets**
+- Sans API externe
+- Notifications sur le statut de validation des films
+
+### Social Proof
+- Affichage des compteurs de vues
+- Boutons de partage sur les réseaux sociaux
+
+### Agenda Interactif
+- Planning des conférences
+- Tables rondes
+- Workshops prévus à Marseille
+
+### Système de Réservation
+- Module simple pour :
+  - S’inscrire aux ateliers
+  - S’inscrire à la cérémonie de clôture du **13 juin**
 
 ---
 
