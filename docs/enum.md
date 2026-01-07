@@ -2,37 +2,46 @@
 
 ## Rôles Utilisateurs
 ```typescript
-enum RoleUtilisateur {
-  UTILISATEUR = "Utilisateur",
-  ADMINISTRATEUR = "Administrateur",
-  MODERATEUR = "Modérateur",
+enum UserRole {
+  USER = "User",
+  ADMINISTRATOR = "Administrator",
+  MODERATOR = "Moderator",
   JURY = "Jury",
-  PARTENAIRE_COMMERCIAL = "PartenaireCommercial"
+  COMMERCIAL_PARTNER = "CommercialPartner"
 }
 ```
 
 ## Statuts Vidéo
 ```typescript
-enum StatutVideo {
-  EN_ATTENTE = "En attente",
-  APPROUVEE = "Approuvée",
-  REJETEE = "Rejetée"
+enum VideoStatus {
+  PENDING = "Pending",
+  APPROVED = "Approved",
+  REJECTED = "Rejected"
+}
+```
+
+## Type de Vidéo
+```typescript
+enum VideoType {
+  HYBRID = "Hybrid"
+  FULLY_AI_GENERATED = "Fully AI-generated"
 }
 ```
 
 ## Types de Notifications
 ```typescript
-enum TypeNotification {
-  VALIDATION_VIDEO = "Validation de vidéo",
-  NOUVELLE_VIDEO = "Nouvelle vidéo",
-  MISE_A_JOUR_RANKING = "Mise à jour du classement"
+enum NotificationType {
+  VIDEO_VALIDATION = "Video validation",
+  NEW_VIDEO = "New video",
+  RANKING_UPDATE = "Ranking update"
 }
 ```
 
 ## Langues Disponibles
 ```typescript
-enum Langue {
-  FRANCAIS = "Français",
-  ANGLAIS = "Anglais"
+enum Language {
+  FRENCH = "French",
+  ENGLISH = "English"
 }
+
 ```
