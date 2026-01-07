@@ -71,7 +71,7 @@ Les user stories détaillées, critères d’acceptation et priorités sont déc
 * React.js
 * Tailwind CSS
 
-#### Routes Front-End (Mises à jour)
+#### Routes Front-End
 
 * `/` : Page d'accueil avec présentation du concours.
 * `/login` : Page de connexion utilisateur.
@@ -83,6 +83,27 @@ Les user stories détaillées, critères d’acceptation et priorités sont déc
 * `/ranking` : Classement public des vidéos.
 * `/jury` : Interface dédiée aux membres du jury pour noter et commenter.
 * `/admin` : Tableau de bord pour les administrateurs (gestion des utilisateurs, vidéos, etc.).
+* `/about` : Page d'information sur le concours et l'équipe organisatrice.
+* `/contact` : Formulaire de contact et support utilisateur.
+* `/partenaires` : Espace dédié aux partenaires commerciaux.
+* `/vote` : Page de vote pour les membres du jury.
+* `/allvotes` : Page listant tous les votes effectués par le jury.
+* `/comments` : Page pour consulter et ajouter des commentaires sur les vidéos.
+* `/settings` : Paramètres utilisateur (langue, préférences, etc.).
+* `/sponsors` : Gestion des sponsors pour les administrateurs.
+* `/social-share` : Fonctionnalités de partage sur les réseaux sociaux.
+* `/notations` : Historique des notations effectuées par le jury.
+* `/categories` : Filtrage des vidéos par catégories thématiques.
+* `/workshops` : Inscription aux ateliers et événements liés au concours.
+* `/conferences` : Calendrier des conférences et webinaires.
+* `/calendar` : Vue calendrier des événements du concours.
+* `/faq` : Foire aux questions pour les utilisateurs.
+* `/terms` : Conditions générales d'utilisation.
+* `/privacy` : Politique de confidentialité et gestion des cookies.
+* `/onboarding` : Guide d'onboarding pour les nouveaux utilisateurs.
+* `/profile/edit` : Édition avancée du profil utilisateur.
+* `/RSS` : Flux RSS des dernières vidéos et actualités.
+
 
 #### Contraintes de sécurité Front
 
@@ -138,7 +159,7 @@ Pour plus de détails sur les spécifications fonctionnelles, consultez le [docu
 
 Pour une vue complète du modèle de données, consultez le [document MCD](MCD.md).
 
-#### Endpoints Back-End 
+#### Endpoints Back-End
 
 * `POST /auth/register` : Inscription d'un nouvel utilisateur.
 * `POST /auth/login` : Connexion utilisateur avec génération de token.
@@ -154,6 +175,48 @@ Pour une vue complète du modèle de données, consultez le [document MCD](MCD.m
 * `POST /votes` : Enregistrement d'un vote pour une vidéo.
 * `GET /analytics/videos` : Statistiques globales sur les vidéos (vues, partages, etc.).
 * `GET /analytics/users` : Statistiques sur les utilisateurs (inscriptions, activité).
+* `GET /notifications` : Récupération des notifications pour l'utilisateur connecté.
+* `POST /notifications` : Création d'une nouvelle notification (système).
+* `GET /languages` : Liste des langues disponibles.
+* `GET /admin/users` : Gestion des utilisateurs (liste, rôles, etc.).
+* `GET /admin/videos` : Gestion des vidéos (modération, statut, etc.).
+* `GET /admin/reports` : Rapports d'activité et logs système.
+* `POST /admin/sponsor` : Gestion des partenaires commerciaux et sponsoring.
+* `DELETE /admin/sponsor/:id` : Suppression d’un partenaire commercial.
+* `GET /admin/settings` : Configuration des paramètres globaux de l’application.
+* `PUT /admin/settings` : Mise à jour des paramètres globaux de l’application.
+* `GET /jury/videos` : Liste des vidéos à noter pour les membres du jury.
+* `POST /jury/notes` : Soumission des notes et commentaires par le jury.
+* `GET /sponsors` : Liste des sponsors pour affichage public.
+* `GET /ranking` : Récupération du classement des vidéos basé sur les votes
+* `GET /comments/:videoId` : Récupération des commentaires pour une vidéo spécifique.
+* `POST /comments` : Ajout d'un commentaire à une vidéo.
+* `GET /settings/:userId` : Récupération des paramètres utilisateur.
+* `PUT /settings/:userId` : Mise à jour des paramètres utilisateur.
+* `GET /social-share/:videoId` : Génération des liens de partage pour une vidéo spécifique.
+* `POST /social-share/log` : Enregistrement des partages effectués par les utilisateurs.
+* `GET /notations/:userId` : Récupération de l’historique des notations effectuées par un utilisateur.
+* `GET /categories` : Récupération des catégories thématiques disponibles.
+* `GET /workshops` : Liste des ateliers et événements liés au concours.
+* `POST /workshops/register` : Inscription à un atelier ou événement.
+* `GET /conferences` : Calendrier des conférences et webinaires.
+* `GET /calendar/events` : Récupération des événements du concours au format calendrier.
+* `GET /faq` : Récupération de la FAQ pour les utilisateurs.
+* `GET /terms` : Récupération des conditions générales d'utilisation.
+* `GET /privacy` : Récupération de la politique de confidentialité.
+* `GET /onboarding/:userId` : Récupération du guide d'onboarding pour un utilisateur.
+* `PUT /profile/edit/:userId` : Édition avancée du profil utilisateur.
+* `GET /RSS` : Récupération du flux RSS des dernières vidéos et actualités.
+* `GET /admin/logs` : Accès aux logs système pour les administrateurs.
+* `GET /admin/metrics` : Accès aux métriques de performance de l’application.
+* `POST /admin/backup` : Création d’une sauvegarde de la base de données.
+* `GET /admin/restore` : Restauration de la base de données à partir d’une sauvegarde.
+* `POST /admin/notifications/bulk` : Envoi de notifications en masse aux utilisateurs.
+* `GET /admin/workshop` : Gestion des workshops et CRUD associé.
+* `GET /admin/conference` : Gestion des conférences et CRUD associé.
+* `GET /admin/analytics` : Tableau de bord analytique pour les administrateurs.
+
+
 
 ##### Contraintes API
 
