@@ -10,16 +10,51 @@
 - Mot de passe : Chaîne de caractères
 - Rôle : Enum *(Utilisateur, Administrateur, Modérateur, Jury, PartenaireCommercial)*
 
+---
+
 ### Vidéo
 - **Identifiant** (`id`) : Clé primaire *(INT / BIGINT)*
 - Titre : Chaîne de caractères
 - Description : Texte
 - Statut : Enum *(En attente, Approuvée, Rejetée)*
 - Chemin : Chaîne de caractères *(URL ou chemin fichier)*
-- Type : Enum *(ex: 100% IA, Hybride, etc. — si tu le gardes)*
+- Type : Enum *(ex: 100% IA, Hybride, etc.)*
 - Date de soumission : Date
 - `utilisateur_id` : Clé étrangère vers **Utilisateur**
 - `langue_code` : Clé étrangère vers **Langue**
+
+---
+
+### Miniature (Thumbnail)
+> Une vidéo a **0 ou 1** miniature
+- **Identifiant** (`id`) : Clé primaire *(INT / BIGINT)*
+- Chemin : Chaîne de caractères *(URL ou chemin fichier)*
+- Date d’upload : Date
+- `video_id` : Clé étrangère vers **Vidéo** *(unique si 1 thumbnail max par vidéo)*
+- `utilisateur_id` : Clé étrangère vers **Utilisateur** *(celui qui l’a upload)*
+
+---
+
+### Outil IA (AI Tool)
+> Catalogue global (sans doublons).  
+> Un utilisateur peut ajouter un nouvel outil IA : s’il n’existe pas, il est créé dans ce catalogue.
+- **Identifiant** (`id`) : Clé primaire *(INT / BIGINT)*
+- Nom : Chaîne de caractères *(unique)*
+- Statut : Enum *(En attente, Approuvée, Rejetée)* *(option “pro” anti-spam)*
+- Date de création : Date
+- `created_by_user_id` : Clé étrangère vers **Utilisateur** *(qui a proposé l’outil IA)*
+
+---
+
+### Vidéo ↔ Outil IA (liaison)
+> Une vidéo peut utiliser **0, 1 ou plusieurs** outils IA.  
+> Un outil IA peut être utilisé par **plusieurs** vidéos.
+- **Identifiant** (`id`) : Clé primaire *(INT / BIGINT)* *(optionnel si PK composite)*
+- `video_id` : Clé étrangère vers **Vidéo**
+- `ai_tool_id` : Clé étrangère vers **Outil IA**
+- **Contrainte recommandée :** unicité sur (`video_id`, `ai_tool_id`) pour éviter les doublons
+
+---
 
 ### Vote
 - **Identifiant** (`id`) : Clé primaire *(INT / BIGINT)*
@@ -27,7 +62,9 @@
 - Commentaire : Texte
 - `video_id` : Clé étrangère vers **Vidéo**
 - `utilisateur_id` : Clé étrangère vers **Utilisateur**
-- **Contrainte métier recommandée :** un utilisateur ne peut voter qu’une seule fois par vidéo *(unicité sur `utilisateur_id` + `video_id`)*
+- **Contrainte métier recommandée :** unicité sur (`utilisateur_id`, `video_id`)
+
+---
 
 ### Notification
 - **Identifiant** (`id`) : Clé primaire *(INT / BIGINT)*
@@ -36,9 +73,13 @@
 - Date : Date
 - `utilisateur_id` : Clé étrangère vers **Utilisateur**
 
+---
+
 ### Langue
 - **Code** (`code`) : Clé primaire *(ex: "fr", "en")*
 - Nom : Chaîne de caractères *(ex: Français, Anglais)*
+
+---
 
 ## Associations
 
@@ -59,7 +100,18 @@
    - Une langue peut être liée à **N vidéos**
    - Relation : **1,N** entre **Langue** et **Vidéo**
 
-## Diagramme Conceptuel
+6. **Une vidéo peut avoir une miniature.**
+   - Relation : **1,0..1** entre **Vidéo** et **Miniature**
+
+7. **Une vidéo peut utiliser 0..N outils IA, et un outil IA peut être utilisé par 0..N vidéos.**
+   - Relation : **N,N** entre **Vidéo** et **Outil IA** via **Vidéo_OutilIA**
+
+8. **Un utilisateur peut proposer plusieurs outils IA.**
+   - Relation : **1,N** entre **Utilisateur** et **Outil IA** *(via `created_by_user_id`)*
+
+---
+
+## Diagramme Conceptuel (Mermaid)
 ```mermaid
 erDiagram
     User {
@@ -80,7 +132,29 @@ erDiagram
         VideoType type
         date submissionDate
         int user_id FK
-        int language_id FK
+        string language_code FK
+    }
+
+    Thumbnail {
+        int id PK
+        string path
+        date uploadedAt
+        int video_id FK
+        int user_id FK
+    }
+
+    Ai_tool {
+        int id PK
+        string name "UNIQUE"
+        AiToolStatus status
+        date createdAt
+        int created_by_user_id FK
+    }
+
+    Video_ai_tool {
+        int id PK
+        int video_id FK
+        int ai_tool_id FK
     }
 
     Vote {
@@ -95,17 +169,27 @@ erDiagram
         int id PK
         NotificationType type
         text message
-        date date
+        date createdAt
         int user_id FK
     }
 
     Language {
-        code id PK
+        string code PK
         string name
     }
 
     User ||--o{ Video : submits
+    Language ||--o{ Video : used_by
+
     Video ||--o{ Vote : receives
     User ||--o{ Vote : casts
+
     User ||--o{ Notification : receives
-    Language ||--o{ Video : is_used_by
+
+    Video ||--o| Thumbnail : has
+    User ||--o{ Thumbnail : uploads
+
+    Video ||--o{ Video_ai_tool : uses
+    Ai_tool ||--o{ Video_ai_tool : referenced_by
+
+    User ||--o{ Ai_tool : proposes
