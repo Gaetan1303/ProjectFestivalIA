@@ -1,7 +1,7 @@
-# DTO — Exemples de payloads (Back-End → Front-End)
+# DTO — Payloads (Back-End → Front-End)
 
-Ce document liste, **pour chaque route back-end** mentionnée dans le cahier des charges, un exemple de DTO :
-- **Request** : ce que le front envoie (si applicable)
+Ce document liste, **pour chaque route back-end** mentionnée dans le cahier des charges :
+- **Request** : ce que le front envoie au back
 - **Response** : ce que le back renvoie au front
 
 Règles :
@@ -1223,7 +1223,7 @@ Règles :
 
 ---
 
-## Comments (hors MCD) — (⚠️ incohérent avec "pas de commentaire public" côté front)
+## Comments (hors MCD)
 
 ### GET /comments/:videoId
 **Response (200)**

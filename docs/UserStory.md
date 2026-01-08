@@ -4,15 +4,15 @@
 ## 1) Synopsis
 
 ### Description
-ProjectFestivalIA est une plateforme pour héberger et gérer un concours international de courts métrages **générés avec l’IA**. Les utilisateurs peuvent **soumettre**, **découvrir**, **voter**, **classer** et **partager** des films.
+La plateforme **Mars AI** (festival IA) est une application web permettant d'organiser et de gérer un concours international de courts-métrages entièrement générés par Intelligence Artificielle. Elle couvre l'ensemble du cycle de vie du concours : inscription des utilisateurs, soumission des films, modération, notation par un jury, classement, diffusion publique et statistiques.
 
 ### Objectifs
 - Permettre aux réalisateurs de présenter leurs créations IA.
 - Offrir une expérience fluide pour découvrir et partager les films.
-- Assurer un concours **équitable**, **modéré** et **transparent**, avec des statistiques utiles.
+- Garantir un concours équitable, modéré et transparent, avec des statistiques exploitables.
 
 ### Contexte
-Plateforme créée pour la **Mars AI Night**. Le concours porte sur des courts métrages de **1 minute** sur le thème **« Desirable Futures »**, avec une audience internationale (120+ pays), un objectif de 600+ films et 3 000 visiteurs à l'événement physique à Marseille.
+Plateforme créée pour la **Mars AI Night**. Le concours porte sur des courts métrages de **1 minute** autour du thème **« Desirable Futures »**, avec une audience internationale (**120+ pays**), environ **600+ films soumis** et un pic de trafic attendu lors de l'ouverture/fermeture des soumissions, publication du Top 50 et événement physique (**~3 000 visiteurs à Marseille**).
 
 
 ## Epic #1 — Comptes & Profil
@@ -35,6 +35,9 @@ Cette epic couvre la gestion complète des comptes utilisateurs, incluant l'insc
     - Si l'email est invalide ou déjà utilisé, je vois un message clair
     - Si le mot de passe est trop faible, je vois un message clair indiquant les règles
     - **Si les CGU ne sont pas acceptées, l'inscription est refusée**
+  - **Alternative** : Je peux utiliser **Google OAuth** pour me connecter directement
+    - Mon compte est créé automatiquement avec les informations Google
+    - Je dois tout de même accepter les CGU et renseigner ma date de naissance
 
 ### US2 — Me connecter / me déconnecter
 - **En tant que** utilisateur
@@ -98,7 +101,9 @@ Cette epic gère le parcours complet des réalisateurs, depuis l'onboarding jusq
     - Je vois une confirmation
     - Le film passe au statut **"En attente de modération"**
     - **Contrôle YouTube préalable effectué**
-  - **Et** si le format **(doit être 16:9 horizontal)** / la taille / la durée **(max 60 secondes)** ne respectent pas les règles, je vois une erreur claire
+  - **Et** si le format **(doit être 16:9 horizontal obligatoire, vidéos classiques YouTube - pas de Shorts)** / la taille / la durée **(max 60 secondes)** ne respectent pas les règles, je vois une erreur claire
+    - **Contraintes techniques vidéo strictes** : format 16:9 horizontal, durée 1 minute maximum
+    - **Contrôle YouTube préalable effectué** pour la vérification des droits d'auteur
 
 ### US2 — Voir le temps restant avant la clôture des soumissions
 - **En tant que** filmmaker
@@ -148,8 +153,11 @@ Cette epic couvre le système de notation privé réservé au jury, avec comment
   - Une page publique affiche le classement
   - Les films sont triés selon la règle définie (score/votes **du jury uniquement**)
   - On voit au minimum : titre, créateur, pays (optionnel), score/votes
-  - Le classement reste navigable même avec beaucoup de films (pagination / pages)
+  - Le classement reste navigable même avec beaucoup de films (pagination : **20 médias par page**)
   - **Le public peut consulter mais ne peut pas voter ou commenter**
+  - **Accès libre aux contenus sans création de compte obligatoire**
+  - **Aucune interaction de type like, dislike ou commentaire public**
+  - **Affichage des compteurs de vues** et boutons de partage sur les réseaux sociaux
 
 ### US4 — Admin : sélectionner automatiquement les “Top 50 officiels”
 - **En tant que** administrateur
@@ -215,7 +223,11 @@ Cette epic couvre la gestion des fiches techniques IA détaillées, le contrôle
 - **Afin de** réduire les risques légaux avant publication
 - **Priorité :** Haute
 - **Critères d’acceptation**
-  - Après soumission, le film reçoit un statut clair : “OK”, “À vérifier”, ou “Bloqué”
+  - **Intégration de l'API YouTube** pour le contrôle préalable
+  - **YouTube agit comme outil de contrôle préalable** des droits (musique/images)
+  - Après soumission, le film reçoit un statut clair : "OK", "À vérifier", ou "Bloqué"
+  - **En cas de blocage détecté** : dépublication automatique, notification du réalisateur
+  - **Décision admin** : possibilité de re-soumission ou rejet définitif
   - Si problème, je vois la raison et les étapes possibles (corriger / contacter / remplacer)
 
 ### US3 — Catalogue : filtrer et explorer les films
@@ -226,7 +238,10 @@ Cette epic couvre la gestion des fiches techniques IA détaillées, le contrôle
 - **Critères d’acceptation**
   - Je peux filtrer (ex : pays, langue, outils, officiel, popularité)
   - Je peux trier (ex : plus votés, plus récents)
-  - Le catalogue reste confortable à naviguer (pages / chargement progressif)
+  - **Affichage en grille de miniatures** avec pagination : **20 médias par page**
+  - **Filtres par catégorie ou type d'IA**
+  - **Posters** : upload d'images (JPG/PNG/GIF, max 2 Mo) avec redimensionnement automatique pour miniatures
+  - Le catalogue reste confortable à naviguer avec chargement progressif
 
 ### US4 — Voir des statistiques (Admin + Filmmaker)
 - **En tant que** admin **ou** filmmaker
@@ -320,8 +335,9 @@ Cette epic assure l'accessibilité de la plateforme selon les standards WCAG, av
 - **Critères d’acceptation**
   - Je peux activer un mode contraste élevé
   - Je peux naviguer au clavier
-  - Les éléments clés sont lisibles par lecteur d’écran
-
+  - Les éléments clés sont lisibles par lecteur d’écran  - **Interface disponible intégralement en Français et Anglais**
+  - **Objectif WCAG** (structure, contrastes, clavier, lecteur d'écran)
+  - **Interface multilingue** (FR/EN au minimum), extensible
 ### US2 — Sous-titres : ajouter et afficher
 - **En tant que** filmmaker
 - **Je veux** ajouter des sous-titres
@@ -379,8 +395,11 @@ Cette epic gère l'agenda interactif complet du festival avec workshops, confér
 - Traçabilité des actions sensibles (audit).
 
 ## Performance & Scalabilité (NFR)
-- Pagination ou chargement progressif sur les listes (catalogue, classement).
-- Diffusion vidéo optimisée (stockage adapté + distribution efficace).
+- **Pagination obligatoire** : 20 médias par page pour le catalogue
+- **Charge estimée** : 20 000 utilisateurs simultanés, plusieurs dizaines de RPS en burst
+- **Pics** : publication classement, clôture soumissions, événement physique (~3 000 visiteurs)
+- Diffusion vidéo optimisée (stockage adapté + distribution efficace)
+- **Indexation BDD** et mise en cache si nécessaire
 
 ## Notifications (NFR)
 - Notifications “quasi temps réel” dans l’app (mécanisme technique au choix).

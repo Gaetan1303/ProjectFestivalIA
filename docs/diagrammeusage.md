@@ -30,84 +30,71 @@ graph TB
         UC7[S'abonner newsletter]
         UC8[Consulter FAQ]
         UC9[Filtrer films par pays/outils]
-        UC10[Consulter termes et conditions]
-        UC11[Consulter politique confidentialité]
     end
 
     %% Cas d'usage utilisateur authentifié
     subgraph "Gestion de Compte"
-        UC12[Gérer profil]
-        UC13[Se déconnecter]
-        UC14[Supprimer compte]
-        UC15[Recevoir notifications]
-        UC16[Modifier mot de passe]
-        UC17[Gérer paramètres]
-        UC18[Accepter CGU]
-        UC19[Vérifier âge - date naissance]
+        UC10[Gérer profil]
+        UC11[Se déconnecter]
+        UC12[Supprimer compte]
+        UC13[Recevoir notifications]
+        UC14[Modifier mot de passe]
+        UC15[Gérer paramètres]
     end
 
     %% Cas d'usage filmmaker
     subgraph "Soumission et Gestion Films"
-        UC20[Soumettre plusieurs films]
-        UC21[Définir réalisateur référent]
-        UC22[Ajouter fiche technique IA]
-        UC23[Ajouter sous-titres]
-        UC24[Consulter statistiques de mes films]
-        UC25[Modifier informations film]
-        UC26[Voir statut modération]
-        UC27[Gérer portfolio]
+        UC16[Soumettre un film]
+        UC17[Ajouter fiche technique IA]
+        UC18[Ajouter sous-titres]
+        UC19[Consulter statistiques de mes films]
+        UC20[Modifier informations film]
+        UC21[Voir statut modération]
     end
 
     %% Cas d'usage jury
-    subgraph "Évaluation et Notation (Privée)"
-        UC28[Noter un film (jury uniquement)]
-        UC29[Commenter privément un film]
-        UC30[Consulter films à évaluer]
-        UC31[Voir historique de mes votes]
-        UC32[Consulter critères d'évaluation]
-        UC33[Navigation fluide entre vidéos]
+    subgraph "Évaluation et Notation"
+        UC22[Noter un film]
+        UC23[Commenter un film]
+        UC24[Consulter films à évaluer]
+        UC25[Voir historique de mes votes]
+        UC26[Consulter critères d'évaluation]
     end
 
     %% Cas d'usage modération
     subgraph "Modération de Contenu"
-        UC34[Examiner films en attente]
-        UC35[Approuver film]
-        UC36[Rejeter film avec motif]
-        UC37[Vérifier conformité copyright]
-        UC38[Contrôle YouTube préalable]
-        UC39[Gérer dépublication/rejet]
+        UC27[Examiner films en attente]
+        UC28[Approuver film]
+        UC29[Rejeter film avec motif]
+        UC30[Vérifier conformité copyright]
+        UC31[Modérer commentaires]
     end
 
     %% Cas d'usage administration
     subgraph "Administration Système"
-        UC40[Gérer utilisateurs et rôles]
-        UC41[Gérer partenaires]
-        UC42[Consulter statistiques globales]
-        UC43[Sélectionner Top 50 officiels]
-        UC44[Configurer paramètres système]
-        UC45[Consulter logs et rapports]
-        UC46[Gérer outils IA catalogue]
-        UC47[Envoyer notifications en masse]
-        UC48[Créer catégories dynamiquement]
-        UC49[Gérer barèmes évaluation]
-        UC50[Gérer workshops et conférences]
+        UC32[Gérer utilisateurs et rôles]
+        UC33[Gérer partenaires]
+        UC34[Consulter statistiques globales]
+        UC35[Sélectionner Top 50 officiels]
+        UC36[Configurer paramètres système]
+        UC37[Consulter logs et rapports]
+        UC38[Gérer outils IA catalogue]
+        UC39[Envoyer notifications en masse]
     end
 
     %% Cas d'usage partenaires
     subgraph "Sponsoring et Partenariat"
-        UC51[Sponsoriser un film]
-        UC52[Consulter statistiques de sponsoring]
-        UC53[Gérer profil partenaire]
+        UC40[Sponsoriser un film]
+        UC41[Consulter statistiques de sponsoring]
+        UC42[Gérer profil partenaire]
     end
 
     %% Cas d'usage événements
     subgraph "Événements et Workshops"
-        UC54[Réserver place workshop]
-        UC55[Réserver cérémonie clôture]
-        UC56[Donner feedback événement]
-        UC57[Consulter planning détaillé]
-        UC58[Gérer inscriptions ateliers]
-        UC59[Consulter conférences et webinaires]
+        UC43[Réserver place workshop]
+        UC44[Réserver cérémonie clôture]
+        UC45[Donner feedback événement]
+        UC46[Consulter planning détaillé]
     end
 
     %% Relations Visiteur
@@ -120,76 +107,62 @@ graph TB
     Visiteur --> UC7
     Visiteur --> UC8
     Visiteur --> UC9
-    Visiteur --> UC10
-    Visiteur --> UC11
 
     %% Relations Utilisateur connecté
+    Utilisateur --> UC10
+    Utilisateur --> UC11
     Utilisateur --> UC12
     Utilisateur --> UC13
     Utilisateur --> UC14
     Utilisateur --> UC15
-    Utilisateur --> UC16
-    Utilisateur --> UC17
-    Utilisateur --> UC18
-    Utilisateur --> UC19
-    Utilisateur --> UC54
-    Utilisateur --> UC55
-    Utilisateur --> UC56
-    Utilisateur --> UC57
-    Utilisateur --> UC58
-    Utilisateur --> UC59
+    Utilisateur --> UC43
+    Utilisateur --> UC44
+    Utilisateur --> UC45
+    Utilisateur --> UC46
 
     %% Relations Filmmaker
+    Filmmaker --> UC16
+    Filmmaker --> UC17
+    Filmmaker --> UC18
+    Filmmaker --> UC19
     Filmmaker --> UC20
     Filmmaker --> UC21
-    Filmmaker --> UC22
-    Filmmaker --> UC23
-    Filmmaker --> UC24
-    Filmmaker --> UC25
-    Filmmaker --> UC26
-    Filmmaker --> UC27
 
     %% Relations Jury
-    Jury --> UC28
-    Jury --> UC29
-    Jury --> UC30
-    Jury --> UC31
-    Jury --> UC32
-    Jury --> UC33
+    Jury --> UC22
+    Jury --> UC23
+    Jury --> UC24
+    Jury --> UC25
+    Jury --> UC26
 
     %% Relations Modérateur
-    Moderateur --> UC34
-    Moderateur --> UC35
-    Moderateur --> UC36
-    Moderateur --> UC37
-    Moderateur --> UC38
-    Moderateur --> UC39
+    Moderateur --> UC27
+    Moderateur --> UC28
+    Moderateur --> UC29
+    Moderateur --> UC30
+    Moderateur --> UC31
 
     %% Relations Administrateur
-    Admin --> UC40
-    Admin --> UC41
-    Admin --> UC42
-    Admin --> UC43
-    Admin --> UC44
-    Admin --> UC45
-    Admin --> UC46
-    Admin --> UC47
-    Admin --> UC48
-    Admin --> UC49
-    Admin --> UC50
+    Admin --> UC32
+    Admin --> UC33
+    Admin --> UC34
+    Admin --> UC35
+    Admin --> UC36
+    Admin --> UC37
+    Admin --> UC38
+    Admin --> UC39
 
     %% Relations Partenaire
-    Partner --> UC51
-    Partner --> UC52
-    Partner --> UC53
+    Partner --> UC40
+    Partner --> UC41
+    Partner --> UC42
 
     %% Relations système et extensions
-    Systeme -.-> UC15
-    UC20 -.-> UC34
-    UC35 -.-> UC15
-    UC36 -.-> UC15
-    UC43 -.-> UC42
-    UC28 -.-> UC42
-    UC18 -.-> UC4
+    Systeme -.-> UC13
+    UC16 -.-> UC27
+    UC28 -.-> UC13
+    UC29 -.-> UC13
+    UC35 -.-> UC34
+    UC22 -.-> UC34
 ```
 

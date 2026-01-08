@@ -1,7 +1,5 @@
 # Cahier des Charges — Plateforme Festival IA (marsAI)
 
----
-
 ## 1. Synopsis
 
 ## A. Présentation du Projet et Objectifs
@@ -465,6 +463,109 @@ Pour une vue complète du modèle de données, consultez le document MCD.
 * Codes HTTP normalisés (200, 201, 400, 401, 403, 404, 500)
 * Validation systématique des entrées
 
+##### Data Transfer Objects (DTO)
+
+**DTO de base (références)**
+
+**UserDTO (sans mot de passe)**
+```json
+{
+	"id": 0,
+	"name": "",
+	"surname": "",
+	"email": "",
+	"dateNaissance": "",
+	"biographie": "",
+	"ecole": "",
+	"reseauxSociaux": {
+		"instagram": "",
+		"x": "",
+		"tiktok": "",
+		"youtube": "",
+		"website": ""
+	},
+	"portfolio": "",
+	"accepteCGU": false,
+	"dateInscription": "",
+	"statut": "",
+	"role": ""
+}
+```
+
+**VideoDTO**
+```json
+{
+	"id": 0,
+	"title": "",
+	"description": "",
+	"status": "",
+	"path": "",
+	"urlYoutube": "",
+	"poster": "",
+	"duree": 0,
+	"nbVues": 0,
+	"outilsIA": {
+		"scenario": [""],
+		"generation": [""],
+		"postProduction": [""],
+		"autres": [""],
+		"details": ""
+	},
+	"realisateurReferent": false,
+	"type": "",
+	"submissionDate": "",
+	"dateValidation": "",
+	"user_id": 0,
+	"categorie_id": 0,
+	"language_code": "",
+	"thumbnail": null
+}
+```
+
+**VoteDTO**
+```json
+{
+	"id": 0,
+	"score": 0,
+	"commentairePrive": "",
+	"dateVote": "",
+	"video_id": 0,
+	"user_id": 0
+}
+```
+
+**CategoryDTO**
+```json
+{
+	"id": 0,
+	"nom": "",
+	"description": "",
+	"dateCreation": "",
+	"actif": false
+}
+```
+
+**NotificationDTO**
+```json
+{
+	"id": 0,
+	"type": "",
+	"titre": "",
+	"message": "",
+	"createdAt": "",
+	"lu": false,
+	"user_id": 0
+}
+```
+
+**Règles DTO :**
+- Dates au format ISO 8601 : `"2026-01-08T12:34:56Z"`
+- Validation stricte des types et formats
+- Champs obligatoires clairement définis
+- Structures JSON cohérentes entre Request/Response
+
+*Pour la liste complète des DTO par endpoint, consultez le document DTO.md*
+
 #### Sécurité
 
 * Hash des mots de passe (bcrypt/argon2)
@@ -523,12 +624,14 @@ Pour une vue complète du modèle de données, consultez le document MCD.
 
 ## 4. Annexe — Diagrammes
 
-* Diagramme de cas d’utilisation
-* Diagramme de séquence (soumission, vote, modération)
-* Diagramme entité–relation (MCD)
-* Diagramme d’architecture (Front / Back / DB / Services)
+### Diagramme de cas d'utilisation
+![Diagramme de cas d'utilisation](../assets/UseCase_diagramme.png)
 
-Pour consulter les diagrammes, référez-vous au document UML.
+### Diagramme de cas d'usage détaillé
+![Diagramme de cas d'usage](../assets/casUsage.png)
+
+### Diagramme entité–relation (MCD)
+![MCD - Modèle Conceptuel de Données](../assets/MCD.png)
 
 ---
 
