@@ -15,14 +15,14 @@ Pour plus de détails, consultez le document User Stories.
 ### Objectifs
 
 - Permettre aux réalisateurs de présenter leurs créations IA.
-- Offrir une expérience fluide pour découvrir, voter et partager les films.
+- Offrir une expérience fluide pour découvrir et partager les films.
 - Garantir un concours équitable, modéré et transparent, avec des statistiques exploitables.
 
 ### Besoin de la cible
 
 * Réalisateurs IA : soumettre leurs films, valoriser leur démarche créative et suivre leurs performances.
-* Public : découvrir, visionner, partager et suivre le classement des films.
-* Jury : noter et commenter les films sélectionnés dans un cadre sécurisé et équitable.
+* Public : découvrir, visionner, partager et suivre le classement des films (sans interaction directe).
+* Jury : noter et commenter privément les films sélectionnés dans un cadre sécurisé et équitable.
 * Administrateurs / Modérateurs : piloter le concours, assurer la conformité légale, la qualité et la sécurité.
 
 ### Contexte d’utilisation
@@ -49,25 +49,31 @@ L’application doit gérer quatre types d’utilisateurs, avec des permissions 
 ### Rôles
 
 #### Réalisateur
-- Soumission d’un seul film par réalisateur
-- Gestion d’un profil complet :
+- **Un réalisateur peut soumettre plusieurs films**
+- **En cas de projet collectif, un seul réalisateur référent responsable des droits doit être identifié**
+- Gestion d'un profil complet :
   - Biographie
   - École
   - Réseaux sociaux
+  - Date de naissance (vérification âge)
 - Accès à un portfolio (si existant)
+- **Acceptation des CGU obligatoire**
 
 #### Public / Visiteur
+- **Accès libre aux contenus sans création de compte obligatoire**
 - Consultation du catalogue
 - Partage sur les réseaux sociaux
 - Compteur de vues
-- Inscription à la newsletter
+- Inscription à la newsletter (optionnel)
 - Inscription pour obtenir une place au festival
+- **Aucune interaction de type like, dislike ou commentaire public**
+- **Ne vote pas, ne commente pas**
 
 #### Jury
 - Interface privée dédiée
 - Notation des 50 films de la sélection officielle :
   - Notes de 1 à 10
-  - Commentaires
+  - **Commentaires privés (prise de notes personnelles, non visibles par les réalisateurs ni le public)**
 - Expérience optimisée :
   - Classement par films déjà votés / non votés
   - Navigation fluide entre les vidéos
@@ -95,8 +101,17 @@ L’application doit gérer quatre types d’utilisateurs, avec des permissions 
 
 ### Contrôle des Droits d’Auteur
 - Intégration de l’API YouTube
+- **YouTube agit comme outil de contrôle préalable**
 - Vérification des droits (musique / images) avant publication officielle
-
+- **En cas de blocage détecté :**
+  - Dépublication automatique
+  - Notification du réalisateur
+  - Décision admin (possibilité de re-soumission ou rejet définitif)
+### Contraintes Techniques Vidéo
+- **Format : 16:9 horizontal obligatoire**
+- **Vidéos classiques YouTube (pas de Shorts)**
+- Durée : 1 minute maximum
+- **Les contraintes techniques (poids, résolution) s'inspirent du Mobile Film Festival et pourront être ajustées ultérieurement**
 ### Affichage des Films
 - Grille de miniatures
 - Pagination : 20 médias par page
@@ -259,15 +274,13 @@ Les user stories détaillées, critères d’acceptation et priorités sont déc
 * `/my-films/:id/analytics` : Statistiques de mon film
 
 **Participation**
-* `/my-votes` : Mes votes (si applicable)
-* `/comments` : Page pour consulter et ajouter des commentaires sur les vidéos
 * `/my-bookmarks` : Mes favoris
 * `/workshops/my-registrations` : Mes inscriptions ateliers
 
 ##### Routes Jury (Accès Restreint)
-* `/jury` : Interface dédiée aux membres du jury pour noter et commenter
+* `/jury` : Interface dédiée aux membres du jury pour noter et commenter privément
 * `/jury/videos` : Films à évaluer
-* `/jury/videos/:id/rate` : Noter un film
+* `/jury/videos/:id/rate` : Noter un film avec commentaires privés
 * `/jury/my-ratings` : Mes évaluations
 * `/vote` : Page de vote pour les membres du jury
 * `/allvotes` : Page listant tous les votes effectués par le jury
@@ -278,7 +291,6 @@ Les user stories détaillées, critères d’acceptation et priorités sont déc
 * `/moderator/videos` : Films à modérer
 * `/moderator/videos/pending` : Films en attente
 * `/moderator/videos/:id` : Modération film
-* `/moderator/comments` : Modération commentaires
 
 ##### Routes Administrateur
 * `/admin` : Tableau de bord pour les administrateurs (gestion des utilisateurs, vidéos, etc.)
@@ -395,9 +407,9 @@ Pour une vue complète du modèle de données, consultez le document MCD.
 * `POST /api/v1/videos/:id/views` : Incrémenter vues
 * `GET /api/v1/videos/:id/analytics` : Statistiques vidéo
 **Votes & Notations (Jury)**
-* `POST /api/v1/votes` : Enregistrement d'un vote pour une vidéo
+* `POST /api/v1/votes` : Enregistrement d'un vote pour une vidéo (jury uniquement)
 * `GET /api/v1/jury/videos/:limit/:offset` : Liste des vidéos à noter pour les membres du jury - **PAGINATION**
-* `POST /api/v1/jury/videos/:id/rate` : Noter une vidéo
+* `POST /api/v1/jury/videos/:id/rate` : Noter une vidéo avec commentaires privés
 * `GET /api/v1/jury/my-ratings/:limit/:offset` : Mes notations - **PAGINATION**
 
 **Analytics & Statistiques**
@@ -426,8 +438,8 @@ Pour une vue complète du modèle de données, consultez le document MCD.
 * `PUT /settings/:userId` : Mise à jour des paramètres utilisateur.
 * `GET /social-share/:videoId` : Génération des liens de partage pour une vidéo spécifique.
 * `POST /social-share/log` : Enregistrement des partages effectués par les utilisateurs.
-* `GET /notations/:userId` : Récupération de l’historique des notations effectuées par un utilisateur.
-* `GET /categories` : Récupération des catégories thématiques disponibles.
+* `GET /notations/:userId` : Récupération de l'historique des notations effectuées par un utilisateur (jury uniquement).
+* `GET /categories` : Récupération des catégories thématiques disponibles (créées dynamiquement par l'admin).
 * `GET /workshops` : Liste des ateliers et événements liés au concours.
 * `POST /workshops/register` : Inscription à un atelier ou événement.
 * `GET /conferences` : Calendrier des conférences et webinaires.
@@ -474,6 +486,12 @@ Pour une vue complète du modèle de données, consultez le document MCD.
 * Niveaux : DEBUG, INFO, WARNING, ERROR
 * Logs applicatifs séparés des logs système
 
+#### Catégories & Barèmes
+
+* **Catégories créées dynamiquement par l'administrateur**
+* Barèmes identiques entre présélection et sélection finale
+* **Critères d'évaluation définis ultérieurement avec le client**
+
 #### Performance
 
 * Pagination obligatoire
@@ -488,6 +506,12 @@ Pour une vue complète du modèle de données, consultez le document MCD.
   * RPS garanti
   * Latence moyenne (ms)
   * Temps de traitement API
+
+#### Catégories & Barèmes
+
+* **Catégories créées dynamiquement par l'administrateur**
+* Barèmes identiques entre présélection et sélection finale
+* **Critères d'évaluation définis ultérieurement avec le client**
 
 #### Déploiement
 

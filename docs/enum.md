@@ -11,12 +11,22 @@ enum UserRole {
 }
 ```
 
+## Statuts Utilisateurs
+```typescript
+enum UserStatus {
+  ACTIVE = "Active",
+  INACTIVE = "Inactive",
+  SUSPENDED = "Suspended"
+}
+```
+
 ## Statuts Vidéo
 ```typescript
 enum VideoStatus {
   PENDING = "Pending",
   APPROVED = "Approved",
-  REJECTED = "Rejected"
+  REJECTED = "Rejected",
+  MODERATION = "Moderation"
 }
 ```
 
@@ -33,7 +43,9 @@ enum VideoType {
 enum NotificationType {
   VIDEO_VALIDATION = "Video validation",
   NEW_VIDEO = "New video",
-  RANKING_UPDATE = "Ranking update"
+  RANKING_UPDATE = "Ranking update",
+  WORKSHOP_REMINDER = "Workshop reminder",
+  GENERAL = "General"
 }
 ```
 
@@ -42,5 +54,45 @@ enum NotificationType {
 enum Language {
   FRENCH = "French",
   ENGLISH = "English"
+}
+```
+
+## Statuts Workshop
+```typescript
+enum WorkshopStatus {
+  OUVERT = "Ouvert",
+  COMPLET = "Complet",
+  ANNULE = "Annulé",
+  TERMINE = "Terminé"
+}
+```
+
+## Statuts Conférence
+```typescript
+enum ConferenceStatus {
+  PROGRAMMEE = "Programmée",
+  EN_COURS = "En cours",
+  TERMINEE = "Terminée",
+  ANNULEE = "Annulée"
+}
+```
+
+## Types de Partenaires
+```typescript
+enum PartenaireType {
+  SPONSOR_OR = "Sponsor Or",
+  SPONSOR_ARGENT = "Sponsor Argent",
+  SPONSOR_BRONZE = "Sponsor Bronze",
+  PARTENAIRE_MEDIA = "Partenaire Média",
+  PARTENAIRE_TECHNIQUE = "Partenaire Technique"
+}
+```
+
+## Statuts Inscription Workshop
+```typescript
+enum InscriptionStatus {
+  CONFIRMEE = "Confirmée",
+  EN_ATTENTE = "En attente",
+  ANNULEE = "Annulée"
 }
 ```

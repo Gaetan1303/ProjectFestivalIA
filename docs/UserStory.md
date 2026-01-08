@@ -8,7 +8,7 @@ ProjectFestivalIA est une plateforme pour héberger et gérer un concours intern
 
 ### Objectifs
 - Permettre aux réalisateurs de présenter leurs créations IA.
-- Offrir une expérience fluide pour découvrir, voter et partager.
+- Offrir une expérience fluide pour découvrir et partager les films.
 - Assurer un concours **équitable**, **modéré** et **transparent**, avec des statistiques utiles.
 
 ### Contexte
@@ -17,19 +17,24 @@ Plateforme créée pour la **Mars AI Night**. Le concours porte sur des courts m
 
 ## Epic #1 — Comptes & Profil
 
-### US1 — S’inscrire et activer mon compte
+### Description
+Cette epic couvre la gestion complète des comptes utilisateurs, incluant l'inscription avec vérification d'âge, l'acceptation obligatoire des CGU, l'authentification sécurisée, et la gestion des profils enrichis (biographie, école, réseaux sociaux, portfolio). Elle inclut aussi la gestion administrative des utilisateurs et de leurs rôles.
+
+### US1 — S'inscrire et activer mon compte
 - **En tant que** visiteur
-- **Je veux** créer un compte
+- **Je veux** créer un compte avec toutes les informations requises
 - **Afin de** pouvoir accéder aux fonctionnalités de la plateforme
 - **Priorité :** Haute
-- **Critères d’acceptation**
-  - **Étant donné** que je suis sur la page d’inscription
-  - **Quand** je renseigne nom + email + mot de passe et je valide
+- **Critères d'acceptation**
+  - **Étant donné** que je suis sur la page d'inscription
+  - **Quand** je renseigne nom + prénom + email + mot de passe + **date de naissance** + j'accepte les **CGU obligatoires** et je valide
   - **Alors**
-    - Je reçois un email d’activation avec un lien unique
-    - Mon compte n’est utilisable qu’après activation
-    - Si l’email est invalide ou déjà utilisé, je vois un message clair
+    - Je reçois un email d'activation avec un lien unique
+    - Mon compte n'est utilisable qu'après activation
+    - **La vérification d'âge est effectuée** via la date de naissance
+    - Si l'email est invalide ou déjà utilisé, je vois un message clair
     - Si le mot de passe est trop faible, je vois un message clair indiquant les règles
+    - **Si les CGU ne sont pas acceptées, l'inscription est refusée**
 
 ### US2 — Me connecter / me déconnecter
 - **En tant que** utilisateur
@@ -51,7 +56,7 @@ Plateforme créée pour la **Mars AI Night**. Le concours porte sur des courts m
 - **Afin de** contrôler mon profil et mes données
 - **Priorité :** Haute
 - **Critères d’acceptation**
-  - **Quand** je modifie mes infos (nom public, bio, liens sociaux, etc.)
+  - **Quand** je modifie mes infos (nom public, **biographie**, **école**, **réseaux sociaux**, **portfolio**, etc.)
   - **Alors** les changements sont enregistrés et affichés
   - **Quand** je demande à changer mon mot de passe
   - **Alors** une confirmation est demandée et les règles de sécurité s’appliquent
@@ -74,20 +79,26 @@ Plateforme créée pour la **Mars AI Night**. Le concours porte sur des courts m
 
 ## Epic #2 — Onboarding Réalisateur & Soumission
 
+### Description
+Cette epic gère le parcours complet des réalisateurs, depuis l'onboarding jusqu'aux soumissions multiples de films. Elle inclut la gestion des fiches techniques IA, le contrôle YouTube préalable, la désignation de réalisateurs référents pour les projets collectifs, et le suivi des soumissions avec les contraintes techniques (format 16:9, durée 60s max).
 
-### US1 — Soumettre un film
+
+### US1 — Soumettre plusieurs films
 - **En tant que** filmmaker
-- **Je veux** soumettre un court métrage
-- **Afin de** participer au concours
+- **Je veux** soumettre plusieurs courts métrages
+- **Afin de** participer au concours avec plusieurs créations
 - **Priorité :** Haute
-- **Critères d’acceptation**
+- **Critères d'acceptation**
   - **Étant donné** que je suis connecté en filmmaker et que les soumissions sont ouvertes
   - **Quand** je renseigne titre + description + pays + fiche IA et je téléverse mon fichier vidéo
   - **Alors**
     - Ma soumission est enregistrée
+    - **Je peux soumettre plusieurs films** (pas de limitation à un seul)
+    - **Pour les projets collectifs, je dois désigner un réalisateur référent**
     - Je vois une confirmation
-    - Le film passe au statut **“En attente de modération”**
-  - **Et** si le format / la taille / la durée ne respectent pas les règles, je vois une erreur claire
+    - Le film passe au statut **"En attente de modération"**
+    - **Contrôle YouTube préalable effectué**
+  - **Et** si le format **(doit être 16:9 horizontal)** / la taille / la durée **(max 60 secondes)** ne respectent pas les règles, je vois une erreur claire
 
 ### US2 — Voir le temps restant avant la clôture des soumissions
 - **En tant que** filmmaker
@@ -102,35 +113,43 @@ Plateforme créée pour la **Mars AI Night**. Le concours porte sur des courts m
 
 ## Epic #3 — Vote, Notation & Classement
 
-### US1 — Jury : noter un film
-- **En tant que** membre du jury
+### Description
+Cette epic couvre le système de notation privé réservé au jury, avec commentaires privés non visibles par le public ni les réalisateurs. Elle gère le classement public, la sélection du Top 50 officiel par les administrateurs, et les catégories dynamiques. **Note importante : le public ne vote pas et n'a pas d'interactions directes (likes/dislikes)**.
+
+### US1 — Jury : noter un film (privé)
+- **En tant que** membre du jury **uniquement**
 - **Je veux** attribuer une note à un film
 - **Afin de** contribuer au résultat final
 - **Priorité :** Haute
-- **Critères d’acceptation**
+- **Critères d'acceptation**
+  - **Seuls les membres du jury peuvent voter** (rôle JURY requis)
   - Je peux attribuer une note (ex : 1 à 10) sur un film éligible
   - Je vois une confirmation que mon vote est pris en compte
   - Mes votes sont visibles dans mon espace jury (historique)
+  - **Contrainte : je ne peux voter qu'une seule fois par film**
 
-### US2 — Jury : commenter / donner un retour
+### US2 — Jury : commenter privément / donner un retour
 - **En tant que** membre du jury
-- **Je veux** ajouter un commentaire
-- **Afin de** justifier et aider à l’évaluation
+- **Je veux** ajouter un commentaire **privé**
+- **Afin de** justifier et aider à l'évaluation (prise de notes personnelles)
 - **Priorité :** Moyenne
-- **Critères d’acceptation**
+- **Critères d'acceptation**
   - Je peux écrire un commentaire avec une limite de longueur
-  - La visibilité du commentaire est respectée (privé jury/admin/modération ou public selon règle)
+  - **Le commentaire est privé : visible uniquement par le juré et les administrateurs**
+  - **Pas de commentaires publics** - les réalisateurs et le public ne voient pas ces commentaires
+  - Les commentaires servent de prise de notes pour l'évaluation
 
-### US3 — Public : consulter le classement
+### US3 — Public : consulter le classement (sans voter)
 - **En tant que** utilisateur public
 - **Je veux** voir le classement des films
 - **Afin de** suivre le concours
 - **Priorité :** Haute
-- **Critères d’acceptation**
+- **Critères d'acceptation**
   - Une page publique affiche le classement
-  - Les films sont triés selon la règle définie (score/votes)
+  - Les films sont triés selon la règle définie (score/votes **du jury uniquement**)
   - On voit au minimum : titre, créateur, pays (optionnel), score/votes
   - Le classement reste navigable même avec beaucoup de films (pagination / pages)
+  - **Le public peut consulter mais ne peut pas voter ou commenter**
 
 ### US4 — Admin : sélectionner automatiquement les “Top 50 officiels”
 - **En tant que** administrateur
@@ -145,6 +164,9 @@ Plateforme créée pour la **Mars AI Night**. Le concours porte sur des courts m
 ---
 
 ## Epic #4 — Rôles, Permissions & Modération
+
+### Description
+Cette epic gère le système de rôles et de modération avec contrôle YouTube préalable, validation/rejet des soumissions avec motifs, gestion des partenaires, et traçabilité des actions administratives. Elle inclut la gestion des catégories dynamiques et des barèmes d'évaluation.
 
 ### US1 — Modérateur : valider / refuser une soumission
 - **En tant que** modérateur
@@ -170,6 +192,9 @@ Plateforme créée pour la **Mars AI Night**. Le concours porte sur des courts m
 ---
 
 ## Epic #5 — Fiche IA, Conformité & Statistiques
+
+### Description
+Cette epic couvre la gestion des fiches techniques IA détaillées, le contrôle de conformité copyright via l'API YouTube, le système de filtrage et d'exploration du catalogue, ainsi que les statistiques d'engagement pour les administrateurs et les réalisateurs (statistiques par pays, outils IA populaires).
 
 ### US1 — Ajouter une fiche technique IA
 - **En tant que** filmmaker
@@ -233,7 +258,8 @@ Plateforme créée pour la **Mars AI Night**. Le concours porte sur des courts m
 ---
 
 ## Epic #6 — Notifications & Communication
-
+### Description
+Cette epic gère le système de notifications temps réel pour informer les utilisateurs des changements de statut, validations, rejets, et événements. Elle inclut la newsletter optionnelle et les notifications par email en fallback, avec gestion des préférences utilisateur.
 ### US1 — Être informé d’un changement de statut
 - **En tant que** filmmaker
 - **Je veux** être informé rapidement quand mon film est validé/refusé
@@ -258,6 +284,9 @@ Plateforme créée pour la **Mars AI Night**. Le concours porte sur des courts m
 
 ## Epic #7 — Partage & Sponsoring
 
+### Description
+Cette epic gère le partage social des films avec aperçus optimisés, le système de sponsoring pour les partenaires commerciaux, et les fonctionnalités de promotion. Elle assure la génération correcte des métadonnées pour les réseaux sociaux et la gestion des badges sponsors.
+
 ### US1 — Partager un film sur les réseaux
 - **En tant que** utilisateur public
 - **Je veux** partager un film
@@ -281,7 +310,8 @@ Plateforme créée pour la **Mars AI Night**. Le concours porte sur des courts m
 ---
 
 ## Epic #8 — Accessibilité & Inclusion
-
+### Description
+Cette epic assure l'accessibilité de la plateforme selon les standards WCAG, avec support du mode contraste élevé, navigation clavier, compatibilité lecteurs d'écran, et gestion des sous-titres. Elle inclut l'internationalisation (FR/EN minimum) et les options d'accessibilité personnalisables.
 ### US1 — Activer des options d’accessibilité
 - **En tant que** utilisateur
 - **Je veux** activer des options d’accessibilité
@@ -304,6 +334,9 @@ Plateforme créée pour la **Mars AI Night**. Le concours porte sur des courts m
 ---
 
 ## Epic #9 — Programme, Tables rondes, Workshops & Réservations
+
+### Description
+Cette epic gère l'agenda interactif complet du festival avec workshops, conférences, tables rondes et cérémonie de clôture. Elle inclut le système de réservation, la gestion des capacités, les confirmations d'inscription, et le système de feedback post-événement pour améliorer l'organisation.
 
 ### US1 — Consulter une agenda interactif (festival + tables rondes + workshops)
 - **En tant que** utilisateur public
