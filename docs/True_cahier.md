@@ -202,36 +202,112 @@ Les user stories détaillées, critères d’acceptation et priorités sont déc
 
 #### Routes Front-End
 
-* `/` : Page d'accueil avec présentation du concours.
-* `/login` : Page de connexion utilisateur.
-* `/register` : Page d'inscription utilisateur.
-* `/profile` : Gestion du profil utilisateur (modification, suppression).
-* `/submit-film` : Formulaire de soumission de vidéos.
-* `/films` : Liste des vidéos soumises avec filtres et pagination.
-* `/films/:id` : Détails d'une vidéo spécifique.
-* `/ranking` : Classement public des vidéos.
-* `/jury` : Interface dédiée aux membres du jury pour noter et commenter.
-* `/admin` : Tableau de bord pour les administrateurs (gestion des utilisateurs, vidéos, etc.).
-* `/about` : Page d'information sur le concours et l'équipe organisatrice.
-* `/contact` : Formulaire de contact et support utilisateur.
-* `/partenaires` : Espace dédié aux partenaires commerciaux.
-* `/vote` : Page de vote pour les membres du jury.
-* `/allvotes` : Page listant tous les votes effectués par le jury.
-* `/comments` : Page pour consulter et ajouter des commentaires sur les vidéos.
-* `/settings` : Paramètres utilisateur (langue, préférences, etc.).
-* `/sponsors` : Gestion des sponsors pour les administrateurs.
-* `/social-share` : Fonctionnalités de partage sur les réseaux sociaux.
-* `/notations` : Historique des notations effectuées par le jury.
-* `/categories` : Filtrage des vidéos par catégories thématiques.
-* `/workshops` : Inscription aux ateliers et événements liés au concours.
-* `/conferences` : Calendrier des conférences et webinaires.
-* `/calendar` : Vue calendrier des événements du concours.
-* `/faq` : Foire aux questions pour les utilisateurs.
-* `/terms` : Conditions générales d'utilisation.
-* `/privacy` : Politique de confidentialité et gestion des cookies.
-* `/onboarding` : Guide d'onboarding pour les nouveaux utilisateurs.
-* `/profile/edit` : Édition avancée du profil utilisateur.
-* `/RSS` : Flux RSS des dernières vidéos et actualités.
+##### Convention de Nommage
+- URLs en **kebab-case** (`/submit-film`, `/my-profile`)
+- Paramètres dynamiques avec `:` (`/films/:id`)
+- Routes protégées par rôle
+- Gestion des erreurs (404, 403)
+
+##### Routes Publiques (Sans Authentification)
+
+**Pages d'Accueil & Information**
+* `/` : Page d'accueil avec présentation du concours
+* `/about` : Page d'information sur le concours et l'équipe organisatrice
+* `/contact` : Formulaire de contact et support utilisateur
+* `/faq` : Foire aux questions pour les utilisateurs
+* `/terms` : Conditions générales d'utilisation
+* `/privacy` : Politique de confidentialité et gestion des cookies
+
+**Authentification**
+* `/login` : Page de connexion utilisateur
+* `/register` : Page d'inscription utilisateur
+* `/forgot-password` : Mot de passe oublié
+* `/reset-password/:token` : Réinitialiser mot de passe
+* `/verify-email/:token` : Vérifier email
+
+**Consultation Films**
+* `/films` : Liste des vidéos soumises avec filtres et pagination
+* `/films/:id` : Détails d'une vidéo spécifique
+* `/films/category/:category` : Films par catégorie
+* `/films/search?q=:query` : Recherche de films
+* `/ranking` : Classement public des vidéos
+* `/ranking/top50` : Top 50 officiel
+
+**Programme & Événements**
+* `/program` : Programme général
+* `/workshops` : Inscription aux ateliers et événements liés au concours
+* `/workshops/:id` : Détail atelier
+* `/conferences` : Calendrier des conférences et webinaires
+* `/conferences/:id` : Détail conférence
+* `/calendar` : Vue calendrier des événements du concours
+* `/sponsors` : Partenaires & sponsors
+
+##### Routes Utilisateur Connecté
+
+**Profil & Compte**
+* `/profile` : Gestion du profil utilisateur (modification, suppression)
+* `/profile/edit` : Édition avancée du profil utilisateur
+* `/settings` : Paramètres utilisateur (langue, préférences, etc.)
+* `/settings/preferences` : Préférences utilisateur
+* `/notifications` : Mes notifications
+* `/my-activity` : Mon activité
+
+**Réalisateur**
+* `/submit-film` : Formulaire de soumission de vidéos
+* `/my-films` : Mes films soumis
+* `/my-films/:id/edit` : Éditer mon film
+* `/my-films/:id/analytics` : Statistiques de mon film
+
+**Participation**
+* `/my-votes` : Mes votes (si applicable)
+* `/comments` : Page pour consulter et ajouter des commentaires sur les vidéos
+* `/my-bookmarks` : Mes favoris
+* `/workshops/my-registrations` : Mes inscriptions ateliers
+
+##### Routes Jury (Accès Restreint)
+* `/jury` : Interface dédiée aux membres du jury pour noter et commenter
+* `/jury/videos` : Films à évaluer
+* `/jury/videos/:id/rate` : Noter un film
+* `/jury/my-ratings` : Mes évaluations
+* `/vote` : Page de vote pour les membres du jury
+* `/allvotes` : Page listant tous les votes effectués par le jury
+* `/notations` : Historique des notations effectuées par le jury
+
+##### Routes Modérateur
+* `/moderator` : Dashboard modérateur
+* `/moderator/videos` : Films à modérer
+* `/moderator/videos/pending` : Films en attente
+* `/moderator/videos/:id` : Modération film
+* `/moderator/comments` : Modération commentaires
+
+##### Routes Administrateur
+* `/admin` : Tableau de bord pour les administrateurs (gestion des utilisateurs, vidéos, etc.)
+* `/admin/overview` : Vue d'ensemble
+* `/admin/users` : Gestion utilisateurs
+* `/admin/videos` : Gestion vidéos
+* `/admin/workshops` : Gestion ateliers
+* `/admin/conferences` : Gestion conférences
+* `/admin/sponsors` : Gestion des sponsors pour les administrateurs
+* `/admin/settings` : Configuration système
+* `/admin/logs` : Logs système
+* `/admin/analytics` : Statistiques globales
+
+##### Routes Partenaires
+* `/partenaires` : Espace dédié aux partenaires commerciaux
+
+##### Routes Diverses
+* `/categories` : Filtrage des vidéos par catégories thématiques
+* `/social-share` : Fonctionnalités de partage sur les réseaux sociaux
+* `/onboarding` : Guide d'onboarding pour les nouveaux utilisateurs
+* `/RSS` : Flux RSS des dernières vidéos et actualités
+
+##### Protection des Routes
+- **Routes Publiques** : Accessibles sans authentification
+- **Routes Utilisateur** : Authentification requise, redirection vers `/login` si non connecté
+- **Routes à Rôles Spécifiques** : 
+  - `/jury/*` : Rôle JURY requis
+  - `/moderator/*` : Rôle MODERATOR ou ADMIN requis
+  - `/admin/*` : Rôle ADMIN requis
 
 #### Contraintes de sécurité Front
 
@@ -289,20 +365,47 @@ Pour une vue complète du modèle de données, consultez le document MCD.
 
 #### Endpoints Back-End
 
-* `POST /auth/register` : Inscription d'un nouvel utilisateur.
-* `POST /auth/login` : Connexion utilisateur avec génération de token.
-* `GET /auth/logout` : Déconnexion sécurisée (invalidation du token).
-* `GET /users/:id` : Récupération des informations d'un utilisateur spécifique.
-* `PUT /users/:id` : Mise à jour des informations utilisateur.
-* `DELETE /users/:id` : Suppression ou anonymisation d'un utilisateur (conformité RGPD).
-* `POST /videos` : Soumission d'une nouvelle vidéo.
-* `GET /videos` : Liste des vidéos avec filtres (pagination, statut, etc.).
-* `GET /videos/:id` : Détails d'une vidéo spécifique.
-* `PUT /videos/:id` : Mise à jour des métadonnées d'une vidéo (par un modérateur ou admin).
-* `DELETE /videos/:id` : Suppression d'une vidéo.
-* `POST /votes` : Enregistrement d'un vote pour une vidéo.
-* `GET /analytics/videos` : Statistiques globales sur les vidéos (vues, partages, etc.).
-* `GET /analytics/users` : Statistiques sur les utilisateurs (inscriptions, activité).
+##### Convention de Nommage
+- Ressources au **pluriel** (`/videos`, `/users`)
+- Segments composés en **kebab-case**
+- Versioning : `/api/v1/`
+- Pagination standard (path params) : `/:limit/:offset`
+- Codes HTTP normalisés (200, 201, 400, 401, 403, 404, 500)
+
+##### Endpoints Principaux
+
+**Authentification**
+* `POST /api/v1/auth/register` : Inscription d'un nouvel utilisateur
+* `POST /api/v1/auth/login` : Connexion utilisateur avec génération de token
+* `GET /api/v1/auth/logout` : Déconnexion sécurisée (invalidation du token)
+**Gestion Utilisateurs**
+* `GET /api/v1/users/:limit/:offset` : Liste utilisateurs (admin) - **PAGINATION**
+* `GET /api/v1/users/:id` : Récupération des informations d'un utilisateur spécifique
+* `PUT /api/v1/users/:id` : Mise à jour des informations utilisateur
+* `DELETE /api/v1/users/:id` : Suppression ou anonymisation d'un utilisateur (conformité RGPD)
+* `GET /api/v1/users/me` : Mon profil
+* `PUT /api/v1/users/me` : Modifier mon profil
+**Gestion Vidéos**
+* `POST /api/v1/videos` : Soumission d'une nouvelle vidéo
+* `GET /api/v1/videos/:limit/:offset` : Liste des vidéos - **PAGINATION**
+* `GET /api/v1/videos/:id` : Détails d'une vidéo spécifique
+* `PUT /api/v1/videos/:id` : Mise à jour des métadonnées d'une vidéo (par un modérateur ou admin)
+* `DELETE /api/v1/videos/:id` : Suppression d'une vidéo
+* `PATCH /api/v1/videos/:id/status` : Changer statut (admin/modérateur)
+* `POST /api/v1/videos/:id/views` : Incrémenter vues
+* `GET /api/v1/videos/:id/analytics` : Statistiques vidéo
+**Votes & Notations (Jury)**
+* `POST /api/v1/votes` : Enregistrement d'un vote pour une vidéo
+* `GET /api/v1/jury/videos/:limit/:offset` : Liste des vidéos à noter pour les membres du jury - **PAGINATION**
+* `POST /api/v1/jury/videos/:id/rate` : Noter une vidéo
+* `GET /api/v1/jury/my-ratings/:limit/:offset` : Mes notations - **PAGINATION**
+
+**Analytics & Statistiques**
+* `GET /api/v1/analytics/videos` : Statistiques globales sur les vidéos (vues, partages, etc.)
+* `GET /api/v1/analytics/users` : Statistiques sur les utilisateurs (inscriptions, activité)
+* `GET /api/v1/analytics/dashboard` : Dashboard analytics
+* `GET /api/v1/ranking/:limit/:offset` : Classement général - **PAGINATION**
+* `GET /api/v1/ranking/top50` : Top 50 officiel
 * `GET /notifications` : Récupération des notifications pour l'utilisateur connecté.
 * `POST /notifications` : Création d'une nouvelle notification (système).
 * `GET /languages` : Liste des langues disponibles.
