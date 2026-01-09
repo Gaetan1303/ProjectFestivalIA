@@ -222,7 +222,7 @@ Les user stories détaillées, critères d’acceptation et priorités sont déc
 - Gestion des erreurs (404, 403)
 
 ##### Routes Publiques (Sans Authentification)
-
+```
 **Pages d'Accueil & Information**
 * `/` : Page d'accueil avec présentation du concours
 * `/about` : Page d'information sur le concours et l'équipe organisatrice
@@ -318,7 +318,7 @@ Les user stories détaillées, critères d’acceptation et priorités sont déc
   - `/jury/*` : Rôle JURY requis
   - `/moderator/*` : Rôle MODERATOR ou ADMIN requis
   - `/admin/*` : Rôle ADMIN requis
-
+```
 #### Contraintes de sécurité Front
 
 * Protection des routes par rôle
@@ -383,7 +383,7 @@ Pour une vue complète du modèle de données, consultez le document MCD.
 - Codes HTTP normalisés (200, 201, 400, 401, 403, 404, 500)
 
 ##### Endpoints Principaux
-
+```
 **Authentification**
 * `POST /api/v1/auth/register` : Inscription d'un nouvel utilisateur
 * `POST /api/v1/auth/login` : Connexion utilisateur avec génération de token
@@ -456,7 +456,7 @@ Pour une vue complète du modèle de données, consultez le document MCD.
 * `GET /admin/workshop` : Gestion des workshops et CRUD associé.
 * `GET /admin/conference` : Gestion des conférences et CRUD associé.
 * `GET /admin/analytics` : Tableau de bord analytique pour les administrateurs.
-
+```
 ##### Contraintes API
 
 * DTO stricts
@@ -624,14 +624,30 @@ Pour une vue complète du modèle de données, consultez le document MCD.
 
 ## 4. Annexe — Diagrammes
 
-### Diagramme de cas d'utilisation
+### Diagramme de cas d'utilisation général
 ![Diagramme de cas d'utilisation](../assets/UseCase_diagramme.png)
 
-### Diagramme de cas d'usage détaillé
-![Diagramme de cas d'usage](../assets/casUsage.png)
+### Diagrammes de cas d'utilisation détaillés
+
+#### Gestion des vidéos
+![Gestion des vidéos](../assets/gestionVideoUsecase.png)
+
+#### Inscription et attribution des rôles
+![Inscription et attribution des rôles](../assets/InscriptionUseCase.png)
+
+#### Consultation des vidéos
+![Voir une vidéo](../assets/SeeVideoUseCase.png)
+
+#### Mars IA — Vue d'ensemble
+![Mars IA — Vue globale](../assets/videoUseCase.png)
+
+#### Gestion du vote du jury
+![Gestion du vote du jury](../assets/VoteUseCase.png)
+
 
 ### Diagramme entité–relation (MCD)
 ![MCD - Modèle Conceptuel de Données](../assets/MCD.png)
 
 ---
+
 
