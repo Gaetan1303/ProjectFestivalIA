@@ -624,8 +624,10 @@ Pour une vue complète du modèle de données, consultez le document MCD.
 
 ## 4. Annexe — Diagrammes
 
-### Diagramme de Classes des Acteurs
-![Diagramme de Classes des Acteurs ](../assets/UseCase_diagramme.png)
+### Diagramme de cas d'utilisation général
+![Diagramme de cas d'utilisation](../assets/UseCase_diagramme.png)
+
+### Diagrammes de cas d'utilisation détaillés
 
 #### Gestion des vidéos
 ![Gestion des vidéos](../assets/gestionVideoUsecase.png)
