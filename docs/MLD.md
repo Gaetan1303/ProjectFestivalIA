@@ -2,153 +2,330 @@
 
 ## Tables et Attributs
 
-### Table: Utilisateur
-- **id** (PK) : Identifiant unique de l'utilisateur (string)
-- nom : Nom de l'utilisateur (string)
-- prenom : Prénom de l'utilisateur (string)
-- email : Adresse email unique (string)
-- motDePasse : Mot de passe sécurisé (string)
-- dateNaissance : Date de naissance (date) - *requis pour vérification âge*
-- biographie : Biographie de l'utilisateur (text)
-- ecole : École/Institution (string)
-- reseauxSociaux : Liens réseaux sociaux (JSON)
-- portfolio : Lien portfolio (string)
-- accepteCGU : Acceptation des CGU (boolean) - *obligatoire*
-- dateInscription : Date d'inscription (datetime)
-- role : Rôle de l'utilisateur (enum: USER, ADMINISTRATOR, MODERATOR, JURY, COMMERCIAL_PARTNER)
+### Table: User
+- id (PK) : Identifiant unique (UUID, CHAR(36))
+- nom : Nom (string)
+- prenom : Prénom (string)
+- email : Email unique (string)
+- motDePasse : Mot de passe sécurisé (string, hashé)
+- dateNaissance : Date de naissance (date)
+- accepteCGU : Acceptation des CGU (boolean, NOT NULL, CHECK = 1)
 - statut : Statut du compte (enum: ACTIVE, INACTIVE, SUSPENDED)
+- created_at : Date de création (datetime)
+- updated_at : Date de modification (datetime)
+- deleted_at : Date de suppression (nullable)
+- lastLoginAt : Dernière connexion (datetime, optionnel)
+- emailVerified : Email vérifié (boolean, optionnel)
 
-### Table: Categorie
-- **id** (PK) : Identifiant unique de la catégorie (string)
-- nom : Nom de la catégorie (string)
-- description : Description de la catégorie (text)
-- dateCreation : Date de création (datetime)
-- actif : Catégorie active (boolean)
+### Table: Role
+- id (PK) : Identifiant du rôle (UUID, CHAR(36))
+- nom : Nom du rôle (enum: VISITOR, ADMIN, COMITE, JURY, DIRECTOR)
 
-### Table: Vidéo
-- **id** (PK) : Identifiant unique de la vidéo (string)
-- titre : Titre de la vidéo (string)
-- description : Description de la vidéo (text)
-- statut : Statut de la vidéo (enum: PENDING, APPROVED, REJECTED, MODERATION)
-- chemin : Chemin ou URL de la vidéo (string)
-- urlYoutube : URL YouTube de la vidéo (string)
-- poster : Chemin de l'image poster (string)
-- duree : Durée en secondes (int)
-- nbVues : Nombre de vues (int) - *default: 0*
-- dateSoumission : Date de soumission de la vidéo (datetime)
-- dateValidation : Date de validation/rejet (datetime)
-- outilsIA : Outils IA utilisés (JSON) - *scénario, génération images/vidéos, post-production*
-- realisateurReferent : Réalisateur référent pour projets collectifs (boolean)
-- utilisateur_id (FK) : Référence à l'utilisateur ayant soumis la vidéo (string)
-- categorie_id (FK) : Référence à la catégorie (string)
+### Table: Candidature
+- id (PK) : Identifiant unique (UUID, CHAR(36))
+- user_id (FK) : Référence à User (UUID)
+- dateDepot : Date de dépôt (datetime)
+- statut : Statut de la candidature (enum: EN_ATTENTE, ACCEPTEE, REFUSEE)
+- created_at : Date de création (datetime)
+- updated_at : Date de modification (datetime)
 
-### Table: Vote
-- **id** (PK) : Identifiant unique du vote (string)
-- note : Note attribuée à la vidéo (int, 1 à 10)
-- commentairePrivé : Commentaire privé du juré (text) - *non visible publiquement*
-- dateVote : Date du vote (datetime)
-- video_id (FK) : Référence à la vidéo votée (string)
-- utilisateur_id (FK) : Référence au juré ayant voté (string) - *rôle JURY uniquement*
+### Table: Film
+- id (PK) : Identifiant unique (UUID, CHAR(36))
+- titre : Titre (string)
+- description : Description (text)
+- duree : Durée en secondes (int, CHECK <= 60)
+- format : Format vidéo (string, CHECK = '16:9')
+- urlYoutube : URL YouTube (string)
+- chemin : Chemin ou URL du fichier (string)
+- dateSoumission : Date de soumission (datetime)
+- user_id (FK) : Réalisateur (UUID)
+- candidature_id (FK, UNIQUE) : Référence à Candidature (UUID)
+- created_at : Date de création (datetime)
+- updated_at : Date de modification (datetime)
+
+### Table: Comment
+- id (PK) : Identifiant unique (UUID, CHAR(36))
+- film_id (FK) : Référence à Film (UUID)
+- user_id (FK) : Référence à User (UUID)
+- contenu : Contenu du commentaire/annotation (text)
+- type : Type (enum: COMMENTAIRE, NOTE, TECHNIQUE, AUTRE)
+- prive : Boolean (privé/public)
+- visible_par : ENUM('ADMIN','JURY','AUTEUR')
+- dateComment : Date du commentaire (datetime)
+- created_at : Date de création (datetime)
+
+### Table: Selection
+- id (PK) : Identifiant unique (UUID, CHAR(36))
+- film_id (FK) : Référence à Film (UUID)
+- dateSelection : Date de sélection (datetime)
+- type : Type de sélection (enum: OFFICIELLE, HORS_COMPETITION, AUTRE)
+
+### Table: Laureat
+- id (PK) : Identifiant unique (UUID, CHAR(36))
+- film_id (FK) : Référence à Film (UUID)
+- prix : Nom du prix (string)
+- dateRemise : Date de remise (datetime)
 
 ### Table: Notification
-- **id** (PK) : Identifiant unique de la notification (string)
+- id (PK) : Identifiant unique (UUID, CHAR(36))
+- user_id (FK) : Référence à User (UUID)
 - type : Type de notification (enum: VIDEO_VALIDATION, NEW_VIDEO, RANKING_UPDATE, WORKSHOP_REMINDER, GENERAL)
-- titre : Titre de la notification (string)
-- message : Contenu de la notification (text)
-- date : Date de création de la notification (datetime)
-- lu : Notification lue (boolean) - *default: false*
-- utilisateur_id (FK) : Référence à l'utilisateur destinataire (string)
+- titre : Titre (string)
+- message : Contenu (text)
+- dateCreation : Date de création (datetime)
+- lu : Notification lue (boolean, default: false)
 
-### Table: Langue
-- **code** (PK) : Code unique de la langue (string) - *ex: 'fr', 'en'*
-- nom : Nom de la langue (string) - *ex: 'Français', 'English'*
-- actif : Langue active (boolean)
+### Table: Note
+- id (PK) : Identifiant unique (UUID, CHAR(36))
+- user_id (FK) : Référence à User (UUID)
+- film_id (FK) : Référence à Film (UUID)
+- note : Note (int, 1 à 10, NOT NULL)
+- created_at : Date de création (datetime)
+
+## Contraintes et Relations (SQL)
+### Table: Playlist
+- id (PK) : Identifiant unique (UUID, CHAR(36))
+- nom : Nom (string)
+- created_at : Date de création (datetime)
 
 ### Table: Workshop
-- **id** (PK) : Identifiant unique du workshop (string)
-- titre : Titre du workshop (string)
-- description : Description du workshop (text)
-- dateDebut : Date et heure de début (datetime)
-- dateFin : Date et heure de fin (datetime)
-- lieu : Lieu du workshop (string)
-- capaciteMax : Capacité maximale (int)
-- prix : Prix d'inscription (decimal)
-- statut : Statut (enum: OUVERT, COMPLET, ANNULE, TERMINE)
+- id (PK) : Identifiant unique (UUID, CHAR(36))
+- nom : Nom (string)
+- created_at : Date de création (datetime)
 
-### Table: Conference
-- **id** (PK) : Identifiant unique de la conférence (string)
-- titre : Titre de la conférence (string)
-- description : Description de la conférence (text)
-- dateDebut : Date et heure de début (datetime)
-- dateFin : Date et heure de fin (datetime)
-- lieu : Lieu de la conférence (string)
-- intervenant : Nom de l'intervenant (string)
-- statut : Statut (enum: PROGRAMMEE, EN_COURS, TERMINEE, ANNULEE)
+### Table: Agenda
+- id (PK) : Identifiant unique (UUID, CHAR(36))
+- nom : Nom (string)
+- created_at : Date de création (datetime)
 
-### Table: Partenaire
-- **id** (PK) : Identifiant unique du partenaire (string)
-- nom : Nom du partenaire (string)
-- logo : Chemin du logo (string)
-- description : Description du partenaire (text)
-- siteWeb : Site web du partenaire (string)
-- type : Type de partenariat (enum: SPONSOR_OR, SPONSOR_ARGENT, SPONSOR_BRONZE, PARTENAIRE_MEDIA, PARTENAIRE_TECHNIQUE)
-- actif : Partenaire actif (boolean)
+### Table: AI_tools
+- id (PK) : Identifiant unique (UUID, CHAR(36))
+- nom : Nom (string)
+- created_at : Date de création (datetime)
 
-### Table: InscriptionWorkshop
-- **id** (PK) : Identifiant unique de l'inscription (string)
-- dateInscription : Date d'inscription (datetime)
-- statut : Statut de l'inscription (enum: CONFIRMEE, EN_ATTENTE, ANNULEE)
-- workshop_id (FK) : Référence au workshop (string)
-- utilisateur_id (FK) : Référence à l'utilisateur (string)
+### Table: Newsletter
+- id (PK) : Identifiant unique (UUID, CHAR(36))
+- email : Email (string)
+- created_at : Date de création (datetime)
 
-## Contraintes et Relations
+### Relations One-to-Many (1,N)
+- Un User peut avoir plusieurs Candidatures :
+	- User (1) ---< (N) Candidature (user_id)
+- Un User peut soumettre plusieurs Films :
+	- User (1) ---< (N) Film (user_id)
+- Un User peut recevoir plusieurs Notifications :
+	- User (1) ---< (N) Notification (user_id)
+- Un Film peut recevoir plusieurs Comments :
+	- Film (1) ---< (N) Comment (film_id)
+- Un Film peut être sélectionné plusieurs fois :
+	- Film (1) ---< (N) Selection (film_id)
+- Un Film peut être lauréat de plusieurs prix :
+	- Film (1) ---< (N) Laureat (film_id)
+- Un Workshop peut avoir plusieurs Users inscrits (via table d'inscription, à ajouter si besoin)
 
-1. **Utilisateur - Vidéo**
-   - Relation : 1,N
-   - Un utilisateur peut soumettre plusieurs vidéos (réalisateur peut soumettre plusieurs films).
+### Relations One-to-One (1,1)
+- Un Film peut être lié à une seule Playlist principale (si besoin, via clé étrangère playlist_id dans Film ou table d'association)
 
-2. **Catégorie - Vidéo**
-   - Relation : 1,N
-   - Une catégorie peut contenir plusieurs vidéos, une vidéo appartient à une catégorie.
+### Relations Many-to-Many (N,N)
+- Un User peut avoir plusieurs Roles et un Role peut être attribué à plusieurs Users :
+	- Table d'association User_Role (user_id, role_id)
+- Un Film peut appartenir à plusieurs Playlists et une Playlist peut contenir plusieurs Films :
+	- Table d'association Playlist_Film (playlist_id, film_id)
+- Un User peut s'inscrire à plusieurs Workshops et un Workshop peut accueillir plusieurs Users :
+	- Table d'association Workshop_User (workshop_id, user_id)
+- Un Film peut utiliser plusieurs AI_tools et un AI_tool peut être utilisé dans plusieurs Films :
+	- Table d'association Film_AItool (film_id, ai_tool_id)
 
-3. **Vidéo - Vote**
-   - Relation : 1,N
-   - Une vidéo peut recevoir plusieurs votes (uniquement par les jurés).
+### Autres tables et liens
+- Newsletter :
+	- Un User peut être abonné à la Newsletter (champ booléen dans User ou table d'association Newsletter_User)
+- Notes :
+	- Peut être géré via Annotation ou table Note (user_id, film_id, note, ...)
+- Agenda :
+	- Un Agenda peut contenir plusieurs Workshops/Events (Agenda (1) ---< (N) Workshop/Event)
 
-4. **Utilisateur - Vote**
-   - Relation : 1,N
-   - Un utilisateur avec le rôle JURY peut voter pour plusieurs vidéos.
-   - **Contrainte** : Seuls les utilisateurs avec le rôle JURY peuvent voter.
+**Résumé des liens principaux :**
 
-5. **Utilisateur - Notification**
-   - Relation : 1,N
-   - Un utilisateur peut recevoir plusieurs notifications.
+- User (1) ---< (N) Candidature
+- User (1) ---< (N) Film
+- User (1) ---< (N) Notification
+- User (N) ---< (N) Role (via User_Role)
+- User (N) ---< (N) Workshop (via Workshop_User)
+- User (1) ---< (N) Comment
+- Film (1) ---< (N) Comment
+- Film (1) ---< (N) Selection
+- Film (1) ---< (N) Laureat
+- Film (N) ---< (N) Playlist (via Playlist_Film)
+- Film (N) ---< (N) AI_tools (via Film_AItool)
+- Workshop (N) ---< (N) User (via Workshop_User)
+- Workshop (N) ---< (N) Agenda (si besoin)
 
-6. **Workshop - InscriptionWorkshop**
-   - Relation : 1,N
-   - Un workshop peut avoir plusieurs inscriptions.
+// Pour chaque table d'association, prévoir une clé primaire composite ou un id unique.
 
-7. **Utilisateur - InscriptionWorkshop**
-   - Relation : 1,N
-   - Un utilisateur peut s'inscrire à plusieurs workshops.
+## Contraintes Métier et Techniques
 
-## Contraintes Spécifiques
+- Acceptation CGU obligatoire pour User
+- Durée Film ≤ 60 secondes
+- Format vidéo 16:9 obligatoire
+- Un commentaire privé n’est visible que par le jury/admin
+- Un User de rôle JURY peut créer des commentaires privés (annotations techniques, notes)
 
-### Contraintes Métier
+## Diagramme de Conception (Mermaid)
 
-1. **Votes Privés** : Les commentaires des votes ne sont visibles que par les jurés et administrateurs.
-2. **Soumissions Multiples** : Un réalisateur peut soumettre plusieurs films (suppression de la contrainte 1,1).
-3. **Catégories Dynamiques** : Les catégories sont créées et gérées par les administrateurs.
-4. **Vérification Âge** : La date de naissance est requise pour vérifier l'âge des participants.
-5. **Acceptation CGU** : L'acceptation des CGU est obligatoire pour tous les utilisateurs.
-6. **Réalisateur Référent** : Pour les projets collectifs, un réalisateur référent doit être identifié.
+```mermaid
+erDiagram
+    User {
+        char(36) id PK
+        varchar(100) nom
+        varchar(100) prenom
+        varchar(255) email
+        varchar(255) motDePasse
+        date dateNaissance
+        tinyint accepteCGU
+        enum statut
+        datetime created_at
+        datetime updated_at
+        datetime deleted_at
+        datetime lastLoginAt
+        tinyint emailVerified
+    }
+    Role {
+        char(36) id PK
+        enum nom
+    }
+    User_Role {
+        char(36) user_id FK
+        char(36) role_id FK
+    }
+    Candidature {
+        char(36) id PK
+        char(36) user_id FK
+        datetime dateDepot
+        enum statut
+        datetime created_at
+        datetime updated_at
+    }
+    Film {
+        char(36) id PK
+        varchar(255) titre
+        text description
+        int duree
+        varchar(10) format
+        varchar(500) urlYoutube
+        varchar(500) chemin
+        datetime dateSoumission
+        char(36) user_id FK
+        char(36) candidature_id FK
+        datetime created_at
+        datetime updated_at
+    }
+    Comment {
+        char(36) id PK
+        char(36) film_id FK
+        char(36) user_id FK
+        text contenu
+        enum type
+        tinyint prive
+        enum visible_par
+        datetime dateComment
+        datetime created_at
+    }
+    Selection {
+        char(36) id PK
+        char(36) film_id FK
+        datetime dateSelection
+        enum type
+    }
+    Laureat {
+        char(36) id PK
+        char(36) film_id FK
+        varchar(255) prix
+        datetime dateRemise
+    }
+    Notification {
+        char(36) id PK
+        char(36) user_id FK
+        enum type
+        varchar(255) titre
+        text message
+        datetime dateCreation
+        tinyint lu
+    }
+    Note {
+        char(36) id PK
+        char(36) user_id FK
+        char(36) film_id FK
+        int note
+        datetime created_at
+    }
+    Playlist {
+        char(36) id PK
+        varchar(255) nom
+        datetime created_at
+    }
+    Playlist_Film {
+        char(36) playlist_id FK
+        char(36) film_id FK
+    }
+    Newsletter {
+        char(36) id PK
+        varchar(255) email
+        datetime created_at
+    }
+    Newsletter_User {
+        char(36) user_id FK
+        char(36) newsletter_id FK
+    }
+    AI_tools {
+        char(36) id PK
+        varchar(255) nom
+        datetime created_at
+    }
+    Film_AItool {
+        char(36) film_id FK
+        char(36) ai_tool_id FK
+    }
+    Workshop {
+        char(36) id PK
+        varchar(255) nom
+        datetime created_at
+    }
+    Workshop_User {
+        char(36) workshop_id FK
+        char(36) user_id FK
+    }
+    Agenda {
+        char(36) id PK
+        varchar(255) nom
+        datetime created_at
+    }
+    Agenda_Workshop {
+        char(36) agenda_id FK
+        char(36) workshop_id FK
+    }
 
-### Contraintes Techniques
+    User ||--o{ Candidature : depose
+    User ||--o{ Film : realise
+    User ||--o{ Notification : recoit
+    User ||--o{ Comment : ecrit
+    User ||--o{ Note : note
+    User ||--o{ User_Role : a_role
+    User ||--o{ Workshop_User : participe
+    User ||--o{ Newsletter_User : abonne
+    Role ||--o{ User_Role : attribue
+    Candidature ||--o| Film : concerne
+    Film ||--o{ Comment : commente
+    Film ||--o{ Note : evalue
+    Film ||--o{ Selection : selectionne
+    Film ||--o{ Laureat : laureat
+    Film ||--o{ Playlist_Film : dans_playlist
+    Film ||--o{ Film_AItool : utilise
+    Playlist ||--o{ Playlist_Film : contient
+    Newsletter ||--o{ Newsletter_User : a_abonne
+    AI_tools ||--o{ Film_AItool : reference
+    Workshop ||--o{ Workshop_User : concerne
+    Workshop ||--o{ Agenda_Workshop : planifie
+    Agenda ||--o{ Agenda_Workshop : contient
+```
 
-1. **Format Vidéo** : Les vidéos doivent être au format 16:9 horizontal.
-2. **Durée** : Durée maximale de 1 minute (60 secondes).
-3. **Validation YouTube** : URL YouTube requise pour la vérification des droits.
-
-**Modèle Logique des Données (MLD)**
-
-Modélisation des ensembles et de leurs attributs indépendamment du SGBD utilisé. Le MLD est une représentation simplifiée du modèle physique mais plus complète que le MCD.
+** ce dossier a été généré par El miminette ! **
