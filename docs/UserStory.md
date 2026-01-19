@@ -75,7 +75,7 @@ Cette epic couvre la gestion complète des comptes utilisateurs, incluant l'insc
   - Je peux lister les utilisateurs et rechercher (email/nom/rôle/statut)
   - Je peux désactiver un compte (l’utilisateur ne peut plus agir)
   - Je peux supprimer un compte (selon la politique de conservation/anonymisation)
-  - Je peux attribuer des rôles : **public**, **registered**, **filmmaker**, **jury**, **moderator**, **admin**, **partner**
+  - Je peux attribuer des rôles : **public**, **registered**, **director**, **jury**, **moderator**, **admin**, **partner**
   - Les actions sensibles sont traçables (qui a fait quoi)
 
 ---
@@ -87,12 +87,12 @@ Cette epic gère le parcours complet des réalisateurs, depuis l'onboarding jusq
 
 
 ### US1 — Soumettre plusieurs films
-- **En tant que** filmmaker
+- **En tant que** director
 - **Je veux** soumettre plusieurs courts métrages
 - **Afin de** participer au concours avec plusieurs créations
 - **Priorité :** Haute
 - **Critères d'acceptation**
-  - **Étant donné** que je suis connecté en filmmaker et que les soumissions sont ouvertes
+  - **Étant donné** que je suis connecté en director et que les soumissions sont ouvertes
   - **Quand** je renseigne titre + description + pays + fiche IA et je téléverse mon fichier vidéo
   - **Alors**
     - Ma soumission est enregistrée
@@ -106,7 +106,7 @@ Cette epic gère le parcours complet des réalisateurs, depuis l'onboarding jusq
     - **Contrôle YouTube préalable effectué** pour la vérification des droits d'auteur
 
 ### US2 — Voir le temps restant avant la clôture des soumissions
-- **En tant que** filmmaker
+- **En tant que** director
 - **Je veux** connaître le temps restant pour soumettre
 - **Afin de** ne pas rater la deadline
 - **Priorité :** Moyenne
@@ -116,10 +116,10 @@ Cette epic gère le parcours complet des réalisateurs, depuis l'onboarding jusq
 
 ---
 
-## Epic #3 — Vote, Notation & Classement
+## Epic #3 — Note, Notation & Classement
 
 ### Description
-Cette epic couvre le système de notation privé réservé au jury, avec commentaires privés non visibles par le public ni les réalisateurs. Elle gère le classement public, la sélection du Top 50 officiel par les administrateurs, et les catégories dynamiques. **Note importante : le public ne vote pas et n'a pas d'interactions directes (likes/dislikes)**.
+Cette epic couvre le système de notation privé réservé au jury, avec commentaires privés non visibles par le public ni les réalisateurs. Elle gère le classement public, la sélection du Top 50 officiel par les administrateurs, et les catégories dynamiques. **Note importante : le public ne note pas et n'a pas d'interactions directes (likes/dislikes)**.
 
 ### US1 — Jury : noter un film (privé)
 - **En tant que** membre du jury **uniquement**
@@ -127,11 +127,11 @@ Cette epic couvre le système de notation privé réservé au jury, avec comment
 - **Afin de** contribuer au résultat final
 - **Priorité :** Haute
 - **Critères d'acceptation**
-  - **Seuls les membres du jury peuvent voter** (rôle JURY requis)
+  - **Seuls les membres du jury peuvent noter** (rôle JURY requis)
   - Je peux attribuer une note (ex : 1 à 10) sur un film éligible
-  - Je vois une confirmation que mon vote est pris en compte
-  - Mes votes sont visibles dans mon espace jury (historique)
-  - **Contrainte : je ne peux voter qu'une seule fois par film**
+  - Je vois une confirmation que mon note est pris en compte
+  - Mes notes sont visibles dans mon espace jury (historique)
+  - **Contrainte : je ne peux noter qu'une seule fois par film**
 
 ### US2 — Jury : commenter privément / donner un retour
 - **En tant que** membre du jury
@@ -144,17 +144,17 @@ Cette epic couvre le système de notation privé réservé au jury, avec comment
   - **Pas de commentaires publics** - les réalisateurs et le public ne voient pas ces commentaires
   - Les commentaires servent de prise de notes pour l'évaluation
 
-### US3 — Public : consulter le classement (sans voter)
+### US3 — Public : consulter le classement (sans noter)
 - **En tant que** utilisateur public
 - **Je veux** voir le classement des films
 - **Afin de** suivre le concours
 - **Priorité :** Haute
 - **Critères d'acceptation**
   - Une page publique affiche le classement
-  - Les films sont triés selon la règle définie (score/votes **du jury uniquement**)
-  - On voit au minimum : titre, créateur, pays (optionnel), score/votes
+  - Les films sont triés selon la règle définie (score/notes **du jury uniquement**)
+  - On voit au minimum : titre, créateur, pays (optionnel), score/notes
   - Le classement reste navigable même avec beaucoup de films (pagination : **20 médias par page**)
-  - **Le public peut consulter mais ne peut pas voter ou commenter**
+  - **Le public peut consulter mais ne peut pas noter ou commenter**
   - **Accès libre aux contenus sans création de compte obligatoire**
   - **Aucune interaction de type like, dislike ou commentaire public**
   - **Affichage des compteurs de vues** et boutons de partage sur les réseaux sociaux
@@ -205,7 +205,7 @@ Cette epic gère le système de rôles et de modération avec contrôle YouTube 
 Cette epic couvre la gestion des fiches techniques IA détaillées, le contrôle de conformité copyright via l'API YouTube, le système de filtrage et d'exploration du catalogue, ainsi que les statistiques d'engagement pour les administrateurs et les réalisateurs (statistiques par pays, outils IA populaires).
 
 ### US1 — Ajouter une fiche technique IA
-- **En tant que** filmmaker
+- **En tant que** director
 - **Je veux** renseigner les outils IA utilisés
 - **Afin de** rendre la création transparente pour le public et le jury
 - **Priorité :** Haute
@@ -218,7 +218,7 @@ Cette epic couvre la gestion des fiches techniques IA détaillées, le contrôle
   - La fiche est affichée sur la page du film
 
 ### US2 — Vérifier la conformité copyright
-- **En tant que** filmmaker
+- **En tant que** director
 - **Je veux** que ma soumission soit vérifiée
 - **Afin de** réduire les risques légaux avant publication
 - **Priorité :** Haute
@@ -243,15 +243,15 @@ Cette epic couvre la gestion des fiches techniques IA détaillées, le contrôle
   - **Posters** : upload d'images (JPG/PNG/GIF, max 2 Mo) avec redimensionnement automatique pour miniatures
   - Le catalogue reste confortable à naviguer avec chargement progressif
 
-### US4 — Voir des statistiques (Admin + Filmmaker)
-- **En tant que** admin **ou** filmmaker
+### US4 — Voir des statistiques (Admin + Director)
+- **En tant que** admin **ou** director
 - **Je veux** consulter des statistiques d’engagement
 - **Afin de** mesurer la performance des films / de la plateforme
 - **Priorité :** Moyenne
 - **Critères d’acceptation**
   - Admin : voit les statistiques globales
-  - Filmmaker : voit les statistiques de **ses propres** films
-  - Indicateurs possibles : vues, partages, votes, tendance (selon disponibilité)
+  - Director : voit les statistiques de **ses propres** films
+  - Indicateurs possibles : vues, partages, notes, tendance (selon disponibilité)
 
 ### US5 — Admin : statistiques par pays
 - **En tant que** admin
@@ -276,7 +276,7 @@ Cette epic couvre la gestion des fiches techniques IA détaillées, le contrôle
 ### Description
 Cette epic gère le système de notifications temps réel pour informer les utilisateurs des changements de statut, validations, rejets, et événements. Elle inclut la newsletter optionnelle et les notifications par email en fallback, avec gestion des préférences utilisateur.
 ### US1 — Être informé d’un changement de statut
-- **En tant que** filmmaker
+- **En tant que** director
 - **Je veux** être informé rapidement quand mon film est validé/refusé
 - **Afin de** réagir sans attendre
 - **Priorité :** Moyenne
@@ -339,7 +339,7 @@ Cette epic assure l'accessibilité de la plateforme selon les standards WCAG, av
   - **Objectif WCAG** (structure, contrastes, clavier, lecteur d'écran)
   - **Interface multilingue** (FR/EN au minimum), extensible
 ### US2 — Sous-titres : ajouter et afficher
-- **En tant que** filmmaker
+- **En tant que** director
 - **Je veux** ajouter des sous-titres
 - **Afin de** rendre mon film accessible
 - **Priorité :** Moyenne

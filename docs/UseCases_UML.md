@@ -28,7 +28,7 @@ classDiagram
         +acceptTerms()
     }
 
-    class Filmmaker {
+    class Director {
         +submitMultipleFilms()
         +setRealisateurReferent()
         +addAITechnicalSheet()
@@ -42,8 +42,8 @@ classDiagram
         +rateFilm()
         +addPrivateComment()
         +viewFilmsToRate()
-        +viewMyVotes()
-        +navigateBetweenVideos()
+        +viewMyNotes()
+        +navigateBetweenFilms()
         +viewEvaluationCriteria()
     }
 
@@ -130,35 +130,30 @@ classDiagram
 
     class Film {
         +id: string
-        +title: string
-        +description: string
-        +status: VideoStatus
-        +type: VideoType
-        +submissionDate: Date
+        +titre: string
+        +description: text
+        +duree: int
+        +format: string
         +urlYoutube: string
-        +poster: string
-        +duree: number
-        +nbVues: number
-        +outilsIA: JSON
-        +realisateurReferent: boolean
-        +dateValidation: Date
-        +categoryId: string
+        +sousTitres: string
+        +chemin: string
+        +dateSoumission: Date
+        +user_id: string
+        +candidature_id: string
         +submit()
         +approve()
         +reject()
         +addToTop50()
-        +incrementViews()
         +updateMetadata()
     }
 
-    class Vote {
+    class Note {
         +id: string
-        +rating: number
-        +commentairePrivé: string
-        +dateVote: Date
-        +filmId: string
-        +juryId: string
-        +submitVote()
+        +note: int
+        +film_id: string
+        +user_id: string
+        +created_at: Date
+        +submitNote()
         +updatePrivateComment()
     }
 
@@ -175,16 +170,16 @@ classDiagram
         +sendBulk()
     }
 
-    User <|-- Filmmaker
-    User <|-- Jury  
+    User <|-- Director
+    User <|-- Jury
     User <|-- Moderator
     User <|-- Admin
     User <|-- Partner
 
-    Filmmaker "1" --> "*" Film : submits_multiple
+    Director "1" --> "*" Film : submits_multiple
     Category "1" --> "*" Film : contains
-    Jury "1" --> "*" Vote : creates_private
-    Film "1" --> "*" Vote : receives
+    Jury "1" --> "*" Note : creates_private
+    Film "1" --> "*" Note : receives
     User "1" --> "*" Notification : receives
     Moderator "1" --> "*" Film : reviews
     Admin "1" --> "*" User : manages
@@ -198,21 +193,23 @@ classDiagram
 ## Contraintes et Relations
 
 ### Relations principales :
-- **Héritage** : Filmmaker, Jury, Moderator, Admin, Partner héritent de User
-- **Composition** : Un Film peut avoir plusieurs Votes
-- **Association** : Un Jury peut voter pour plusieurs Films
+- **Héritage** : Director, Jury, Moderator, Admin, Partner héritent de User
+- **Composition** : Un Film peut avoir plusieurs Notes
+- **Association** : Un Jury peut noter plusieurs Films
 - **Dépendance** : Les Notifications dépendent des actions sur les Films
 
 ### Contraintes métier :
-- **Seuls les Films avec statut APPROVED peuvent recevoir des votes**
+- **Seuls les Films approuvés peuvent recevoir des notes**
 - **Les Films doivent passer la modération avant publication**
-- **Seuls les Jurys peuvent sélectionner le Top 50**
+- **Seuls les Jurys peuvent noter les films** (rôle JURY requis)
 - **Les statistiques ne sont visibles qu'aux rôles autorisés**
-- **Un réalisateur peut soumettre plusieurs films** (suppression contrainte 1,1)
-- **Les commentaires de vote sont privés** (visibles uniquement par jury et admin)
+- **Un utilisateur peut soumettre plusieurs films** (suppression contrainte 1,1)
+- **Les commentaires privés sont visibles uniquement par jury et admin**
 - **L'acceptation des CGU est obligatoire** pour tous les utilisateurs
 - **La date de naissance est requise** pour vérification d'âge
-- **Seuls les utilisateurs avec rôle JURY peuvent voter**
+- **Seuls les utilisateurs avec rôle JURY peuvent noter**
+- **Durée film ≤ 60 secondes**
+- **Format vidéo 16:9 obligatoire**
 - **Les catégories sont créées dynamiquement par l'admin**
 - **Format vidéo : 16:9 horizontal, durée max 60 secondes**
 - **Contrôle YouTube préalable obligatoire** pour vérification droits

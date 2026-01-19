@@ -20,24 +20,20 @@
 
 ---
 
-### Vidéo
-- **Identifiant** (`id`) : Clé primaire *(INT / BIGINT)*
+### Film
+- **Identifiant** (`id`) : Clé primaire *(UUID)*
 - Titre : Chaîne de caractères
 - Description : Texte
 - Statut : Enum *(En attente, Approuvée, Rejetée, En modération)*
 - Chemin : Chaîne de caractères *(URL ou chemin fichier)*
-- **URL YouTube** : Chaîne de caractères *(pour contrôle des droits)*
-- **Poster** : Chaîne de caractères *(chemin image poster)*
-- **Durée** : Entier *(en secondes, max 60)*
-- **Nombre de vues** : Entier *(défaut: 0)*
-- **Outils IA** : JSON *(scénario, génération images/vidéos, post-production)*
-- **Réalisateur référent** : Booléen *(pour projets collectifs)*
-- Type : Enum *(ex: 100% IA, Hybride, etc.)*
+- URL YouTube : Chaîne de caractères *(pour contrôle des droits)*
+- Durée : Entier *(en secondes, max 60)*
+- Format : Chaîne de caractères *(ex: 16:9)*
+- Sous-titres : Chaîne de caractères *(optionnel)*
 - Date de soumission : Date
-- **Date de validation** : Date
-- `utilisateur_id` : Clé étrangère vers **Utilisateur**
-- `categorie_id` : Clé étrangère vers **Catégorie**
-- `langue_code` : Clé étrangère vers **Langue**
+- user_id : Clé étrangère vers **User**
+- created_at : Date
+- updated_at : Date
 
 ---
 
@@ -62,36 +58,35 @@
 
 ---
 
-### Vidéo ↔ Outil IA (liaison)
-> Une vidéo peut utiliser **0, 1 ou plusieurs** outils IA.  
-> Un outil IA peut être utilisé par **plusieurs** vidéos.
-- **Identifiant** (`id`) : Clé primaire *(INT / BIGINT)* *(optionnel si PK composite)*
-- `video_id` : Clé étrangère vers **Vidéo**
-- `ai_tool_id` : Clé étrangère vers **Outil IA**
-- **Contrainte recommandée :** unicité sur (`video_id`, `ai_tool_id`) pour éviter les doublons
+### Film ↔ AI_tools (liaison)
+> Un film peut utiliser **0, 1 ou plusieurs** outils IA.  
+> Un outil IA peut être utilisé par **plusieurs** films.
+- film_id : Clé étrangère vers **Film**
+- ai_tool_id : Clé étrangère vers **AI_tools**
+- **Contrainte recommandée :** unicité sur (`film_id`, `ai_tool_id`) pour éviter les doublons
 
 ---
 
-### Vote
-- **Identifiant** (`id`) : Clé primaire *(INT / BIGINT)*
-- Note : Entier *(1 à 10)*
-- **Commentaire privé** : Texte *(visible uniquement par le juré et admin, non public)*
-- **Date de vote** : Date
-- `video_id` : Clé étrangère vers **Vidéo**
-- `utilisateur_id` : Clé étrangère vers **Utilisateur** *(rôle JURY uniquement)*
-- **Contrainte métier recommandée :** unicité sur (`utilisateur_id`, `video_id`)
+### Note
+- id : Clé primaire *(UUID)*
+- note : Entier *(1 à 10)*
+- commentaire_privé : Texte *(visible uniquement par le jury et admin, non public)*
+- created_at : Date
+- film_id : Clé étrangère vers **Film**
+- user_id : Clé étrangère vers **User** *(rôle JURY uniquement)*
+- **Contrainte métier recommandée :** unicité sur (`user_id`, `film_id`)
 - **Contrainte métier :** Seuls les utilisateurs avec le rôle JURY peuvent voter
 
 ---
 
 ### Notification
-- **Identifiant** (`id`) : Clé primaire *(INT / BIGINT)*
-- Type : Enum *(Validation de vidéo, Nouvelle vidéo, Mise à jour du classement, Rappel workshop, Générale)*
-- **Titre** : Chaîne de caractères
-- Message : Texte
-- Date : Date
-- **Lu** : Booléen *(défaut: false)*
-- `utilisateur_id` : Clé étrangère vers **Utilisateur**
+- id : Clé primaire *(UUID)*
+- type : Enum *(VIDEO_VALIDATION, NEW_VIDEO, RANKING_UPDATE, WORKSHOP_REMINDER, GENERAL)*
+- titre : Chaîne de caractères
+- message : Texte
+- date_creation : Date
+- lu : Booléen *(défaut: false)*
+- user_id : Clé étrangère vers **User**
 
 ---
 
@@ -103,15 +98,12 @@
 ---
 
 ### Workshop
-- **Identifiant** (`id`) : Clé primaire *(INT / BIGINT)*
-- Titre : Chaîne de caractères
-- Description : Texte
-- Date de début : Date et heure
-- Date de fin : Date et heure
-- Lieu : Chaîne de caractères
-- Capacité maximale : Entier
-- Prix : Décimal
-- Statut : Enum *(Ouvert, Complet, Annulé, Terminé)*
+- id : Clé primaire *(UUID)*
+- nom : Chaîne de caractères
+- description : Texte
+- dateDebut : Date et heure
+- dateFin : Date et heure
+- created_at : Date
 
 ---
 
@@ -138,55 +130,48 @@
 
 ---
 
-### Inscription Workshop
-- **Identifiant** (`id`) : Clé primaire *(INT / BIGINT)*
-- Date d'inscription : Date
-- Statut : Enum *(Confirmée, En attente, Annulée)*
-- `workshop_id` : Clé étrangère vers **Workshop**
-- `utilisateur_id` : Clé étrangère vers **Utilisateur**
+### Workshop_User (Table d'association)
+- workshop_id : Clé étrangère vers **Workshop**
+- user_id : Clé étrangère vers **User**
+- dateInscription : Date
 
 ---
 
 ## Associations
 
-1. **Un utilisateur peut soumettre plusieurs vidéos.**
-   - Relation : **1,N** entre **Utilisateur** et **Vidéo**
-   - **Note :** Un réalisateur peut soumettre plusieurs films (suppression de la contrainte 1,1)
+1. **Un utilisateur peut soumettre plusieurs films.**
+   - Relation : **1,N** entre **User** et **Film**
+   - **Note :** Un utilisateur peut soumettre plusieurs films (suppression de la contrainte 1,1)
 
-2. **Une catégorie peut contenir plusieurs vidéos.**
-   - Relation : **1,N** entre **Catégorie** et **Vidéo**
-   - **Note :** Catégories créées dynamiquement par l'administrateur
+2. **Un film peut recevoir plusieurs notes.**
+   - Relation : **1,N** entre **Film** et **Note**
+   - **Contrainte :** Notes uniquement par les membres du jury (rôle JURY)
 
-3. **Une vidéo peut recevoir plusieurs votes.**
-   - Relation : **1,N** entre **Vidéo** et **Vote**
-   - **Contrainte :** Votes uniquement par les membres du jury
+3. **Un utilisateur (jury) peut noter plusieurs films.**
+   - Relation : **1,N** entre **User** et **Note**
+   - **Contrainte :** Seuls les utilisateurs avec le rôle JURY peuvent noter
 
-4. **Un utilisateur (jury) peut voter pour plusieurs vidéos.**
-   - Relation : **1,N** entre **Utilisateur** et **Vote**
-   - **Contrainte :** Seuls les utilisateurs avec le rôle JURY peuvent voter
+4. **Un utilisateur peut recevoir plusieurs notifications.**
+   - Relation : **1,N** entre **User** et **Notification**
 
-5. **Un utilisateur peut recevoir plusieurs notifications.**
-   - Relation : **1,N** entre **Utilisateur** et **Notification**
+5. **Un film peut recevoir plusieurs commentaires.**
+   - Relation : **1,N** entre **Film** et **Comment**
+   - **Contrainte :** Les commentaires privés sont visibles uniquement par le jury/admin
 
-6. **Une vidéo est associée à une langue.**
-   - Une vidéo a **1 langue**
-   - Une langue peut être liée à **N vidéos**
-   - Relation : **1,N** entre **Langue** et **Vidéo**
+6. **Un utilisateur peut écrire plusieurs commentaires.**
+   - Relation : **1,N** entre **User** et **Comment**
 
-7. **Une vidéo peut avoir une miniature.**
-   - Relation : **1,0..1** entre **Vidéo** et **Miniature**
+7. **Un film peut utiliser 0..N outils IA, et un outil IA peut être utilisé par 0..N films.**
+   - Relation : **N,N** entre **Film** et **AI_tools** via **Film_AItool**
 
-8. **Une vidéo peut utiliser 0..N outils IA, et un outil IA peut être utilisé par 0..N vidéos.**
-   - Relation : **N,N** entre **Vidéo** et **Outil IA** via **Vidéo_OutilIA**
+8. **Un utilisateur peut avoir plusieurs rôles.**
+   - Relation : **N,N** entre **User** et **Role** via **User_Role**
 
-9. **Un utilisateur peut proposer plusieurs outils IA.**
-   - Relation : **1,N** entre **Utilisateur** et **Outil IA** *(via `created_by_user_id`)*
+9. **Un utilisateur peut s'inscrire à plusieurs workshops.**
+   - Relation : **N,N** entre **User** et **Workshop** via **Workshop_User**
 
-10. **Un workshop peut avoir plusieurs inscriptions.**
-    - Relation : **1,N** entre **Workshop** et **Inscription Workshop**
-
-11. **Un utilisateur peut s'inscrire à plusieurs workshops.**
-    - Relation : **1,N** entre **Utilisateur** et **Inscription Workshop**
+10. **Un film peut appartenir à plusieurs playlists.**
+    - Relation : **N,N** entre **Film** et **Playlist** via **Playlist_Film**
 
 ---
 

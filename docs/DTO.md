@@ -64,7 +64,7 @@ Règles :
 	"id": 0,
 	"path": "",
 	"uploadedAt": "",
-	"video_id": 0,
+	"film_id": 0,
 	"user_id": 0
 }
 ```
@@ -80,45 +80,33 @@ Règles :
 }
 ```
 
-### VideoDTO
+### FilmDTO
 ```json
 {
 	"id": 0,
-	"title": "",
+	"titre": "",
 	"description": "",
-	"status": "",
-	"path": "",
-	"urlYoutube": "",
-	"poster": "",
 	"duree": 0,
-	"nbVues": 0,
-	"outilsIA": {
-		"scenario": [""],
-		"generation": [""],
-		"postProduction": [""],
-		"autres": [""],
-		"details": ""
-	},
-	"realisateurReferent": false,
-	"type": "",
-	"submissionDate": "",
-	"dateValidation": "",
+	"format": "16:9",
+	"urlYoutube": "",
+	"sousTitres": "",
+	"chemin": "",
+	"dateSoumission": "",
 	"user_id": 0,
-	"categorie_id": 0,
-	"language_code": "",
-	"thumbnail": null
+	"candidature_id": 0,
+	"created_at": "",
+	"updated_at": ""
 }
 ```
 
-### VoteDTO
+### NoteDTO
 ```json
 {
 	"id": 0,
-	"score": 0,
-	"commentairePrive": "",
-	"dateVote": "",
-	"video_id": 0,
-	"user_id": 0
+	"note": 0,
+	"film_id": 0,
+	"user_id": 0,
+	"created_at": ""
 }
 ```
 
@@ -139,14 +127,11 @@ Règles :
 ```json
 {
 	"id": 0,
-	"titre": "",
+	"nom": "",
 	"description": "",
 	"dateDebut": "",
 	"dateFin": "",
-	"lieu": "",
-	"capaciteMax": 0,
-	"prix": 0,
-	"statut": ""
+	"created_at": ""
 }
 ```
 
@@ -702,13 +687,12 @@ Règles :
 
 ## Votes & Jury
 
-### POST /api/v1/votes
+### POST /api/v1/notes
 **Request**
 ```json
 {
-	"video_id": 0,
-	"score": 0,
-	"commentairePrive": ""
+	"film_id": 0,
+	"note": 0
 }
 ```
 
@@ -716,11 +700,10 @@ Règles :
 ```json
 {
 	"id": 0,
-	"score": 0,
-	"commentairePrive": "",
-	"dateVote": "",
-	"video_id": 0,
-	"user_id": 0
+	"note": 0,
+	"film_id": 0,
+	"user_id": 0,
+	"created_at": ""
 }
 ```
 
@@ -758,12 +741,11 @@ Règles :
 ]
 ```
 
-### POST /api/v1/jury/videos/:id/rate
+### POST /api/v1/jury/films/:id/rate
 **Request**
 ```json
 {
-	"score": 0,
-	"commentairePrive": ""
+	"note": 0
 }
 ```
 
@@ -771,11 +753,10 @@ Règles :
 ```json
 {
 	"id": 0,
-	"score": 0,
-	"commentairePrive": "",
-	"dateVote": "",
-	"video_id": 0,
-	"user_id": 0
+	"note": 0,
+	"film_id": 0,
+	"user_id": 0,
+	"created_at": ""
 }
 ```
 
@@ -785,11 +766,10 @@ Règles :
 [
 	{
 		"id": 0,
-		"score": 0,
-		"commentairePrive": "",
-		"dateVote": "",
-		"video_id": 0,
-		"user_id": 0
+		"note": 0,
+		"film_id": 0,
+		"user_id": 0,
+		"created_at": ""
 	}
 ]
 ```
@@ -1166,9 +1146,8 @@ Règles :
 **Request**
 ```json
 {
-	"video_id": 0,
-	"score": 0,
-	"commentairePrive": ""
+	"film_id": 0,
+	"note": 0
 }
 ```
 
@@ -1176,11 +1155,10 @@ Règles :
 ```json
 {
 	"id": 0,
-	"score": 0,
-	"commentairePrive": "",
-	"dateVote": "",
-	"video_id": 0,
-	"user_id": 0
+	"note": 0,
+	"film_id": 0,
+	"user_id": 0,
+	"created_at": ""
 }
 ```
 

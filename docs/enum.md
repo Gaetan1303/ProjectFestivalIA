@@ -2,27 +2,27 @@
 
 ## Rôles Utilisateurs
 ```typescript
-enum UserRole {
-  USER = "User",
-  ADMINISTRATOR = "Administrator",
-  MODERATOR = "Moderator",
+enum Role {
+  VISITOR = "Visitor",
+  ADMIN = "Admin",
+  COMITE = "Comite",
   JURY = "Jury",
-  COMMERCIAL_PARTNER = "CommercialPartner"
+  DIRECTOR = "Director"
 }
 ```
 
 ## Statuts Utilisateurs
 ```typescript
 enum UserStatus {
-  ACTIVE = "Active",
-  INACTIVE = "Inactive",
-  SUSPENDED = "Suspended"
+  ACTIVE = "ACTIVE",
+  INACTIVE = "INACTIVE",
+  SUSPENDED = "SUSPENDED"
 }
 ```
 
-## Statuts Vidéo
+## Statuts Film
 ```typescript
-enum VideoStatus {
+enum FilmStatus {
   PENDING = "Pending",
   APPROVED = "Approved",
   REJECTED = "Rejected",
@@ -30,9 +30,16 @@ enum VideoStatus {
 }
 ```
 
-## Type de Vidéo
+## Format Film
 ```typescript
-enum VideoType {
+enum FilmFormat {
+  FORMAT_16_9 = "16:9"
+}
+```
+
+## Type de Film
+```typescript
+enum FilmType {
   HYBRID = "Hybrid",
   FULLY_AI_GENERATED = "Fully AI-generated"
 }
@@ -46,6 +53,23 @@ enum NotificationType {
   RANKING_UPDATE = "Ranking update",
   WORKSHOP_REMINDER = "Workshop reminder",
   GENERAL = "General"
+}
+```
+## Types de Commentaire
+```typescript
+enum CommentType {
+  COMMENTAIRE = "Commentaire",
+  NOTE = "Note",
+  TECHNIQUE = "Technique",
+  AUTRE = "Autre"
+}
+```
+## Types de Sélection
+```typescript
+enum SelectionType {
+  OFFICIELLE = "Officielle",
+  HORS_COMPETITION = "Hors_competition",
+  AUTRE = "Autre"
 }
 ```
 

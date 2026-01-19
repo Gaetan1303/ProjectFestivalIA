@@ -5,19 +5,24 @@ graph TB
     %% Acteurs principaux
     Visiteur[Visiteur]
     Utilisateur[Utilisateur Connecté]
-    Filmmaker[Filmmaker]
+    Director[Réalisateur]
     Jury[Jury]
+    Comite[Comité]
     Moderateur[Modérateur]
     Admin[Administrateur]
     Partner[Partenaire Commercial]
     Systeme[Système]
 
     %% Relations d'héritage entre acteurs
-    Utilisateur -.-> Filmmaker
+    Utilisateur -.-> Director
     Utilisateur -.-> Jury
+    Utilisateur -.-> Comite
     Utilisateur -.-> Moderateur
     Utilisateur -.-> Admin
     Utilisateur -.-> Partner
+    %% Relations Comité
+    Comite --> UC34
+    Comite --> UC35
 
     %% Cas d'usage publics (sans connexion)
     subgraph "Accès Public"
@@ -54,10 +59,10 @@ graph TB
 
     %% Cas d'usage jury
     subgraph "Évaluation et Notation"
-        UC22[Noter un film]
-        UC23[Commenter un film]
+        UC22[Attribuer une note à un film]
+        UC23[Ajouter un commentaire privé]
         UC24[Consulter films à évaluer]
-        UC25[Voir historique de mes votes]
+        UC25[Voir historique de mes notes]
         UC26[Consulter critères d'évaluation]
     end
 
@@ -121,12 +126,12 @@ graph TB
     Utilisateur --> UC46
 
     %% Relations Filmmaker
-    Filmmaker --> UC16
-    Filmmaker --> UC17
-    Filmmaker --> UC18
-    Filmmaker --> UC19
-    Filmmaker --> UC20
-    Filmmaker --> UC21
+    Director --> UC16
+    Director --> UC17
+    Director --> UC18
+    Director --> UC19
+    Director --> UC20
+    Director --> UC21
 
     %% Relations Jury
     Jury --> UC22
