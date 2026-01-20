@@ -169,7 +169,8 @@ erDiagram
         string motDePasse
         date dateNaissance
         boolean accepteCGU
-        enum statut
+        string statut
+        string School
         boolean emailVerified
         datetime lastLoginAt
         datetime created_at
@@ -179,14 +180,14 @@ erDiagram
     
     Role {
         UUID id PK
-        enum nom
+        string nom
     }
     
     Candidature {
         UUID id PK
         UUID user_id FK
         datetime dateDepot
-        enum statut
+        string statut
         datetime created_at
         datetime updated_at
     }
@@ -213,7 +214,7 @@ erDiagram
         UUID film_id FK
         UUID user_id FK
         text contenu
-        enum type
+        string type
         boolean prive
         datetime created_at
     }
@@ -229,7 +230,7 @@ erDiagram
     Notification {
         UUID id PK
         UUID user_id FK
-        enum type
+        string type
         string titre
         text message
         datetime dateCreation
@@ -241,7 +242,7 @@ erDiagram
         UUID id PK
         UUID film_id FK
         datetime dateSelection
-        enum type
+        string type
     }
     
     Laureat {
@@ -273,7 +274,7 @@ erDiagram
         datetime created_at
     }
     
-    AI_tools {
+    AI_tool {
         UUID id PK
         string nom
         text description
