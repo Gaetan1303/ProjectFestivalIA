@@ -159,180 +159,182 @@ Film (N,N) ←→ Playlist : Organisation flexible du contenu
 
 ```mermaid
 erDiagram
-    %% ENTITÉS PRINCIPALESerDiagram
-    %% ENTITÉS PRINCIPALES
-    User {
+    %% MAIN ENTITIES
+    USER {
         UUID id PK
-        string nom
-        string prenom
-        string email
-        string motDePasse
-        date dateNaissance
-        boolean accepteCGU
-        string statut
-        string School
-        boolean emailVerified
-        datetime lastLoginAt
-        datetime created_at
-        datetime updated_at
-        datetime deleted_at
+        TEXT last_name
+        TEXT first_name
+        TEXT email
+        TEXT password
+        DATE birth_date
+        BOOLEAN accepts_terms
+        ENUM status
+        TEXT school
+        BOOLEAN email_verified
+        DATETIME last_login_at
+        DATETIME created_at
+        DATETIME updated_at
+        DATETIME deleted_at
     }
     
-    Role {
+    ROLE {
         UUID id PK
-        string nom
+        ENUM name
     }
     
-
-    
-    Film {
+    MOVIE {
         UUID id PK
-        string titre
-        text description
-        int duree
-        string format
-        string urlYoutube
-        string sousTitres
-        string chemin
-        datetime dateSoumission
+        TEXT title
+        TEXT description
+        INT duration
+        STRING format
+        STRING youtube_url
+        STRING subtitles
+        STRING file_path
+        DATETIME submission_date
         UUID user_id FK
-        datetime created_at
-        datetime updated_at
+        DATETIME created_at
+        DATETIME updated_at
     }
     
-    %% INTERACTIONS ET CONTENUS
-    Comment {
+    %% INTERACTIONS AND CONTENT
+    COMMENT {
         UUID id PK
-        UUID film_id FK
+        UUID movie_id FK
         UUID user_id FK
-        text contenu
-        string type
-        boolean prive
-        datetime created_at
+        TEXT content
+        ENUM type
+        BOOLEAN private
+        DATETIME created_at
     }
     
-    Notification {
+    NOTIFICATION {
         UUID id PK
         UUID user_id FK
-        string type
-        string titre
-        text message
-        datetime dateCreation
-        boolean lu
+        ENUM type
+        TEXT title
+        TEXT message
+        DATETIME created_at
+        BOOLEAN read
     }
     
-
-    Laureat {
+    RATING {
         UUID id PK
-        UUID film_id FK
-        string prix
-        datetime dateRemise
-    }
-    
-    %% ORGANISATION
-    Playlist {
-        UUID id PK
-        string nom
-        datetime created_at
-    }
-    
-    Agenda {
-        UUID id PK
-        string nom
-        string type-atelier
-        text description
-        datetime dateDebut
-        datetime dateFin
-        datetime created_at
-    }
-
-    Ticket {
-        UUID id FK 
-        string content 
-        UUID user_id
-        UUID film_id
-    }
-    
-    AI_tool {
-        UUID id PK
-        string nom
-        text description
-        datetime created_at
-    }
-    
-    Newsletter {
-        UUID id PK
-        string email
-        datetime created_at
-    }
-    
-    %% TABLES D'ASSOCIATION
-    User_Role {
         UUID user_id FK
-        UUID role_id FK
+        UUID movie_id FK
+        INT score
+        DATETIME created_at
     }
     
-    Playlist_Film {
-        UUID playlist_id FK
-        UUID film_id FK
-        int ordre
-        boolean statut
-    }
-
-    %% NEW: many-to-many Film <-> Selection via table Selected
-    Selected {
-        UUID id FK
-        UUID film_id FK
-        datetime promo
-        datetime created_at
+    AWARD {
+        UUID id PK
+        UUID movie_id FK
+        STRING prize
+        DATETIME award_date
     }
     
-    Agenda_User {
-        UUID agenda_id FK
+    %% ORGANIZATION
+    PLAYLIST {
+        UUID id PK
+        STRING name
+        DATETIME created_at
+    }
+    
+    AGENDA {
+        UUID id PK
+        STRING name
+        STRING workshop_type
+        TEXT description
+        DATETIME start_date
+        DATETIME end_date
+        DATETIME created_at
+    }
+    
+    TICKET {
+        UUID id PK
+        TEXT content
         UUID user_id FK
-        datetime dateInscription
+        UUID movie_id FK
     }
     
-    Film_AItool {
-        UUID film_id FK
-        UUID ai_tool_id FK
+    AI_TOOL {
+        UUID id PK
+        STRING name
+        TEXT description
+        DATETIME created_at
     }
     
-    Newsletter_User {
-        UUID user_id FK
-        UUID newsletter_id FK
-        datetime dateAbonnement
+    NEWSLETTER {
+        UUID id PK
+        STRING email
+        DATETIME created_at
     }
-
     
-    %% RELATIONS PRINCIPALES
-    User ||--o{ Film : "realize"
-    User ||--o{ Comment : "write"
-    User ||--o{ Notification : "receive"
+    %% ASSOCIATION TABLES
+    USER_ROLE {
+        UUID user_id FK_PK
+        UUID role_id FK_PK
+    }
     
+    PLAYLIST_MOVIE {
+        UUID playlist_id FK_PK
+        UUID movie_id FK_PK
+        INT position
+        BOOLEAN status
+    }
     
-    Film ||--o{ Comment : "get"
-    Film ||--o{ Laureat : "reward"
+    SELECTION {
+        UUID id PK
+        UUID movie_id FK
+        DATETIME promotion
+        DATETIME created_at
+    }
     
-    %% RELATIONS N:N VIA TABLES D'ASSOCIATION
-    User ||--o{ User_Role : "has role"
-    Role ||--o{ User_Role : "assigned to"
+    AGENDA_USER {
+        UUID agenda_id FK_PK
+        UUID user_id FK_PK
+        DATETIME registration_date
+    }
     
-    User ||--o{ Agenda_User : "participate in"
-    Agenda ||--o{ Agenda_User : "greet"
-    User ||--o{ Newsletter_User : "account holder"
-    Newsletter ||--o{ Newsletter_User : "diffused à"
+    MOVIE_AI_TOOL {
+        UUID movie_id FK_PK
+        UUID ai_tool_id FK_PK
+    }
     
-    Film ||--o{ Playlist_Film : "in"
-    Playlist ||--o{ Playlist_Film : "contain"
+    NEWSLETTER_USER {
+        UUID user_id FK_PK
+        UUID newsletter_id FK_PK
+        DATETIME subscription_date
+    }
     
-    Film ||--o{ Film_AItool : "use"
-    AI_tool ||--o{ Film_AItool : "used by"
+    %% MAIN RELATIONSHIPS
+    USER ||--o{ MOVIE : "creates"
+    USER ||--o{ COMMENT : "writes"
+    USER ||--o{ NOTIFICATION : "receives"
+    USER ||--o{ RATING : "gives"
+    USER ||--o{ TICKET : "creates"
     
-    Ticket ||--o{ User : "has"
-    User ||--o{ Ticket : "has"
-
-    %% NEW: Selection <-> Film (N:N) through Selected
-    Film ||--o{ Selected : "is selected in"
+    MOVIE ||--o{ COMMENT : "has"
+    MOVIE ||--o{ RATING : "receives"
+    MOVIE ||--o{ AWARD : "wins"
+    MOVIE ||--o{ TICKET : "is_related_to"
+    
+    %% MANY-TO-MANY RELATIONSHIPS
+    USER ||--o{ USER_ROLE : "has"
+    ROLE ||--o{ USER_ROLE : "assigned_to"
+    
+    USER ||--o{ AGENDA_USER : "participates_in"
+    AGENDA ||--o{ AGENDA_USER : "includes"
+    
+    USER ||--o{ NEWSLETTER_USER : "subscribes"
+    NEWSLETTER ||--o{ NEWSLETTER_USER : "sent_to"
+    
+    MOVIE ||--o{ PLAYLIST_MOVIE : "appears_in"
+    PLAYLIST ||--o{ PLAYLIST_MOVIE : "contains"
+    
+    MOVIE ||--o{ MOVIE_AI_TOOL : "uses"
+    AI_TOOL ||--o{ MOVIE_AI_TOOL : "used_by"
+    
+    MOVIE ||--o{ SELECTION : "is_selected_in"
 
 ```
