@@ -159,6 +159,7 @@ Film (N,N) ←→ Playlist : Organisation flexible du contenu
 
 ```mermaid
 erDiagram
+    %% ENTITÉS PRINCIPALESerDiagram
     %% ENTITÉS PRINCIPALES
     User {
         UUID id PK
@@ -182,14 +183,7 @@ erDiagram
         string nom
     }
     
-    Candidature {
-        UUID id PK
-        UUID user_id FK
-        datetime dateDepot
-        string statut
-        datetime created_at
-        datetime updated_at
-    }
+
     
     Film {
         UUID id PK
@@ -202,7 +196,6 @@ erDiagram
         string chemin
         datetime dateSoumission
         UUID user_id FK
-        UUID candidature_id FK
         datetime created_at
         datetime updated_at
     }
@@ -218,13 +211,6 @@ erDiagram
         datetime created_at
     }
     
-    Note {
-        UUID user_id FK
-        UUID film_id FK
-        int note
-        datetime created_at
-    }
-    
     Notification {
         UUID id PK
         UUID user_id FK
@@ -235,14 +221,7 @@ erDiagram
         boolean lu
     }
     
-    %% SÉLECTIONS ET PRIX
-    Selection {
-        UUID id PK
-        UUID film_id FK
-        datetime dateSelection
-        string type
-    }
-    
+
     Laureat {
         UUID id PK
         UUID film_id FK
@@ -257,19 +236,21 @@ erDiagram
         datetime created_at
     }
     
-    Workshop {
+    Agenda {
         UUID id PK
         string nom
+        string type-atelier
         text description
         datetime dateDebut
         datetime dateFin
         datetime created_at
     }
-    
-    Agenda {
-        UUID id PK
-        string nom
-        datetime created_at
+
+    Ticket {
+        UUID id FK 
+        string content 
+        UUID user_id
+        UUID film_id
     }
     
     AI_tool {
@@ -295,10 +276,19 @@ erDiagram
         UUID playlist_id FK
         UUID film_id FK
         int ordre
+        boolean statut
+    }
+
+    %% NEW: many-to-many Film <-> Selection via table Selected
+    Selected {
+        UUID id FK
+        UUID film_id FK
+        datetime promo
+        datetime created_at
     }
     
-    Workshop_User {
-        UUID workshop_id FK
+    Agenda_User {
+        UUID agenda_id FK
         UUID user_id FK
         datetime dateInscription
     }
@@ -313,33 +303,23 @@ erDiagram
         UUID newsletter_id FK
         datetime dateAbonnement
     }
-    
-    Agenda_Workshop {
-        UUID agenda_id FK
-        UUID workshop_id FK
-    }
+
     
     %% RELATIONS PRINCIPALES
-    User ||--o{ Candidature : "deposit"
     User ||--o{ Film : "realize"
     User ||--o{ Comment : "write"
-    User ||--o{ Note : "give"
     User ||--o{ Notification : "receive"
     
-    Candidature ||--|| Film : "generate"
     
     Film ||--o{ Comment : "get"
-    Film ||--o{ Note : "estimated by"
-    Film ||--o{ Selection : "sélected"
     Film ||--o{ Laureat : "reward"
     
     %% RELATIONS N:N VIA TABLES D'ASSOCIATION
     User ||--o{ User_Role : "has role"
     Role ||--o{ User_Role : "assigned to"
     
-    User ||--o{ Workshop_User : "participate in"
-    Workshop ||--o{ Workshop_User : "greet"
-    
+    User ||--o{ Agenda_User : "participate in"
+    Agenda ||--o{ Agenda_User : "greet"
     User ||--o{ Newsletter_User : "account holder"
     Newsletter ||--o{ Newsletter_User : "diffused à"
     
@@ -347,8 +327,12 @@ erDiagram
     Playlist ||--o{ Playlist_Film : "contain"
     
     Film ||--o{ Film_AItool : "use"
-    AI_tools ||--o{ Film_AItool : "used by"
+    AI_tool ||--o{ Film_AItool : "used by"
     
-    Workshop ||--o{ Agenda_Workshop : "programmed"
-    Agenda ||--o{ Agenda_Workshop : "plan"
+    Ticket ||--o{ User : "has"
+    User ||--o{ Ticket : "has"
+
+    %% NEW: Selection <-> Film (N:N) through Selected
+    Film ||--o{ Selected : "is selected in"
+
 ```
